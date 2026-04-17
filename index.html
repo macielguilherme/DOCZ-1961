@@ -58,14 +58,53 @@
             height: 36px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             padding: 0 12px;
             border-radius: 2px;
         }
 
         .modal-title {
             font-weight: bold;
-            color: #fff;
+            color: #585858;
             font-size: 13px;
+        }
+
+        .modal-title .editando {
+            color: red;
+        }
+
+        /* Botao fechar (X) */
+        .wijmo-wijdialog-titlebar-close {
+            height: 18px;
+            padding: 1px;
+            width: 19px;
+            display: inline-block;
+            outline: none;
+            text-align: left;
+            cursor: pointer;
+            text-decoration: none;
+            background: none;
+            border: none;
+            border-radius: 2px;
+        }
+
+
+        .wijmo-wijdialog-captionbutton .ui-icon {
+            margin: 1px;
+        }
+
+        .ui-icon {
+            width: 16px;
+            height: 16px;
+            display: block;
+            text-indent: -99999px;
+            overflow: hidden;
+            background-repeat: no-repeat;
+            background-image: url("https://docz.sosdocs.com.br/Docz/app/images/jquery_ui/ui-icons_222222_256x240.png");
+        }
+
+        .ui-icon-close {
+            background-position: -80px -128px;
         }
 
         .modal-content {
@@ -386,7 +425,10 @@
 
 <div class="modal-container">
     <div class="modal-header">
-        <span class="modal-title">Configuracoes de Administracao de Unidade</span>
+        <span class="modal-title"><span class="editando">Editando</span> Configuracoes de Administracao de Unidade</span>
+        <a href="#" class="wijmo-wijdialog-titlebar-close ui-corner-all wijmo-wijdialog-captionbutton" role="button" onclick="fecharModal(); return false;">
+            <span class="ui-icon ui-icon-close">close</span>
+        </a>
     </div>
     
     <div class="modal-content">
@@ -934,7 +976,8 @@
 
     function fecharModal() {
         if (confirm("Deseja cancelar as alteracoes? As informacoes nao salvas serao perdidas.")) {
-            alert("Cancelado.");
+            // Fechar modal - em ambiente real, removeria o container
+            alert("Modal fechado.");
         }
     }
 
