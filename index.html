@@ -1,207 +1,206 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configurações Avançadas - DocZ</title>
-    <style>
-        /* ===== RESET E BASE ===== */
-        html, body { margin: 0; padding: 0; background: #e0e0e0; font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #595959; }
-        
-        /* ===== MODAL ESTRUTURA ===== */
-        .ui-dialog {      background: #585858;      padding: 5px;      border-radius: 5px;      width: 95%;           /* Ocupa 95% da largura da tela em dispositivos pequenos */     max-width: 1089px;     /* Mas não passa de 1089px em telas grandes */     margin: 20px auto;      box-shadow: 0 0 15px rgba(0,0,0,0.5);      box-sizing: border-box; /* Garante que o padding não aumente a largura total */ };
-        .ui-dialog-titlebar { background: url("https://docz.sosdocs.com.br/Docz/app/images/backgrounds/titleBg.png") repeat-x 0 0; height: 36px; display: flex; align-items: center; padding: 0 12px; border-radius: 2px; }
-        .ui-dialog-title { font-weight: bold; }
-        .ui-dialog-content { background: #fafafa; padding: 0; max-height: 85vh; overflow: hidden; display: flex; flex-direction: column; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações Avançadas - DocZ</title>
+    <style>
+        /* ===== RESET E BASE ===== */
+        html, body { margin: 0; padding: 0; background: #e0e0e0; font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #595959; }
+        
+        /* ===== MODAL ESTRUTURA ===== */
+        .ui-dialog { background: #585858; padding: 5px; border-radius: 5px; max-width: 980px; width: 95%; margin: 20px auto; box-shadow: 0 0 15px rgba(0,0,0,0.5); }
+        .ui-dialog-titlebar { background: url("https://docz.sosdocs.com.br/Docz/app/images/backgrounds/titleBg.png") repeat-x 0 0; height: 36px; display: flex; align-items: center; padding: 0 12px; border-radius: 2px; }
+        .ui-dialog-title { font-weight: bold; }
+        .ui-dialog-content { background: #fafafa; padding: 0; max-height: 85vh; overflow: hidden; display: flex; flex-direction: column; }
 
-        /* ===== SISTEMA DE ABAS NAVEGAÇÃO ===== */
-        .tabs-nav { display: flex; background: #efefef; border-bottom: 1px solid #cdcdcd; overflow-x: auto; white-space: nowrap; }
-        .tab-link { padding: 10px 15px; cursor: pointer; border-right: 1px solid #cdcdcd; font-weight: bold; color: #666; background: #efefef; border-bottom: none; }
-        .tab-link:hover { background: #e4e4e4; }
-        .tab-link.active { background: #fafafa; color: #2b6893; border-bottom: 2px solid #2b6893; }
+        /* ===== SISTEMA DE ABAS NAVEGAÇÃO ===== */
+        .tabs-nav { display: flex; background: #efefef; border-bottom: 1px solid #cdcdcd; overflow-x: auto; white-space: nowrap; }
+        .tab-link { padding: 10px 15px; cursor: pointer; border-right: 1px solid #cdcdcd; font-weight: bold; color: #666; background: #efefef; border-bottom: none; }
+        .tab-link:hover { background: #e4e4e4; }
+        .tab-link.active { background: #fafafa; color: #2b6893; border-bottom: 2px solid #2b6893; }
 
-        /* ===== CONTEÚDO DAS ABAS ===== */
-        .tabs-body { padding: 20px; overflow-y: auto; flex-grow: 1; }
-        .tab-pane { display: none; }
-        .tab-pane.active { display: block; }
+        /* ===== CONTEÚDO DAS ABAS ===== */
+        .tabs-body { padding: 20px; overflow-y: auto; flex-grow: 1; }
+        .tab-pane { display: none; }
+        .tab-pane.active { display: block; }
 
-        /* ===== FORMULÁRIO ESTILO DOCZ ===== */
-        .form-row { display: flex; flex-wrap: wrap; margin-bottom: 15px; gap: 20px; }
-        .form-group { display: flex; flex-direction: column; min-width: 200px; flex: 1; }
-        .form-group label { font-weight: bold; margin-bottom: 5px; font-size: 11px; }
-        .form-group input[type="text"], .form-group input[type="number"], .form-group select, .form-group textarea {
-            border: 1px solid #ccc; padding: 6px; border-radius: 2px; font-size: 12px; color: #333;
-        }
-        .form-group input:disabled { background: #eee; cursor: not-allowed; }
-        .checkbox-group { flex-direction: row; align-items: center; gap: 8px; }
-        .checkbox-group input { margin: 0; }
+        /* ===== FORMULÁRIO ESTILO DOCZ ===== */
+        .form-row { display: flex; flex-wrap: wrap; margin-bottom: 15px; gap: 20px; }
+        .form-group { display: flex; flex-direction: column; min-width: 200px; flex: 1; }
+        .form-group label { font-weight: bold; margin-bottom: 5px; font-size: 11px; }
+        .form-group input[type="text"], .form-group input[type="number"], .form-group select, .form-group textarea {
+            border: 1px solid #ccc; padding: 6px; border-radius: 2px; font-size: 12px; color: #333;
+        }
+        .form-group input:disabled { background: #eee; cursor: not-allowed; }
+        .checkbox-group { flex-direction: row; align-items: center; gap: 8px; }
+        .checkbox-group input { margin: 0; }
 
-        .section-title { background: #f4f4f4; padding: 5px 10px; font-weight: bold; border-left: 3px solid #2b6893; margin: 15px 0 10px 0; color: #2b6893; }
+        .section-title { background: #f4f4f4; padding: 5px 10px; font-weight: bold; border-left: 3px solid #2b6893; margin: 15px 0 10px 0; color: #2b6893; }
 
-        /* ===== BOTÕES ===== */
-        .dialog-footer { padding: 15px; background: #fafafa; border-top: 1px double #ccc; display: flex; justify-content: flex-end; gap: 10px; }
-        .btn-docz { font-size: 11px; font-weight: bold; text-transform: uppercase; cursor: pointer; padding: 8px 20px; border-radius: 2px; color: #fff; border: none; background-image: url("https://docz.sosdocs.com.br/Docz/app/images/ui/usualButtons.png"); background-repeat: repeat-x; }
-        .greenB { background-position: 0 -425px; border: 1px solid #7ca82a; }
-        .redB { background-position: 0 -170px; border: 1px solid #9f352b; }
-        .dblueB { background-position: 0 -680px; border: 1px solid #2e6691; }
-        .greyB { background-position: 0 0; border: 1px solid #999; color: #555; }
+        /* ===== BOTÕES ===== */
+        .dialog-footer { padding: 15px; background: #fafafa; border-top: 1px double #ccc; display: flex; justify-content: flex-end; gap: 10px; }
+        .btn-docz { font-size: 11px; font-weight: bold; text-transform: uppercase; cursor: pointer; padding: 8px 20px; border-radius: 2px; color: #fff; border: none; background-image: url("https://docz.sosdocs.com.br/Docz/app/images/ui/usualButtons.png"); background-repeat: repeat-x; }
+        .greenB { background-position: 0 -425px; border: 1px solid #7ca82a; }
+        .redB { background-position: 0 -170px; border: 1px solid #9f352b; }
+        .dblueB { background-position: 0 -680px; border: 1px solid #2e6691; }
+        .greyB { background-position: 0 0; border: 1px solid #999; color: #555; }
 
-        /* Listas / Tabelas Internas */
-        .simple-list { border: 1px solid #ccc; background: #fff; height: 80px; overflow-y: auto; margin-top: 5px; padding: 5px; }
-    </style>
+        /* Listas / Tabelas Internas */
+        .simple-list { border: 1px solid #ccc; background: #fff; height: 80px; overflow-y: auto; margin-top: 5px; padding: 5px; }
+    </style>
 </head>
 <body>
 
 <div class="ui-dialog">
-    <div class="ui-dialog-titlebar">
-        <span class="ui-dialog-title">Configurações de Administração de Unidade</span>
-    </div>
-    
-    <div class="ui-dialog-content">
-        <div class="tabs-nav" id="mainTabs">
-            <div class="tab-link active" onclick="openTab(event, 'aba1')">Informações Básicas</div>
-            <div class="tab-link" onclick="openTab(event, 'aba2')">Gerais</div>
-            <div class="tab-link" onclick="openTab(event, 'aba3')">Solicitações (O.S.)</div>
-            <div class="tab-link" onclick="openTab(event, 'aba4')">Empréstimo</div>
-            <div class="tab-link" onclick="openTab(event, 'aba5')">E-mails</div>
-            <div class="tab-link" onclick="openTab(event, 'aba6')">SLA</div>
-            <div class="tab-link" onclick="openTab(event, 'aba7')">Expurgo</div>
-            <div class="tab-link" onclick="openTab(event, 'aba8')">Digitalização</div>
-            <div class="tab-link" onclick="openTab(event, 'aba9')">Permissões</div>
-            <div class="tab-link" onclick="openTab(event, 'aba10')">Metadados</div>
-            <div class="tab-link" onclick="openTab(event, 'aba11')">Personalizações</div>
-        </div>
+    <div class="ui-dialog-titlebar">
+        <span class="ui-dialog-title">Configurações de Administração de Unidade</span>
+    </div>
+    
+    <div class="ui-dialog-content">
+        <div class="tabs-nav" id="mainTabs">
+            <div class="tab-link active" onclick="openTab(event, 'aba1')">Informações Básicas</div>
+            <div class="tab-link" onclick="openTab(event, 'aba2')">Gerais</div>
+            <div class="tab-link" onclick="openTab(event, 'aba3')">Solicitações (O.S.)</div>
+            <div class="tab-link" onclick="openTab(event, 'aba4')">Empréstimo</div>
+            <div class="tab-link" onclick="openTab(event, 'aba5')">E-mails</div>
+            <div class="tab-link" onclick="openTab(event, 'aba6')">SLA</div>
+            <div class="tab-link" onclick="openTab(event, 'aba7')">Expurgo</div>
+            <div class="tab-link" onclick="openTab(event, 'aba8')">Digitalização</div>
+            <div class="tab-link" onclick="openTab(event, 'aba9')">Permissões</div>
+            <div class="tab-link" onclick="openTab(event, 'aba10')">Metadados</div>
+            <div class="tab-link" onclick="openTab(event, 'aba11')">Personalizações</div>
+        </div>
 
-        <form class="tabs-body">
-            
-            <div id="aba1" class="tab-pane active">
-                <div class="form-row">
-                    <div class="form-group" style="flex: 2;">
-                        <label>Nome</label>
-                        <input type="text" placeholder="Nome da Unidade">
-                    </div>
-                    <div class="form-group">
-                        <label>Código Guarda (desabilitado)</label>
-                        <input type="text" value="G-00154" disabled>
-                    </div>
-                </div>
-                <div class="form-group" style="margin-bottom: 15px;">
-                    <label>Descrição</label>
-                    <textarea rows="2"></textarea>
-                </div>
-                <div class="form-row">
-                    <div class="form-group"><label>ID Alternativo</label><input type="text"></div>
-                    <div class="form-group"><label>Nome Alternativo</label><input type="text"></div>
-                    <div class="form-group"><label>Código Guarda Alternativo</label><input type="text"></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group checkbox-group"><input type="checkbox" checked> <label>Ativo</label></div>
-                    <div class="form-group checkbox-group"><input type="checkbox"> <label>Principal</label></div>
-                </div>
-            </div>
+        <form class="tabs-body">
+            
+            <div id="aba1" class="tab-pane active">
+                <div class="form-row">
+                    <div class="form-group" style="flex: 2;">
+                        <label>Nome</label>
+                        <input type="text" placeholder="Nome da Unidade">
+                    </div>
+                    <div class="form-group">
+                        <label>Código Guarda (desabilitado)</label>
+                        <input type="text" value="G-00154" disabled>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label>Descrição</label>
+                    <textarea rows="2"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>ID Alternativo</label><input type="text"></div>
+                    <div class="form-group"><label>Nome Alternativo</label><input type="text"></div>
+                    <div class="form-group"><label>Código Guarda Alternativo</label><input type="text"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group checkbox-group"><input type="checkbox" checked> <label>Ativo</label></div>
+                    <div class="form-group checkbox-group"><input type="checkbox"> <label>Principal</label></div>
+                </div>
+            </div>
 
-            <div id="aba2" class="tab-pane">
-                <div class="form-row">
-                    <div class="form-group"><label>Limite Solicitação Diária</label><input type="number" value="0"></div>
-                    <div class="form-group"><label>Limite Indexação Lotes</label><input type="number" value="500"></div>
-                    <div class="form-group">
-                        <label>Fuso Horário Padrão</label>
-                        <select><option>(UTC-03:00) Brasília</option></select>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group" style="flex: 2;">
-                        <label>Armazém</label>
-                        <div style="display:flex; gap:5px;">
-                            <select style="flex:1;"><option>Selecione...</option></select>
-                            <button type="button" class="btn-docz dblueB" style="padding:4px 10px;">+</button>
-                        </div>
-                        <div class="simple-list">Lista de armazéns vinculados...</div>
-                    </div>
-                </div>
-                <div class="section-title">Opções de Arquivo</div>
-                <div class="form-row">
-                    <div class="form-group checkbox-group"><input type="checkbox"> <label>Permitir Adicionar Arquivos</label></div>
-                    <div class="form-group checkbox-group"><input type="checkbox"> <label>Imprimir Etiquetas</label></div>
-                    <div class="form-group checkbox-group"><input type="checkbox"> <label>Compartilhar na Pesquisa</label></div>
-                </div>
-            </div>
+            <div id="aba2" class="tab-pane">
+                <div class="form-row">
+                    <div class="form-group"><label>Limite Solicitação Diária</label><input type="number" value="0"></div>
+                    <div class="form-group"><label>Limite Indexação Lotes</label><input type="number" value="500"></div>
+                    <div class="form-group">
+                        <label>Fuso Horário Padrão</label>
+                        <select><option>(UTC-03:00) Brasília</option></select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="flex: 2;">
+                        <label>Armazém</label>
+                        <div style="display:flex; gap:5px;">
+                            <select style="flex:1;"><option>Selecione...</option></select>
+                            <button type="button" class="btn-docz dblueB" style="padding:4px 10px;">+</button>
+                        </div>
+                        <div class="simple-list">Lista de armazéns vinculados...</div>
+                    </div>
+                </div>
+                <div class="section-title">Opções de Arquivo</div>
+                <div class="form-row">
+                    <div class="form-group checkbox-group"><input type="checkbox"> <label>Permitir Adicionar Arquivos</label></div>
+                    <div class="form-group checkbox-group"><input type="checkbox"> <label>Imprimir Etiquetas</label></div>
+                    <div class="form-group checkbox-group"><input type="checkbox"> <label>Compartilhar na Pesquisa</label></div>
+                </div>
+            </div>
 
-            <div id="aba3" class="tab-pane">
-                <div class="form-row">
-                    <div class="form-group checkbox-group"><input type="checkbox"> <label>Pode Solicitar Caixa</label></div>
-                    <div class="form-group checkbox-group"><input type="checkbox"> <label>Pode Solicitar Documento</label></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group"><label>Campos Descrição (Docs)</label><input type="text"></div>
-                    <div class="form-group"><label>Campos Descrição (Caixas)</label><input type="text"></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group checkbox-group"><input type="checkbox"> <label>Enviar Notificação O.S</label></div>
-                    <div class="form-group checkbox-group"><input type="checkbox"> <label>2 Fatores O.S Digital</label></div>
-                </div>
-            </div>
+            <div id="aba3" class="tab-pane">
+                <div class="form-row">
+                    <div class="form-group checkbox-group"><input type="checkbox"> <label>Pode Solicitar Caixa</label></div>
+                    <div class="form-group checkbox-group"><input type="checkbox"> <label>Pode Solicitar Documento</label></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Campos Descrição (Docs)</label><input type="text"></div>
+                    <div class="form-group"><label>Campos Descrição (Caixas)</label><input type="text"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group checkbox-group"><input type="checkbox"> <label>Enviar Notificação O.S</label></div>
+                    <div class="form-group checkbox-group"><input type="checkbox"> <label>2 Fatores O.S Digital</label></div>
+                </div>
+            </div>
 
-            <div id="aba6" class="tab-pane">
-                <div style="display: flex; gap: 40px;">
-                    <div style="flex: 1;">
-                        <div class="section-title">Normal</div>
-                        <div class="form-group checkbox-group"><input type="checkbox"> <label>Notificar Vencimento</label></div>
-                        <div class="form-group"><label>E-mail</label><input type="text"></div>
-                        <div class="form-group"><label>Aviso Prévio (Horas)</label><input type="number"></div>
-                    </div>
-                    <div style="flex: 1;">
-                        <div class="section-title">Urgente</div>
-                        <div class="form-group checkbox-group"><input type="checkbox"> <label>Notificar Vencimento</label></div>
-                        <div class="form-group"><label>E-mail</label><input type="text"></div>
-                        <div class="form-group"><label>Aviso Prévio (Horas)</label><input type="number"></div>
-                    </div>
-                </div>
-            </div>
+            <div id="aba6" class="tab-pane">
+                <div style="display: flex; gap: 40px;">
+                    <div style="flex: 1;">
+                        <div class="section-title">Normal</div>
+                        <div class="form-group checkbox-group"><input type="checkbox"> <label>Notificar Vencimento</label></div>
+                        <div class="form-group"><label>E-mail</label><input type="text"></div>
+                        <div class="form-group"><label>Aviso Prévio (Horas)</label><input type="number"></div>
+                    </div>
+                    <div style="flex: 1;">
+                        <div class="section-title">Urgente</div>
+                        <div class="form-group checkbox-group"><input type="checkbox"> <label>Notificar Vencimento</label></div>
+                        <div class="form-group"><label>E-mail</label><input type="text"></div>
+                        <div class="form-group"><label>Aviso Prévio (Horas)</label><input type="number"></div>
+                    </div>
+                </div>
+            </div>
 
-            <div id="aba8" class="tab-pane">
-                <div class="form-group checkbox-group"><input type="checkbox" checked> <label>Armazenar no File Service</label></div>
-                <div class="form-group checkbox-group"><input type="checkbox"> <label>Permitir Digitalizar</label></div>
-                <div class="form-group checkbox-group"><input type="checkbox"> <label>Realizar Chancela</label></div>
-                <div class="form-group checkbox-group"><input type="checkbox"> <label>Assinatura com Certificado de Usuário</label></div>
-            </div>
+            <div id="aba8" class="tab-pane">
+                <div class="form-group checkbox-group"><input type="checkbox" checked> <label>Armazenar no File Service</label></div>
+                <div class="form-group checkbox-group"><input type="checkbox"> <label>Permitir Digitalizar</label></div>
+                <div class="form-group checkbox-group"><input type="checkbox"> <label>Realizar Chancela</label></div>
+                <div class="form-group checkbox-group"><input type="checkbox"> <label>Assinatura com Certificado de Usuário</label></div>
+            </div>
 
-            <div id="aba11" class="tab-pane">
-                <div class="form-group">
-                    <label>Ações Personalizadas</label>
-                    <button type="button" class="btn-docz dblueB" style="width: fit-content;">Configurar Pesquisa Personalizada</button>
-                </div>
-            </div>
+            <div id="aba11" class="tab-pane">
+                <div class="form-group">
+                    <label>Ações Personalizadas</label>
+                    <button type="button" class="btn-docz dblueB" style="width: fit-content;">Configurar Pesquisa Personalizada</button>
+                </div>
+            </div>
 
-            <div style="padding: 20px; color: #999; font-style: italic;">
-                Demais campos das abas 4, 5, 7, 9 e 10 renderizados conforme o padrão DocZ...
-            </div>
+            <div style="padding: 20px; color: #999; font-style: italic;">
+                Demais campos das abas 4, 5, 7, 9 e 10 renderizados conforme o padrão DocZ...
+            </div>
 
-        </form>
+        </form>
 
-        <div class="dialog-footer">
-            <button class="btn-docz greyB" onclick="fechar()">Cancelar</button>
-            <button class="btn-docz greenB">Salvar Alterações</button>
-        </div>
-    </div>
+        <div class="dialog-footer">
+            <button class="btn-docz greyB" onclick="fechar()">Cancelar</button>
+            <button class="btn-docz greenB">Salvar Alterações</button>
+        </div>
+    </div>
 </div>
 
 <script>
-    function openTab(evt, tabName) {
-        var i, tabpane, tablinks;
-        tabpane = document.getElementsByClassName("tab-pane");
-        for (i = 0; i < tabpane.length; i++) {
-            tabpane[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tab-link");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.className += " active";
-    }
+    function openTab(evt, tabName) {
+        var i, tabpane, tablinks;
+        tabpane = document.getElementsByClassName("tab-pane");
+        for (i = 0; i < tabpane.length; i++) {
+            tabpane[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tab-link");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
 </script>
 
 </body>
 </html>
-
