@@ -97,12 +97,13 @@
         }
 
         .modal-content {
-            background: #fafafa;
-            max-height: 85vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
+    background: #fafafa;
+    height: 600px; /* Altura fixa */
+    max-height: 85vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
 
         .tabs-nav {
             display: flex;
@@ -136,19 +137,23 @@
         }
 
         .tabs-body {
-            padding: 20px;
-            overflow-y: auto;
-            flex-grow: 1;
-            max-height: 65vh;
-        }
+    padding: 20px;
+    overflow-y: auto;
+    flex-grow: 1;
+    min-height: 0; /* Importante para flexbox funcionar corretamente */
+}
 
         .tab-pane {
-            display: none;
-        }
+    display: none;
+    /* Garantir altura consistente */
+    height: 100%;
+}
 
-        .tab-pane.active {
-            display: block;
-        }
+       .tab-pane.active {
+    display: block;
+    height: 100%;
+    overflow-y: auto; /* Adiciona scroll interno se necessário */
+}
 
         .form-row {
             display: flex;
