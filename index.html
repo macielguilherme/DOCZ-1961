@@ -11,19 +11,15 @@
             box-sizing: border-box;
         }
 
-        /* Fundo da tela com imagem */
         body {
-            
             font-family: Arial, Helvetica, sans-serif;
             font-size: 12px;
-
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        /* Overlay escuro com 30% de opacidade */
         body::before {
             content: '';
             position: fixed;
@@ -36,7 +32,6 @@
             z-index: 0;
         }
 
-        /* Container do modal - fica acima do overlay */
         .modal-container {
             background: #585858;
             padding: 5px;
@@ -69,7 +64,6 @@
             color: red;
         }
 
-        /* Botão fechar (X) */
         .wijmo-wijdialog-titlebar-close {
             height: 18px;
             padding: 1px;
@@ -83,7 +77,6 @@
             border: none;
             border-radius: 2px;
         }
-
 
         .wijmo-wijdialog-captionbutton .ui-icon {
             margin: 1px;
@@ -415,6 +408,13 @@
         .armazem-select-row select {
             flex: 1;
         }
+        
+        .sub-section {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            padding-left: 8px;
+            border-left: 2px solid #2b6893;
+        }
     </style>
 </head>
 <body>
@@ -432,14 +432,12 @@
             <div class="tab-link active" onclick="openTab(event, 'aba1')">Informações Básicas</div>
             <div class="tab-link" onclick="openTab(event, 'aba2')">Gerais</div>
             <div class="tab-link" onclick="openTab(event, 'aba3')">Solicitações (O.S.)</div>
-            <div class="tab-link" onclick="openTab(event, 'aba4')">Controle de Empréstimo</div>
-            <div class="tab-link" onclick="openTab(event, 'aba5')">Notificações e E-mails</div>
-            <div class="tab-link" onclick="openTab(event, 'aba6')">SLA</div>
-            <div class="tab-link" onclick="openTab(event, 'aba7')">Prazos e Expurgo</div>
-            <div class="tab-link" onclick="openTab(event, 'aba8')">Digitalização e Assinatura</div>
-            <div class="tab-link" onclick="openTab(event, 'aba9')">Permissões Avançadas</div>
-            <div class="tab-link" onclick="openTab(event, 'aba10')">Metadados Padrão</div>
-            <div class="tab-link" onclick="openTab(event, 'aba11')">Personalizações</div>
+            <div class="tab-link" onclick="openTab(event, 'aba4')">Notificações e E-mails</div>
+            <div class="tab-link" onclick="openTab(event, 'aba5')">Prazos e Expurgo</div>
+            <div class="tab-link" onclick="openTab(event, 'aba6')">Digitalização e Assinatura</div>
+            <div class="tab-link" onclick="openTab(event, 'aba7')">Permissões Avançadas</div>
+            <div class="tab-link" onclick="openTab(event, 'aba8')">Metadados Padrão</div>
+            <div class="tab-link" onclick="openTab(event, 'aba9')">Personalizações</div>
         </div>
 
         <form class="tabs-body" onsubmit="return false;">
@@ -530,7 +528,7 @@
                 </div>
             </div>
 
-            <!-- Aba 3: Solicitações (O.S.) -->
+            <!-- Aba 3: Solicitações (O.S.) + Controle de Empréstimo Integrado -->
             <div id="aba3" class="tab-pane">
                 <div class="section-title">Permissões de Solicitação</div>
                 <div class="checkbox-block">
@@ -555,7 +553,7 @@
                         <div class="checkbox-group"><input type="checkbox" id="finalizarOS2Fatores"> <label>Finalizar O.S Digital com 2 fatores</label></div>
                     </div>
                     <div class="checkbox-block-row">
-                        <div class="checkbox-group"><input type="checkbox" id="mostrarDadosTransporte"> <label>Mostrar Dados do Responsável pelo Transporte na O.S</label></div>
+                        <div class="checkbox-group"><input type="checkbox" id="mostrarDadosTransporteOS"> <label>Mostrar Dados do Responsável pelo Transporte na O.S</label></div>
                         <div class="checkbox-group"><input type="checkbox" id="disponibilizarRegistroFotografico"> <label>Disponibilizar Registro Fotográfico no Atendimento da O.S</label></div>
                         <div class="checkbox-group"><input type="checkbox" id="inserirVinculados"> <label>Inserir Vinculados solicitação</label></div>
                     </div>
@@ -572,10 +570,9 @@
                         </select>
                     </div>
                 </div>
-            </div>
 
-            <!-- Aba 4: Controle de Empréstimo -->
-            <div id="aba4" class="tab-pane">
+                <!-- Seção de Controle de Empréstimo (movida para cá) -->
+                <div class="section-title">Controle de Empréstimo</div>
                 <div class="form-group checkbox-group" style="margin-bottom: 0;">
                     <input type="checkbox" id="controlarVencimentoCheck" onchange="toggleControlarVencimento()">
                     <label>Controlar o vencimento de empréstimo do objeto</label>
@@ -628,8 +625,8 @@
                 </div>
             </div>
 
-            <!-- Aba 5: Notificações e E-mails -->
-            <div id="aba5" class="tab-pane">
+            <!-- Aba 4: Notificações e E-mails + SLA Integrado -->
+            <div id="aba4" class="tab-pane">
                 <div class="section-title">Comunicação</div>
                 <div class="form-row form-row-context">
                     <div class="form-group"><label>E-Mail Cliente Comunicações/Notificações</label><input type="email" id="emailComunicacoes" placeholder="cliente@dominio.com" value=""></div>
@@ -650,22 +647,22 @@
                         <div class="checkbox-group"><input type="checkbox" id="compartilharPacotesPreservacao"> <label>Compartilhar Pacotes de Preservação</label></div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Aba 6: SLA -->
-            <div id="aba6" class="tab-pane">
+                <!-- Seção SLA movida para cá -->
+                <div class="section-title">SLA (Acordos de Nível de Serviço)</div>
+                
                 <div class="form-group checkbox-group" style="margin-bottom: 0;">
                     <input type="checkbox" id="notificarSlaNormalCheck" onchange="toggleSlaNormal()">
                     <label>Notificar Vencimento de SLA (Prioridade Normal)</label>
                 </div>
                 <div id="slaNormalFields" class="conditional-field hidden">
-                    <div class="form-group"><label>E-mail</label><input type="text" id="emailSlaNormal" placeholder="Digite os e-mails separados por ;" value=""></div>
+                    <div class="form-group"><label>E-mail (Normal)</label><input type="text" id="emailSlaNormal" placeholder="Digite os e-mails separados por ;" value=""></div>
                     <div class="form-group"><label>Tempo de Aviso Prévio (Normal) - Horas</label><input type="text" id="tempoAvisoSlaNormal" placeholder="Exemplo: 48;24;12" value=""></div>
                 </div>
                 
-                <hr>
+                <div class="sub-section"></div>
                 
-                <div class="form-group checkbox-group" style="margin-bottom: 0;">
+                <div class="form-group checkbox-group" style="margin-bottom: 0; margin-top: 15px;">
                     <input type="checkbox" id="notificarSlaUrgenteCheck" onchange="toggleSlaUrgente()">
                     <label>Notificar Vencimento de SLA (Prioridade Urgente)</label>
                 </div>
@@ -674,13 +671,13 @@
                         <input type="checkbox" id="mostrarDadosTransporteCheck">
                         <label>Mostrar Dados do Responsável pelo Transporte na O.S.</label>
                     </div>
-                    <div class="form-group"><label>E-mail</label><input type="text" id="emailSlaUrgente" placeholder="Digite os e-mails separados por ;" value=""></div>
+                    <div class="form-group"><label>E-mail (Urgente)</label><input type="text" id="emailSlaUrgente" placeholder="Digite os e-mails separados por ;" value=""></div>
                     <div class="form-group"><label>Tempo de Aviso Prévio (Urgência) - Horas</label><input type="text" id="tempoAvisoSlaUrgente" placeholder="Exemplo: 48;24;12" value=""></div>
                 </div>
             </div>
 
-            <!-- Aba 7: Prazos e Expurgo -->
-            <div id="aba7" class="tab-pane">
+            <!-- Aba 5: Prazos e Expurgo (renomeada, antes era aba 7) -->
+            <div id="aba5" class="tab-pane">
                 <div class="section-title">Alerta de Prazo de Guarda</div>
                 <div class="form-group checkbox-group" style="margin-bottom: 0;">
                     <input type="checkbox" id="notificarPrazoGuardaCheck" onchange="togglePrazoGuarda()">
@@ -717,8 +714,8 @@
                 <div class="checkbox-group"><input type="checkbox" id="enviarRelatorioAnual"> <label>Enviar Relatório de Expurgo Anualmente Automaticamente</label></div>
             </div>
 
-            <!-- Aba 8: Digitalização e Assinatura -->
-            <div id="aba8" class="tab-pane">
+            <!-- Aba 6: Digitalização e Assinatura -->
+            <div id="aba6" class="tab-pane">
                 <div class="section-title">Armazenamento</div>
                 <div class="checkbox-group" style="margin-bottom: 16px;"><input type="checkbox" id="armazenarDoczFileService"> <label>Armazenar Documentos Digitais no Docz File Service</label></div>
                 
@@ -737,8 +734,8 @@
                 </div>
             </div>
 
-            <!-- Aba 9: Permissões Avançadas -->
-            <div id="aba9" class="tab-pane">
+            <!-- Aba 7: Permissões Avançadas -->
+            <div id="aba7" class="tab-pane">
                 <div class="section-title">Permissões Gerais</div>
                 <div class="checkbox-block">
                     <div class="checkbox-block-row">
@@ -792,8 +789,8 @@
                 </div>
             </div>
 
-            <!-- Aba 10: Metadados Padrão -->
-            <div id="aba10" class="tab-pane">
+            <!-- Aba 8: Metadados Padrão -->
+            <div id="aba8" class="tab-pane">
                 <div class="form-group checkbox-group" style="margin-bottom: 0;">
                     <input type="checkbox" id="habilitarMetadadosCheck" onchange="toggleMetadados()">
                     <label>Habilitar Valores Padrão para Metadados de Arquivo</label>
@@ -810,8 +807,8 @@
                 </div>
             </div>
 
-            <!-- Aba 11: Personalizações -->
-            <div id="aba11" class="tab-pane">
+            <!-- Aba 9: Personalizações -->
+            <div id="aba9" class="tab-pane">
                 <div class="section-title">Campos Visíveis na Pesquisa</div>
                 <div class="custom-search-grid">
                     <div class="custom-search-item">
@@ -912,7 +909,6 @@
 </div>
 
 <script>
-    // Array para armazenar os armazéns
     var armazensLista = [];
 
     function openTab(evt, tabName) {
@@ -932,138 +928,36 @@
     function adicionarArmazem() {
         var select = document.getElementById('armazemSelect');
         var valor = select.value;
-        
-        if (valor === "") {
-            alert("Selecione um armazém para adicionar.");
-            return;
-        }
-        
-        if (armazensLista.indexOf(valor) === -1) {
-            armazensLista.push(valor);
-            atualizarListaArmazens();
-        } else {
-            alert("Este armazém já foi adicionado.");
-        }
-        
+        if (valor === "") { alert("Selecione um armazém."); return; }
+        if (armazensLista.indexOf(valor) === -1) { armazensLista.push(valor); atualizarListaArmazens(); } 
+        else { alert("Armazém já adicionado."); }
         select.value = "";
     }
 
-    function removerArmazem(index) {
-        armazensLista.splice(index, 1);
-        atualizarListaArmazens();
-    }
+    function removerArmazem(index) { armazensLista.splice(index,1); atualizarListaArmazens(); }
 
     function atualizarListaArmazens() {
         var container = document.getElementById('listaArmazens');
         container.innerHTML = '';
-        
-        if (armazensLista.length === 0) {
-            container.innerHTML = '<div style="padding: 6px; color: #999; text-align: center;">Nenhum armazém adicionado</div>';
-            return;
-        }
-        
-        for (var i = 0; i < armazensLista.length; i++) {
-            var item = document.createElement('div');
-            item.className = 'list-item';
-            item.innerHTML = '<span class="list-item-text">' + armazensLista[i] + '</span><button class="btn-remove" onclick="removerArmazem(' + i + ')">X</button>';
+        if (armazensLista.length === 0) { container.innerHTML = '<div style="padding:6px;color:#999;text-align:center;">Nenhum armazém adicionado</div>'; return; }
+        for (var i=0;i<armazensLista.length;i++) {
+            var item = document.createElement('div'); item.className='list-item';
+            item.innerHTML = '<span class="list-item-text">'+armazensLista[i]+'</span><button class="btn-remove" onclick="removerArmazem('+i+')">X</button>';
             container.appendChild(item);
         }
     }
+    function fecharModal() { if(confirm("Cancelar alterações?")) alert("Modal fechado."); }
+    function salvarConfiguracoes() { alert("Configurações salvas com sucesso!"); }
+    function toggleControlarVencimento() { var chk=document.getElementById('controlarVencimentoCheck'); var div=document.getElementById('controlarVencimentoFields'); chk.checked?div.classList.remove('hidden'):div.classList.add('hidden'); }
+    function toggleSlaNormal() { var chk=document.getElementById('notificarSlaNormalCheck'); var div=document.getElementById('slaNormalFields'); chk.checked?div.classList.remove('hidden'):div.classList.add('hidden'); }
+    function toggleSlaUrgente() { var chk=document.getElementById('notificarSlaUrgenteCheck'); var div=document.getElementById('slaUrgenteFields'); chk.checked?div.classList.remove('hidden'):div.classList.add('hidden'); }
+    function togglePrazoGuarda() { var chk=document.getElementById('notificarPrazoGuardaCheck'); var div=document.getElementById('prazoGuardaFields'); chk.checked?div.classList.remove('hidden'):div.classList.add('hidden'); }
+    function toggleExpurgo() { var chk=document.getElementById('notificarExpurgoCheck'); var div=document.getElementById('expurgoFields'); chk.checked?div.classList.remove('hidden'):div.classList.add('hidden'); }
+    function toggleEtapaDocumentalAutor() { var chk=document.getElementById('alteracaoSomenteAutorCheck'); var div=document.getElementById('etapaDocumentalAutorFields'); chk.checked?div.classList.remove('hidden'):div.classList.add('hidden'); }
+    function toggleEtapaDocumentalInativar() { var chk=document.getElementById('inativarArquivosCheck'); var div=document.getElementById('etapaDocumentalInativarFields'); chk.checked?div.classList.remove('hidden'):div.classList.add('hidden'); }
+    function toggleMetadados() { var chk=document.getElementById('habilitarMetadadosCheck'); var div=document.getElementById('metadadosFields'); chk.checked?div.classList.remove('hidden'):div.classList.add('hidden'); }
 
-    function fecharModal() {
-        if (confirm("Deseja cancelar as alterações? As informações não salvas serão perdidas.")) {
-            // Fechar modal - em ambiente real, removeria o container
-            alert("Modal fechado.");
-        }
-    }
-
-    function salvarConfiguracoes() {
-        alert("Configurações salvas com sucesso!");
-    }
-
-    function toggleControlarVencimento() {
-        var checkbox = document.getElementById('controlarVencimentoCheck');
-        var fields = document.getElementById('controlarVencimentoFields');
-        if (checkbox.checked) {
-            fields.classList.remove('hidden');
-        } else {
-            fields.classList.add('hidden');
-        }
-    }
-
-    function toggleSlaNormal() {
-        var checkbox = document.getElementById('notificarSlaNormalCheck');
-        var fields = document.getElementById('slaNormalFields');
-        if (checkbox.checked) {
-            fields.classList.remove('hidden');
-        } else {
-            fields.classList.add('hidden');
-        }
-    }
-
-    function toggleSlaUrgente() {
-        var checkbox = document.getElementById('notificarSlaUrgenteCheck');
-        var fields = document.getElementById('slaUrgenteFields');
-        if (checkbox.checked) {
-            fields.classList.remove('hidden');
-        } else {
-            fields.classList.add('hidden');
-        }
-    }
-
-    function togglePrazoGuarda() {
-        var checkbox = document.getElementById('notificarPrazoGuardaCheck');
-        var fields = document.getElementById('prazoGuardaFields');
-        if (checkbox.checked) {
-            fields.classList.remove('hidden');
-        } else {
-            fields.classList.add('hidden');
-        }
-    }
-
-    function toggleExpurgo() {
-        var checkbox = document.getElementById('notificarExpurgoCheck');
-        var fields = document.getElementById('expurgoFields');
-        if (checkbox.checked) {
-            fields.classList.remove('hidden');
-        } else {
-            fields.classList.add('hidden');
-        }
-    }
-
-    function toggleEtapaDocumentalAutor() {
-        var checkbox = document.getElementById('alteracaoSomenteAutorCheck');
-        var fields = document.getElementById('etapaDocumentalAutorFields');
-        if (checkbox.checked) {
-            fields.classList.remove('hidden');
-        } else {
-            fields.classList.add('hidden');
-        }
-    }
-
-    function toggleEtapaDocumentalInativar() {
-        var checkbox = document.getElementById('inativarArquivosCheck');
-        var fields = document.getElementById('etapaDocumentalInativarFields');
-        if (checkbox.checked) {
-            fields.classList.remove('hidden');
-        } else {
-            fields.classList.add('hidden');
-        }
-    }
-
-    function toggleMetadados() {
-        var checkbox = document.getElementById('habilitarMetadadosCheck');
-        var fields = document.getElementById('metadadosFields');
-        if (checkbox.checked) {
-            fields.classList.remove('hidden');
-        } else {
-            fields.classList.add('hidden');
-        }
-    }
-
-    // Inicializar lista de armazéns vazia
     atualizarListaArmazens();
 </script>
-
 </body>
 </html>
