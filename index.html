@@ -157,11 +157,7 @@
         }
 
         .form-row-context {
-            margin-bottom: 24px;
-        }
-
-        .form-row-same {
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .form-group {
@@ -215,6 +211,7 @@
             padding: 12px 15px;
             border: 1px solid #e8e8e8;
             border-radius: 3px;
+            margin-bottom: 20px;
         }
 
         .checkbox-block-row {
@@ -275,20 +272,6 @@
         .custom-search-item input[type="checkbox"]:disabled {
             cursor: not-allowed;
             opacity: 0.6;
-        }
-
-        .section-title {
-            background: #f4f4f4;
-            padding: 5px 10px;
-            font-weight: bold;
-            border-left: 3px solid #2b6893;
-            margin: 24px 0 12px 0;
-            color: #2b6893;
-            font-size: 12px;
-        }
-
-        .section-title:first-of-type {
-            margin-top: 0;
         }
 
         .simple-list {
@@ -378,6 +361,7 @@
         .conditional-field {
             transition: all 0.2s ease;
             margin-top: 16px;
+            margin-bottom: 16px;
             padding-left: 10px;
             border-left: 2px solid #e0e0e0;
         }
@@ -387,7 +371,7 @@
         }
 
         hr {
-            margin: 24px 0;
+            margin: 20px 0;
             border: none;
             border-top: 1px solid #ddd;
         }
@@ -409,11 +393,8 @@
             flex: 1;
         }
         
-        .sub-section {
-            margin-top: 20px;
-            margin-bottom: 10px;
-            padding-left: 8px;
-            border-left: 2px solid #2b6893;
+        .section-group {
+            margin-bottom: 24px;
         }
     </style>
 </head>
@@ -454,19 +435,17 @@
                         <input type="text" id="codigoGuarda" value="" disabled>
                     </div>
                 </div>
-                <div class="form-group" style="margin-bottom: 24px;">
+                <div class="form-group" style="margin-bottom: 20px;">
                     <label>Descrição</label>
                     <textarea id="descricao" rows="2" placeholder="Descrição do projeto"></textarea>
                 </div>
                 
-                <div class="section-title">Identificação Alternativa</div>
                 <div class="form-row form-row-context">
                     <div class="form-group"><label>ID Alternativo</label><input type="text" id="idAlternativo" placeholder="ID alternativo" value=""></div>
                     <div class="form-group"><label>Nome Alternativo</label><input type="text" id="nomeAlternativo" placeholder="Nome alternativo" value=""></div>
                     <div class="form-group"><label>Código Guarda Alternativo</label><input type="text" id="codigoGuardaAlternativo" placeholder="Código guarda alternativo" value=""></div>
                 </div>
                 
-                <div class="section-title">Status</div>
                 <div class="checkbox-block">
                     <div class="checkbox-block-row">
                         <div class="checkbox-group"><input type="checkbox" id="ativoCheck"> <label>Ativo</label></div>
@@ -477,7 +456,6 @@
 
             <!-- Aba 2: Gerais -->
             <div id="aba2" class="tab-pane">
-                <div class="section-title">Limites Operacionais</div>
                 <div class="form-row form-row-context">
                     <div class="form-group"><label>Limite de Solicitação Diária</label><input type="number" id="limiteSolicitacaoDiaria" value=""></div>
                     <div class="form-group"><label>Limite de Objetos para Indexação por Lotes</label><input type="number" id="limiteIndexacaoLote" value=""></div>
@@ -492,7 +470,6 @@
                     </div>
                 </div>
                 
-                <div class="section-title">Armazenamento Físico</div>
                 <div class="form-row form-row-context">
                     <div class="form-group" style="flex: 2;">
                         <label>Armazém</label>
@@ -514,7 +491,6 @@
                     </div>
                 </div>
                 
-                <div class="section-title">Arquivos e Compartilhamento</div>
                 <div class="checkbox-block">
                     <div class="checkbox-block-row">
                         <div class="checkbox-group"><input type="checkbox" id="permitirAdicionarArquivos"> <label>Permitir Adicionar Arquivo(s)</label></div>
@@ -528,9 +504,8 @@
                 </div>
             </div>
 
-            <!-- Aba 3: Solicitações (O.S.) + Controle de Empréstimo Integrado -->
+            <!-- Aba 3: Solicitações (O.S.) + Controle de Empréstimo -->
             <div id="aba3" class="tab-pane">
-                <div class="section-title">Permissões de Solicitação</div>
                 <div class="checkbox-block">
                     <div class="checkbox-block-row">
                         <div class="checkbox-group"><input type="checkbox" id="podeSolicitarCaixa"> <label>Pode Solicitar Caixa</label></div>
@@ -539,13 +514,11 @@
                     </div>
                 </div>
                 
-                <div class="section-title">Campos de Descrição</div>
                 <div class="form-row form-row-context">
                     <div class="form-group"><label>Campos da Descrição da Solicitação - Documentos</label><input type="text" id="camposOSDocumento" placeholder="Ex: Campo1;Campo2" value=""></div>
                     <div class="form-group"><label>Campos da Descrição da Solicitação - Caixas</label><input type="text" id="camposOSCaixa" placeholder="Ex: CampoA;CampoB" value=""></div>
                 </div>
                 
-                <div class="section-title">Configurações da O.S.</div>
                 <div class="checkbox-block">
                     <div class="checkbox-block-row">
                         <div class="checkbox-group"><input type="checkbox" id="enviarNotificacaoOS"> <label>Enviar Notificação de O.S</label></div>
@@ -571,8 +544,7 @@
                     </div>
                 </div>
 
-                <!-- Seção de Controle de Empréstimo (movida para cá) -->
-                <div class="section-title">Controle de Empréstimo</div>
+                <!-- Controle de Empréstimo -->
                 <div class="form-group checkbox-group" style="margin-bottom: 0;">
                     <input type="checkbox" id="controlarVencimentoCheck" onchange="toggleControlarVencimento()">
                     <label>Controlar o vencimento de empréstimo do objeto</label>
@@ -625,9 +597,8 @@
                 </div>
             </div>
 
-            <!-- Aba 4: Notificações e E-mails + SLA Integrado -->
+            <!-- Aba 4: Notificações e E-mails + SLA -->
             <div id="aba4" class="tab-pane">
-                <div class="section-title">Comunicação</div>
                 <div class="form-row form-row-context">
                     <div class="form-group"><label>E-Mail Cliente Comunicações/Notificações</label><input type="email" id="emailComunicacoes" placeholder="cliente@dominio.com" value=""></div>
                     <div class="form-group"><label>E-Mail Cliente Notificações Lotes</label><input type="email" id="emailNotificacaoLote" placeholder="lotes@dominio.com" value=""></div>
@@ -640,7 +611,6 @@
                     <div class="form-group"><label>E-Mail Notificação Novos Arquivos</label><input type="email" id="emailNovosArquivos" placeholder="novosarquivos@dominio.com" value=""></div>
                 </div>
                 
-                <div class="section-title">Integrações</div>
                 <div class="checkbox-block">
                     <div class="checkbox-block-row">
                         <div class="checkbox-group"><input type="checkbox" id="verIntegracoes"> <label>Ver Integrações</label></div>
@@ -648,9 +618,7 @@
                     </div>
                 </div>
 
-                <!-- Seção SLA movida para cá -->
-                <div class="section-title">SLA (Acordos de Nível de Serviço)</div>
-                
+                <!-- SLA -->
                 <div class="form-group checkbox-group" style="margin-bottom: 0;">
                     <input type="checkbox" id="notificarSlaNormalCheck" onchange="toggleSlaNormal()">
                     <label>Notificar Vencimento de SLA (Prioridade Normal)</label>
@@ -660,9 +628,9 @@
                     <div class="form-group"><label>Tempo de Aviso Prévio (Normal) - Horas</label><input type="text" id="tempoAvisoSlaNormal" placeholder="Exemplo: 48;24;12" value=""></div>
                 </div>
                 
-                <div class="sub-section"></div>
+                <hr>
                 
-                <div class="form-group checkbox-group" style="margin-bottom: 0; margin-top: 15px;">
+                <div class="form-group checkbox-group" style="margin-bottom: 0;">
                     <input type="checkbox" id="notificarSlaUrgenteCheck" onchange="toggleSlaUrgente()">
                     <label>Notificar Vencimento de SLA (Prioridade Urgente)</label>
                 </div>
@@ -676,9 +644,8 @@
                 </div>
             </div>
 
-            <!-- Aba 5: Prazos e Expurgo (renomeada, antes era aba 7) -->
+            <!-- Aba 5: Prazos e Expurgo -->
             <div id="aba5" class="tab-pane">
-                <div class="section-title">Alerta de Prazo de Guarda</div>
                 <div class="form-group checkbox-group" style="margin-bottom: 0;">
                     <input type="checkbox" id="notificarPrazoGuardaCheck" onchange="togglePrazoGuarda()">
                     <label>Notificar Prazo de Guarda a vencer</label>
@@ -690,8 +657,7 @@
                     </div>
                 </div>
                 
-                <div class="section-title">Expurgo</div>
-                <div class="form-group checkbox-group" style="margin-bottom: 0;">
+                <div class="form-group checkbox-group" style="margin-bottom: 0; margin-top: 20px;">
                     <input type="checkbox" id="notificarExpurgoCheck" onchange="toggleExpurgo()">
                     <label>Notificar expurgo por e-mail</label>
                 </div>
@@ -716,10 +682,8 @@
 
             <!-- Aba 6: Digitalização e Assinatura -->
             <div id="aba6" class="tab-pane">
-                <div class="section-title">Armazenamento</div>
                 <div class="checkbox-group" style="margin-bottom: 16px;"><input type="checkbox" id="armazenarDoczFileService"> <label>Armazenar Documentos Digitais no Docz File Service</label></div>
                 
-                <div class="section-title">Digitalização</div>
                 <div class="checkbox-block">
                     <div class="checkbox-group"><input type="checkbox" id="permitirDigitalizar"> <label>Permitir Digitalizar</label></div>
                     <div class="checkbox-group"><input type="checkbox" id="realizarChancela"> <label>Realizar Chancela em Documentos Digitalizados</label></div>
@@ -727,7 +691,6 @@
                     <div class="checkbox-group"><input type="checkbox" id="marcaDaguaChancela"> <label>Adicionar marca d'água em Chancela de Documentos Digitalizados</label></div>
                 </div>
                 
-                <div class="section-title">Assinatura</div>
                 <div class="checkbox-block">
                     <div class="checkbox-group"><input type="checkbox" id="assinaturaCertificado"> <label>Realizar Assinatura com Certificado de Usuário</label></div>
                     <div class="checkbox-group"><input type="checkbox" id="assinaturaCertificaLote"> <label>Realizar Assinatura com Certificado de Usuário em lote</label></div>
@@ -736,7 +699,6 @@
 
             <!-- Aba 7: Permissões Avançadas -->
             <div id="aba7" class="tab-pane">
-                <div class="section-title">Permissões Gerais</div>
                 <div class="checkbox-block">
                     <div class="checkbox-block-row">
                         <div class="checkbox-group"><input type="checkbox" id="habilitarEnvioSEI"> <label>Habilitar Envio Para o SEI</label></div>
@@ -754,7 +716,6 @@
                     </div>
                 </div>
                 
-                <div class="section-title">Controle de Alteração</div>
                 <div class="form-group checkbox-group" style="margin-bottom: 0;">
                     <input type="checkbox" id="alteracaoSomenteAutorCheck" onchange="toggleEtapaDocumentalAutor()">
                     <label>Alteração de Objetos somente pelo Autor</label>
@@ -809,7 +770,6 @@
 
             <!-- Aba 9: Personalizações -->
             <div id="aba9" class="tab-pane">
-                <div class="section-title">Campos Visíveis na Pesquisa</div>
                 <div class="custom-search-grid">
                     <div class="custom-search-item">
                         <input type="checkbox" id="campoIdentificadorSOS" checked disabled>
