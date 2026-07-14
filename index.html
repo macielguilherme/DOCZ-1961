@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,6 +19,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background: #e0e0e0;
         }
 
         body::before {
@@ -34,30 +36,30 @@
 
         .modal-container {
             background: #585858;
-            padding: 5px;
-            border-radius: 5px;
-            max-width: 1400px;
-            width: 95%;
+            padding: 8px;
+            border-radius: 8px;
+            max-width: 1600px;
+            width: 98%;
             margin: 20px auto;
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
             position: relative;
             z-index: 1;
         }
 
         .modal-header {
             background: url("https://docz.sosdocs.com.br/Docz/app/images/backgrounds/titleBg.png") repeat-x 0 0;
-            height: 36px;
+            height: 31px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 12px;
-            border-radius: 2px;
+            padding: 0 16px;
+            border-radius: 4px;
         }
 
         .modal-title {
             font-weight: bold;
             color: #585858;
-            font-size: 13px;
+            font-size: 15px;
         }
 
         .modal-title .editando {
@@ -65,9 +67,9 @@
         }
 
         .wijmo-wijdialog-titlebar-close {
-            height: 18px;
-            padding: 1px;
-            width: 19px;
+            height: 22px;
+            padding: 2px;
+            width: 24px;
             display: inline-block;
             outline: none;
             text-align: left;
@@ -75,16 +77,16 @@
             text-decoration: none;
             background: none;
             border: none;
-            border-radius: 2px;
+            border-radius: 3px;
         }
 
         .wijmo-wijdialog-captionbutton .ui-icon {
-            margin: 1px;
+            margin: 2px;
         }
 
         .ui-icon {
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             display: block;
             text-indent: -99999px;
             overflow: hidden;
@@ -98,11 +100,12 @@
 
         .modal-content {
             background: #fafafa;
-            height: 480px;
-            max-height: 85vh;
+            height: 750px;
+            max-height: 90vh;
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            border-radius: 0 0 4px 4px;
         }
 
         .tabs-nav {
@@ -112,16 +115,17 @@
             overflow-x: auto;
             white-space: nowrap;
             flex-wrap: nowrap;
+            padding: 2px 0 0 0;
         }
 
         .tab-link {
-            padding: 10px 12px;
+            padding: 12px 16px;
             cursor: pointer;
             border-right: 1px solid #cdcdcd;
             font-weight: bold;
             color: #666;
             background: #efefef;
-            font-size: 11px;
+            font-size: 12px;
             transition: all 0.2s;
             flex-shrink: 0;
         }
@@ -133,11 +137,11 @@
         .tab-link.active {
             background: #fafafa;
             color: #2b6893;
-            border-bottom: 2px solid #2b6893;
+            border-bottom: 3px solid #2b6893;
         }
 
         .tabs-body {
-            padding: 20px;
+            padding: 24px 28px;
             overflow-y: auto;
             flex-grow: 1;
             min-height: 0;
@@ -157,11 +161,11 @@
         .form-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 24px;
         }
 
         .form-row-context {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .form-group {
@@ -173,8 +177,8 @@
 
         .form-group label {
             font-weight: bold;
-            margin-bottom: 5px;
-            font-size: 11px;
+            margin-bottom: 6px;
+            font-size: 12px;
             color: #555;
         }
 
@@ -184,11 +188,20 @@
         .form-group select,
         .form-group textarea {
             border: 1px solid #ccc;
-            padding: 6px;
-            border-radius: 2px;
-            font-size: 12px;
+            padding: 8px 10px;
+            border-radius: 3px;
+            font-size: 13px;
             color: #333;
             background: #fff;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #2b6893;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(43, 104, 147, 0.15);
         }
 
         .form-group input:disabled {
@@ -196,11 +209,10 @@
             cursor: not-allowed;
         }
 
-        /* Checkbox grid - 4 por linha */
         .checkbox-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px 20px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px 24px;
             margin-bottom: 20px;
         }
 
@@ -212,41 +224,44 @@
 
         .checkbox-item input {
             margin: 0;
-            width: auto;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            flex-shrink: 0;
         }
 
         .checkbox-item label {
             font-weight: normal;
             margin: 0;
             cursor: pointer;
-            font-size: 11px;
+            font-size: 12px;
             color: #444;
         }
 
         .section-title {
             font-weight: bold;
-            font-size: 12px;
+            font-size: 13px;
             color: #2b6893;
-            margin: 15px 0 10px 0;
-            padding-bottom: 5px;
+            margin: 18px 0 12px 0;
+            padding-bottom: 6px;
             border-bottom: 1px solid #ccc;
         }
 
         .custom-search-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-top: 5px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px 20px;
+            margin-top: 8px;
         }
 
         .custom-search-item {
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 6px 8px;
+            padding: 8px 12px;
             background: #f9f9f9;
             border: 1px solid #e0e0e0;
-            border-radius: 3px;
+            border-radius: 4px;
         }
 
         .custom-search-item input[type="checkbox"] {
@@ -254,13 +269,14 @@
             width: 16px;
             height: 16px;
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .custom-search-item label {
             font-weight: normal;
             margin: 0;
             cursor: pointer;
-            font-size: 11px;
+            font-size: 12px;
             color: #444;
             flex: 1;
         }
@@ -281,13 +297,14 @@
             min-height: 80px;
             max-height: 120px;
             overflow-y: auto;
-            margin-top: 5px;
+            margin-top: 6px;
             padding: 5px;
-            font-size: 11px;
+            font-size: 12px;
+            border-radius: 3px;
         }
 
         .list-item {
-            padding: 6px 8px;
+            padding: 6px 10px;
             border-bottom: 1px solid #eee;
             display: flex;
             justify-content: space-between;
@@ -308,8 +325,8 @@
             cursor: pointer;
             color: #c00;
             font-weight: bold;
-            font-size: 14px;
-            padding: 0 5px;
+            font-size: 16px;
+            padding: 0 8px;
         }
 
         .btn-remove:hover {
@@ -317,16 +334,21 @@
         }
 
         .btn-docz {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
             text-transform: uppercase;
             cursor: pointer;
-            padding: 8px 20px;
-            border-radius: 2px;
+            padding: 10px 24px;
+            border-radius: 3px;
             color: #fff;
             border: none;
             background-image: url("https://docz.sosdocs.com.br/Docz/app/images/ui/usualButtons.png");
             background-repeat: repeat-x;
+            transition: opacity 0.2s;
+        }
+
+        .btn-docz:hover {
+            opacity: 0.85;
         }
 
         .greenB {
@@ -351,20 +373,20 @@
         }
 
         .dialog-footer {
-            padding: 15px;
+            padding: 18px 24px;
             background: #fafafa;
             border-top: 1px double #ccc;
             display: flex;
             justify-content: flex-end;
-            gap: 10px;
+            gap: 12px;
         }
 
         .conditional-field {
             transition: all 0.2s ease;
             margin-top: 16px;
             margin-bottom: 16px;
-            padding-left: 10px;
-            border-left: 2px solid #e0e0e0;
+            padding-left: 14px;
+            border-left: 3px solid #2b6893;
         }
 
         .conditional-field.hidden {
@@ -372,501 +394,664 @@
         }
 
         .info-note {
-            font-size: 10px;
+            font-size: 11px;
             color: #888;
-            margin-top: 8px;
+            margin-top: 12px;
             font-style: italic;
         }
 
         .armazem-select-row {
             display: flex;
-            gap: 5px;
+            gap: 8px;
             align-items: flex-start;
         }
 
         .armazem-select-row select {
             flex: 1;
         }
-        
+
         .separator {
             border-top: 1px solid #ddd;
-            margin: 15px 0;
+            margin: 18px 0;
+        }
+
+        .tabs-body::-webkit-scrollbar,
+        .tab-pane::-webkit-scrollbar,
+        .simple-list::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        .tabs-body::-webkit-scrollbar-track,
+        .tab-pane::-webkit-scrollbar-track,
+        .simple-list::-webkit-scrollbar-track {
+            background: #f0f0f0;
+            border-radius: 3px;
+        }
+
+        .tabs-body::-webkit-scrollbar-thumb,
+        .tab-pane::-webkit-scrollbar-thumb,
+        .simple-list::-webkit-scrollbar-thumb {
+            background: #bbb;
+            border-radius: 3px;
+        }
+
+        .tabs-body::-webkit-scrollbar-thumb:hover,
+        .tab-pane::-webkit-scrollbar-thumb:hover,
+        .simple-list::-webkit-scrollbar-thumb:hover {
+            background: #999;
+        }
+
+        @media (max-width: 768px) {
+            .modal-container {
+                width: 100%;
+                margin: 10px;
+                padding: 4px;
+            }
+
+            .checkbox-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .custom-search-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .tabs-body {
+                padding: 16px;
+            }
+
+            .form-row {
+                gap: 16px;
+            }
+
+            .tab-link {
+                padding: 10px 12px;
+                font-size: 11px;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<div class="modal-container">
-    <div class="modal-header">
-        <span class="modal-title"><span class="editando">Editando</span> Configurações do Projeto</span>
-        <a href="#" class="wijmo-wijdialog-titlebar-close ui-corner-all wijmo-wijdialog-captionbutton" role="button" onclick="fecharModal(); return false;">
-            <span class="ui-icon ui-icon-close">close</span>
-        </a>
-    </div>
-    
-    <div class="modal-content">
-        <div class="tabs-nav" id="mainTabs">
-            <div class="tab-link active" onclick="openTab(event, 'aba1')">Dados Projeto</div>
-            <div class="tab-link" onclick="openTab(event, 'aba2')">Gerais</div>
-            <div class="tab-link" onclick="openTab(event, 'aba3')">Solicitações (O.S.)</div>
-            <div class="tab-link" onclick="openTab(event, 'aba4')">Notificações e E-mails</div>
-            <div class="tab-link" onclick="openTab(event, 'aba5')">Prazos e Expurgo</div>
-            <div class="tab-link" onclick="openTab(event, 'aba6')">Digitalização e Assinatura</div>
-            <div class="tab-link" onclick="openTab(event, 'aba7')">Permissões Avançadas</div>
-            <div class="tab-link" onclick="openTab(event, 'aba8')">Metadados Padrão</div>
-            <div class="tab-link" onclick="openTab(event, 'aba9')">Personalizações</div>
+    <div class="modal-container">
+        <div class="modal-header">
+            <span class="modal-title"><span class="editando">Editando</span> Configurações do Projeto</span>
+            <a href="#" class="wijmo-wijdialog-titlebar-close ui-corner-all wijmo-wijdialog-captionbutton" role="button"
+                onclick="fecharModal(); return false;">
+                <span class="ui-icon ui-icon-close">close</span>
+            </a>
         </div>
 
-        <form class="tabs-body" onsubmit="return false;">
-            
-            <!-- Aba 1: Dados Projeto -->
-            <div id="aba1" class="tab-pane active">
-                <div class="form-row form-row-context">
-                    <div class="form-group" style="flex: 2;">
-                        <label>Nome do Projeto</label>
-                        <input type="text" id="nomeProjeto" placeholder="Nome do Projeto" value="">
-                    </div>
-                    <div class="form-group">
-                        <label>Código Guarda</label>
-                        <input type="text" id="codigoGuarda" value="" disabled>
-                    </div>
-                </div>
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label>Descrição</label>
-                    <textarea id="descricao" rows="2" placeholder="Descrição do Projeto"></textarea>
-                </div>
-                
-                <div class="form-row form-row-context">
-                    <div class="form-group"><label>ID Alternativo</label><input type="text" id="idAlternativo" placeholder="ID Alternativo" value=""></div>
-                    <div class="form-group"><label>Nome Alternativo</label><input type="text" id="nomeAlternativo" placeholder="Nome Alternativo" value=""></div>
-                    <div class="form-group"><label>Código Guarda Alternativo</label><input type="text" id="codigoGuardaAlternativo" placeholder="Código Guarda Alternativo" value=""></div>
-                </div>
-                
-                <div class="checkbox-grid">
-                    <div class="checkbox-item"><input type="checkbox" id="ativoCheck"> <label>Ativo</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="principalCheck"> <label>Principal</label></div>
-                </div>
+        <div class="modal-content">
+            <div class="tabs-nav" id="mainTabs">
+                <div class="tab-link active" onclick="openTab(event, 'aba1')">Dados Projeto</div>
+                <div class="tab-link" onclick="openTab(event, 'aba2')">Solicitações (O.S.)</div>
+                <div class="tab-link" onclick="openTab(event, 'aba3')">Notificações e E-mails</div>
+                <div class="tab-link" onclick="openTab(event, 'aba4')">Prazos e Expurgo</div>
+                <div class="tab-link" onclick="openTab(event, 'aba5')">Digitalização e Assinatura</div>
+                <div class="tab-link" onclick="openTab(event, 'aba6')">Permissões Avançadas</div>
+                <div class="tab-link" onclick="openTab(event, 'aba7')">Metadados Padrão</div>
+                <div class="tab-link" onclick="openTab(event, 'aba8')">Personalizações</div>
             </div>
 
-            <!-- Aba 2: Gerais -->
-            <div id="aba2" class="tab-pane">
-                <div class="form-row form-row-context">
-                    <div class="form-group"><label>Limite de Solicitação Diária</label><input type="number" id="limiteSolicitacaoDiaria" value=""></div>
-                    <div class="form-group"><label>Limite de Objetos para Indexação por Lotes</label><input type="number" id="limiteIndexacaoLote" value=""></div>
-                    <div class="form-group">
-                        <label>Fuso Horário Padrão (UTC)</label>
-                        <select id="fusoHorario">
-                            <option value="">Selecione...</option>
-                            <option>America/Sao_Paulo (UTC-03:00)</option>
-                            <option>America/New_York (UTC-04:00)</option>
-                            <option>Europe/London (UTC+01:00)</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-row form-row-context">
-                    <div class="form-group" style="flex: 2;">
-                        <label>Armazém</label>
-                        <div class="armazem-select-row">
-                            <select id="armazemSelect">
-                                <option value="">Selecione o Armazém...</option>
-                                <option value="G1 - GUARDA CEILANDIA I - DF">G1 - Guarda Ceilândia I - DF</option>
-                                <option value="G2 - GUARDA CEILANDIA II - DF">G2 - Guarda Ceilândia II - DF</option>
-                                <option value="G3 - GUARDA TERESINA/PI">G3 - Guarda Teresina/PI</option>
-                                <option value="G4 - GUARDA DUQUE DE CAXIAS I - RJ">G4 - Guarda Duque de Caxias I - RJ</option>
-                                <option value="G5 - GUARDA SIA/DF">G5 - Guarda SIA/DF</option>
-                                <option value="G6 - GUARDA ITAPEVI - SP">G6 - Guarda Itapevi - SP</option>
-                                <option value="G7 - GUARDA SALVADOR/BA">G7 - Guarda Salvador/BA</option>
-                                <option value="G8 - GUARDA SERRA/ES">G8 - Guarda Serra/ES</option>
-                            </select>
-                            <button type="button" class="btn-docz dblueB" onclick="adicionarArmazem()" style="padding:4px 10px;">+ Adicionar</button>
-                        </div>
-                        <div class="simple-list" id="listaArmazens"></div>
-                    </div>
-                </div>
-                
-                <div class="checkbox-grid">
-                    <div class="checkbox-item"><input type="checkbox" id="permitirAdicionarArquivos"> <label>Permitir Adicionar Arquivo(s)</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="permitirImprimirEtiquetas"> <label>Permitir Imprimir Etiquetas</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="compartilharPesquisa"> <label>Compartilhar Arquivos pela Pesquisa</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="compartilharSolicitacao"> <label>Compartilhar Arquivos pela Solicitação</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="substituirFotolabel"> <label>Substituir Arquivo de Fotolabel</label></div>
-                </div>
-            </div>
+            <form class="tabs-body" onsubmit="return false;">
 
-            <!-- Aba 3: Solicitações (O.S.) + Controle de Empréstimo -->
-            <div id="aba3" class="tab-pane">
-                <div class="checkbox-grid">
-                    <div class="checkbox-item"><input type="checkbox" id="podeSolicitarCaixa"> <label>Pode Solicitar Caixa</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="podeSolicitarDocumento"> <label>Pode Solicitar Documento</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="podeSolicitarCaixaPorDocumento"> <label>Pode Solicitar Caixa Através do Documento</label></div>
-                </div>
-                
-                <div class="form-row form-row-context">
-                    <div class="form-group"><label>Campos da Descrição da Solicitação - Documentos</label><input type="text" id="camposOSDocumento" placeholder="Ex: Campo1;Campo2" value=""></div>
-                    <div class="form-group"><label>Campos da Descrição da Solicitação - Caixas</label><input type="text" id="camposOSCaixa" placeholder="Ex: CampoA;CampoB" value=""></div>
-                </div>
-                
-                <div class="checkbox-grid">
-                    <div class="checkbox-item"><input type="checkbox" id="enviarNotificacaoOS"> <label>Enviar Notificação de O.S</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="obrigatoriedadeDestinatario"> <label>Obrigatoriedade de Destinatário na Abertura da O.S</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="finalizarOS2Fatores"> <label>Finalizar O.S Digital com 2 Fatores</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="mostrarDadosTransporteOS"> <label>Mostrar Dados do Responsável pelo Transporte na O.S</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="disponibilizarRegistroFotografico"> <label>Disponibilizar Registro Fotográfico no Atendimento da O.S</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="inserirVinculados"> <label>Inserir Vinculados na Solicitação</label></div>
-                </div>
-                
-                <div class="form-row form-row-context">
-                    <div class="form-group">
-                        <label>Formato de Assinatura de O.S</label>
-                        <select id="formatoAssinaturaOS">
-                            <option value="">Selecione...</option>
-                            <option>Cliente</option>
-                            <option>Projeto</option>
-                            <option>Ambas (Cliente + Projeto)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Controle de Empréstimo -->
-                <div class="checkbox-grid">
-                    <div class="checkbox-item"><input type="checkbox" id="controlarVencimentoCheck" onchange="toggleControlarVencimento()"> <label>Controlar o Vencimento de Empréstimo do Objeto</label></div>
-                </div>
-                
-                <div id="controlarVencimentoFields" class="conditional-field hidden">
+                <!-- Aba 1: Dados Projeto -->
+                <div id="aba1" class="tab-pane active">
                     <div class="form-row form-row-context">
-                        <div class="form-group">
-                            <label>Prazo Padrão para Devolução de Objeto (em dias)</label>
-                            <select id="prazoDevolucao">
-                                <option value="30">30</option>
-                                <option value="7">7</option>
-                                <option value="14">14</option>
-                                <option value="45">45</option>
-                                <option value="60">60</option>
-                                <option value="90">90</option>
-                                <option value="indeterminado">Tempo Indeterminado</option>
-                            </select>
+                        <div class="form-group" style="flex: 2;">
+                            <label>Nome do Projeto</label>
+                            <input type="text" id="nomeProjeto" placeholder="Nome do Projeto" value="">
                         </div>
-                        <div class="form-group checkbox-item">
-                            <input type="checkbox" id="alteracaoPrazoCheck">
-                            <label>Permitir Alteração do Prazo pelo Solicitante</label>
+                        <div class="form-group">
+                            <label>Código Guarda</label>
+                            <input type="text" id="codigoGuarda" value="" disabled>
                         </div>
                     </div>
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label>Descrição</label>
+                        <textarea id="descricao" rows="2" placeholder="Descrição do Projeto"></textarea>
+                    </div>
+
                     <div class="form-row form-row-context">
-                        <div class="form-group">
-                            <label>Dia do Mês para Envio de Notificação de Empréstimo Vencido</label>
-                            <select id="diaEnvioNotificacao">
-                                <option value="1">1</option><option value="2">2</option><option value="3">3</option>
-                                <option value="4">4</option><option value="5">5</option><option value="6">6</option>
-                                <option value="7">7</option><option value="8">8</option><option value="9">9</option>
-                                <option value="10">10</option><option value="11">11</option><option value="12">12</option>
-                                <option value="13">13</option><option value="14">14</option><option value="15">15</option>
-                                <option value="16">16</option><option value="17">17</option><option value="18">18</option>
-                                <option value="19">19</option><option value="20">20</option><option value="21">21</option>
-                                <option value="22">22</option><option value="23">23</option><option value="24">24</option>
-                                <option value="25">25</option><option value="26">26</option><option value="27">27</option>
-                                <option value="28">28</option><option value="29">29</option><option value="30" selected>30</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Tempo de Inatividade para Bloqueio do Usuário (Em Dias)</label>
-                            <select id="tempoBloqueioUsuario">
-                                <option value="30">30</option>
-                                <option value="60">60</option>
-                                <option value="90" selected>90</option>
-                            </select>
-                        </div>
+                        <div class="form-group"><label>ID Alternativo</label><input type="text" id="idAlternativo"
+                                placeholder="ID Alternativo" value=""></div>
+                        <div class="form-group"><label>Nome Alternativo</label><input type="text" id="nomeAlternativo"
+                                placeholder="Nome Alternativo" value=""></div>
+                        <div class="form-group"><label>Código Guarda Alternativo</label><input type="text"
+                                id="codigoGuardaAlternativo" placeholder="Código Guarda Alternativo" value=""></div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Aba 4: Notificações e e-mails + SLA -->
-            <div id="aba4" class="tab-pane">
-                <div class="form-row form-row-context">
-                    <div class="form-group"><label>E-mail Cliente para Comunicações/Notificações</label><input type="email" id="emailComunicacoes" placeholder="Cliente@dominio.com" value=""></div>
-                    <div class="form-group"><label>E-mail Cliente para Notificações de Lotes</label><input type="email" id="emailNotificacaoLote" placeholder="Lotes@dominio.com" value=""></div>
-                </div>
-                <div class="form-row form-row-context">
-                    <div class="form-group"><label>E-mail Gestão Documental</label><input type="email" id="emailGestaoDocumental" placeholder="Gestao@dominio.com" value=""></div>
-                    <div class="form-group"><label>E-mail Digitalização</label><input type="email" id="emailDigitalizacao" placeholder="Digitalizacao@dominio.com" value=""></div>
-                </div>
-                <div class="form-row form-row-context">
-                    <div class="form-group"><label>E-mail para Notificação de Novos Arquivos</label><input type="email" id="emailNovosArquivos" placeholder="Novosarquivos@dominio.com" value=""></div>
-                </div>
-
-                <div class="checkbox-grid">
-                    <div class="checkbox-item"><input type="checkbox" id="verIntegracoes"> <label>Ver Integrações</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="compartilharPacotesPreservacao"> <label>Compartilhar Pacotes de Preservação</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="notificarSlaNormalCheck" onchange="toggleSlaNormal()"> <label>Notificar Vencimento de SLA (Prioridade Normal)</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="notificarSlaUrgenteCheck" onchange="toggleSlaUrgente()"> <label>Notificar Vencimento de SLA (Prioridade Urgente)</label></div>
-                </div>
-
-                <div id="slaNormalFields" class="conditional-field hidden">
-                    <div class="form-group"><label>E-mail (Normal)</label><input type="text" id="emailSlaNormal" placeholder="Digite os E-mails separados por ;" value=""></div>
-                    <div class="form-group"><label>Tempo de Aviso Prévio (Normal) - Horas</label><input type="text" id="tempoAvisoSlaNormal" placeholder="Exemplo: 48;24;12" value=""></div>
-                </div>
-
-                <div id="slaUrgenteFields" class="conditional-field hidden">
                     <div class="checkbox-grid">
-                        <div class="checkbox-item"><input type="checkbox" id="mostrarDadosTransporteCheck"> <label>Mostrar Dados do Responsável pelo Transporte na O.S.</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ativoCheck"> <label>Ativo</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="principalCheck"> <label>Principal</label>
+                        </div>
+                        <div class="checkbox-item"><input type="checkbox" id="permitirAdicionarArquivos">
+                            <label>Permitir Adicionar Arquivo(s)</label>
+                        </div>
+                        <div class="checkbox-item"><input type="checkbox" id="permitirImprimirEtiquetas">
+                            <label>Permitir Imprimir Etiquetas</label>
+                        </div>
+                        <div class="checkbox-item"><input type="checkbox" id="compartilharPesquisa"> <label>Compartilhar
+                                Arquivos pela Pesquisa</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="compartilharSolicitacao">
+                            <label>Compartilhar Arquivos pela Solicitação</label>
+                        </div>
+                        <div class="checkbox-item"><input type="checkbox" id="substituirFotolabel"> <label>Substituir
+                                Arquivo de Fotolabel</label></div>
                     </div>
-                    <div class="form-group"><label>E-mail (Urgente)</label><input type="text" id="emailSlaUrgente" placeholder="Digite os E-mails separados por ;" value=""></div>
-                    <div class="form-group"><label>Tempo de Aviso Prévio (Urgência) - Horas</label><input type="text" id="tempoAvisoSlaUrgente" placeholder="Exemplo: 48;24;12" value=""></div>
-                </div>
-            </div>
 
-            <!-- Aba 5: Prazos e Expurgo -->
-            <div id="aba5" class="tab-pane">
-                <div class="checkbox-grid">
-                    <div class="checkbox-item"><input type="checkbox" id="notificarPrazoGuardaCheck" onchange="togglePrazoGuarda()"> <label>Notificar Prazo de Guarda a Vencer</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="notificarExpurgoCheck" onchange="toggleExpurgo()"> <label>Notificar Expurgo por E-mail</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="enviarRelatorioAnual"> <label>Enviar Relatório de Expurgo Anualmente Automaticamente</label></div>
-                </div>
-
-                <div id="prazoGuardaFields" class="conditional-field hidden">
                     <div class="form-row form-row-context">
-                        <div class="form-group"><label>Definir o Intervalo de Alerta (em Dias)</label><input type="text" id="intervaloAlerta" placeholder="Ex: 15;30;60" value=""></div>
-                        <div class="form-group"><label>Destinatários do Alerta de Prazo</label><input type="text" id="destinatariosAlerta" placeholder="Email1@dominio.com; Email2@dominio.com" value=""></div>
-                    </div>
-                </div>
-
-                <div id="expurgoFields" class="conditional-field hidden">
-                    <div class="form-row form-row-context">
-                        <div class="form-group"><label>Periodicidade do Envio de E-mail de Expurgo (em Dias)</label><input type="number" id="periodicidadeExpurgo" value=""></div>
-                        <div class="form-group"><label>Período a ser Considerado no Relatório de Expurgo Enviado</label>
-                            <select id="periodoExpurgo">
+                        <div class="form-group"><label>Limite de Solicitação Diária</label><input type="number"
+                                id="limiteSolicitacaoDiaria" value=""></div>
+                        <div class="form-group"><label>Limite de Objetos para Indexação por Lotes</label><input
+                                type="number" id="limiteIndexacaoLote" value=""></div>
+                        <div class="form-group">
+                            <label>Fuso Horário Padrão (UTC)</label>
+                            <select id="fusoHorario">
                                 <option value="">Selecione...</option>
-                                <option value="mensal">Mensal</option>
-                                <option value="semestral">Semestral</option>
-                                <option value="anual">Anual</option>
+                                <option>America/Sao_Paulo (UTC-03:00)</option>
+                                <option>America/New_York (UTC-04:00)</option>
+                                <option>Europe/London (UTC+01:00)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row form-row-context">
+                        <div class="form-group" style="flex: 2;">
+                            <label>Armazém</label>
+                            <div class="armazem-select-row">
+                                <select id="armazemSelect">
+                                    <option value="">Selecione o Armazém...</option>
+                                    <option value="G1 - GUARDA CEILANDIA I - DF">G1 - Guarda Ceilândia I - DF</option>
+                                    <option value="G2 - GUARDA CEILANDIA II - DF">G2 - Guarda Ceilândia II - DF</option>
+                                    <option value="G3 - GUARDA TERESINA/PI">G3 - Guarda Teresina/PI</option>
+                                    <option value="G4 - GUARDA DUQUE DE CAXIAS I - RJ">G4 - Guarda Duque de Caxias I -
+                                        RJ</option>
+                                    <option value="G5 - GUARDA SIA/DF">G5 - Guarda SIA/DF</option>
+                                    <option value="G6 - GUARDA ITAPEVI - SP">G6 - Guarda Itapevi - SP</option>
+                                    <option value="G7 - GUARDA SALVADOR/BA">G7 - Guarda Salvador/BA</option>
+                                    <option value="G8 - GUARDA SERRA/ES">G8 - Guarda Serra/ES</option>
+                                </select>
+                                <button type="button" class="btn-docz dblueB" onclick="adicionarArmazem()"
+                                    style="padding:6px 14px; font-size:11px;">+ Adicionar</button>
+                            </div>
+                            <div class="simple-list" id="listaArmazens"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aba 2: Solicitações (O.S.) + Controle de Empréstimo -->
+                <div id="aba2" class="tab-pane">
+                    <div class="checkbox-grid">
+                        <div class="checkbox-item"><input type="checkbox" id="podeSolicitarCaixa"> <label>Pode Solicitar
+                                Caixa</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="podeSolicitarDocumento"> <label>Pode
+                                Solicitar Documento</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="podeSolicitarCaixaPorDocumento">
+                            <label>Pode Solicitar Caixa Através do Documento</label>
+                        </div>
+                    </div>
+
+                    <div class="form-row form-row-context">
+                        <div class="form-group"><label>Campos da Descrição da Solicitação - Documentos</label><input
+                                type="text" id="camposOSDocumento" placeholder="Ex: Campo1;Campo2" value=""></div>
+                        <div class="form-group"><label>Campos da Descrição da Solicitação - Caixas</label><input
+                                type="text" id="camposOSCaixa" placeholder="Ex: CampoA;CampoB" value=""></div>
+                    </div>
+
+                    <div class="checkbox-grid">
+                        <div class="checkbox-item"><input type="checkbox" id="enviarNotificacaoOS"> <label>Enviar
+                                Notificação de O.S</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="obrigatoriedadeDestinatario">
+                            <label>Obrigatoriedade de Destinatário na Abertura da O.S</label>
+                        </div>
+                        <div class="checkbox-item"><input type="checkbox" id="finalizarOS2Fatores"> <label>Finalizar O.S
+                                Digital com 2 Fatores</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="mostrarDadosTransporteOS"> <label>Mostrar
+                                Dados do Responsável pelo Transporte na O.S</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="disponibilizarRegistroFotografico">
+                            <label>Disponibilizar Registro Fotográfico no Atendimento da O.S</label>
+                        </div>
+                        <div class="checkbox-item"><input type="checkbox" id="inserirVinculados"> <label>Inserir
+                                Vinculados na Solicitação</label></div>
+                    </div>
+
+                    <div class="form-row form-row-context">
+                        <div class="form-group">
+                            <label>Formato de Assinatura de O.S</label>
+                            <select id="formatoAssinaturaOS">
+                                <option value="">Selecione...</option>
+                                <option>Cliente</option>
+                                <option>Projeto</option>
+                                <option>Ambas (Cliente + Projeto)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Controle de Empréstimo -->
+                    <div class="checkbox-grid">
+                        <div class="checkbox-item"><input type="checkbox" id="controlarVencimentoCheck"
+                                onchange="toggleControlarVencimento()"> <label>Controlar o Vencimento de Empréstimo do
+                                Objeto</label></div>
+                    </div>
+
+                    <div id="controlarVencimentoFields" class="conditional-field hidden">
+                        <div class="form-row form-row-context">
+                            <div class="form-group">
+                                <label>Prazo Padrão para Devolução de Objeto (em dias)</label>
+                                <select id="prazoDevolucao">
+                                    <option value="">Selecione...</option>
+                                    <option value="7">7</option>
+                                    <option value="14">14</option>
+                                    <option value="30">30</option>
+                                    <option value="45">45</option>
+                                    <option value="60">60</option>
+                                    <option value="90">90</option>
+                                    <option value="indeterminado">Tempo Indeterminado</option>
+                                </select>
+                            </div>
+                            <div class="form-group checkbox-item">
+                                <input type="checkbox" id="alteracaoPrazoCheck">
+                                <label>Permitir Alteração do Prazo pelo Solicitante</label>
+                            </div>
+                        </div>
+                        <div class="form-row form-row-context">
+                            <div class="form-group">
+                                <label>Dia do Mês para Envio de Notificação de Empréstimo Vencido</label>
+                                <select id="diaEnvioNotificacao">
+                                    <option value="">Selecione...</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Tempo de Inatividade para Bloqueio do Usuário (Em Dias)</label>
+                                <select id="tempoBloqueioUsuario">
+                                    <option value="">Selecione...</option>
+                                    <option value="30">30</option>
+                                    <option value="60">60</option>
+                                    <option value="90">90</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aba 3: Notificações e e-mails + SLA -->
+                <div id="aba3" class="tab-pane">
+                    <div class="form-row form-row-context">
+                        <div class="form-group"><label>E-mail Cliente para Comunicações/Notificações</label><input
+                                type="email" id="emailComunicacoes" placeholder="Cliente@dominio.com" value=""></div>
+                        <div class="form-group"><label>E-mail Cliente para Notificações de Lotes</label><input
+                                type="email" id="emailNotificacaoLote" placeholder="Lotes@dominio.com" value=""></div>
+                    </div>
+                    <div class="form-row form-row-context">
+                        <div class="form-group"><label>E-mail Gestão Documental</label><input type="email"
+                                id="emailGestaoDocumental" placeholder="Gestao@dominio.com" value=""></div>
+                        <div class="form-group"><label>E-mail Digitalização</label><input type="email"
+                                id="emailDigitalizacao" placeholder="Digitalizacao@dominio.com" value=""></div>
+                    </div>
+                    <div class="form-row form-row-context">
+                        <div class="form-group"><label>E-mail para Notificação de Novos Arquivos</label><input
+                                type="email" id="emailNovosArquivos" placeholder="Novosarquivos@dominio.com" value="">
+                        </div>
+                    </div>
+
+                    <div class="checkbox-grid">
+                        <div class="checkbox-item"><input type="checkbox" id="verIntegracoes"> <label>Ver
+                                Integrações</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="compartilharPacotesPreservacao">
+                            <label>Compartilhar Pacotes de Preservação</label>
+                        </div>
+                        <div class="checkbox-item"><input type="checkbox" id="notificarSlaNormalCheck"
+                                onchange="toggleSlaNormal()"> <label>Notificar Vencimento de SLA (Prioridade
+                                Normal)</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="notificarSlaUrgenteCheck"
+                                onchange="toggleSlaUrgente()"> <label>Notificar Vencimento de SLA (Prioridade
+                                Urgente)</label></div>
+                    </div>
+
+                    <div id="slaNormalFields" class="conditional-field hidden">
+                        <div class="form-group"><label>E-mail (Normal)</label><input type="text" id="emailSlaNormal"
+                                placeholder="Digite os E-mails separados por ;" value=""></div>
+                        <div class="form-group"><label>Tempo de Aviso Prévio (Normal) - Horas</label><input type="text"
+                                id="tempoAvisoSlaNormal" placeholder="Exemplo: 48;24;12" value=""></div>
+                    </div>
+
+                    <div id="slaUrgenteFields" class="conditional-field hidden">
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item"><input type="checkbox" id="mostrarDadosTransporteCheck">
+                                <label>Mostrar Dados do Responsável pelo Transporte na O.S.</label>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>E-mail (Urgente)</label><input type="text" id="emailSlaUrgente"
+                                placeholder="Digite os E-mails separados por ;" value=""></div>
+                        <div class="form-group"><label>Tempo de Aviso Prévio (Urgência) - Horas</label><input
+                                type="text" id="tempoAvisoSlaUrgente" placeholder="Exemplo: 48;24;12" value=""></div>
+                    </div>
+                </div>
+
+                <!-- Aba 4: Prazos e Expurgo -->
+                <div id="aba4" class="tab-pane">
+                    <div class="checkbox-grid">
+                        <div class="checkbox-item"><input type="checkbox" id="notificarPrazoGuardaCheck"
+                                onchange="togglePrazoGuarda()"> <label>Notificar Prazo de Guarda a Vencer</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="notificarExpurgoCheck"
+                                onchange="toggleExpurgo()"> <label>Notificar Expurgo por E-mail</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="enviarRelatorioAnual"> <label>Enviar
+                                Relatório de Expurgo Anualmente Automaticamente</label></div>
+                    </div>
+
+                    <div id="prazoGuardaFields" class="conditional-field hidden">
+                        <div class="form-row form-row-context">
+                            <div class="form-group"><label>Definir o Intervalo de Alerta (em Dias)</label><input
+                                    type="text" id="intervaloAlerta" placeholder="Ex: 15;30;60" value=""></div>
+                            <div class="form-group"><label>Destinatários do Alerta de Prazo</label><input type="text"
+                                    id="destinatariosAlerta" placeholder="Email1@dominio.com; Email2@dominio.com"
+                                    value=""></div>
+                        </div>
+                    </div>
+
+                    <div id="expurgoFields" class="conditional-field hidden">
+                        <div class="form-row form-row-context">
+                            <div class="form-group"><label>Periodicidade do Envio de E-mail de Expurgo (em
+                                    Dias)</label><input type="number" id="periodicidadeExpurgo" value=""></div>
+                            <div class="form-group"><label>Período a ser Considerado no Relatório de Expurgo
+                                    Enviado</label>
+                                <select id="periodoExpurgo">
+                                    <option value="">Selecione...</option>
+                                    <option value="mensal">Mensal</option>
+                                    <option value="semestral">Semestral</option>
+                                    <option value="anual">Anual</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row form-row-context">
+                        <div class="form-group"><label>E-mail para Notificação de Relatório de Expurgo</label><input
+                                type="email" id="emailRelatorioExpurgo" placeholder="Expurgo@dominio.com" value="">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aba 5: Digitalização e Assinatura -->
+                <div id="aba5" class="tab-pane">
+                    <div class="checkbox-grid">
+                        <div class="checkbox-item"><input type="checkbox" id="armazenarDoczFileService">
+                            <label>Armazenar Documentos Digitais no Docz File Service</label>
+                        </div>
+                        <div class="checkbox-item"><input type="checkbox" id="permitirDigitalizar"> <label>Permitir
+                                Digitalizar</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="realizarChancela"> <label>Realizar
+                                Chancela em Documentos Digitalizados</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="realizarChancelaLote"> <label>Realizar
+                                Chancela em Documentos Digitalizados em Lote</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="marcaDaguaChancela"> <label>Adicionar
+                                Marca D'Água em Chancela de Documentos Digitalizados</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="assinaturaCertificado"> <label>Realizar
+                                Assinatura com Certificado de Usuário</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="assinaturaCertificaLote"> <label>Realizar
+                                Assinatura com Certificado de Usuário em Lote</label></div>
+                    </div>
+                </div>
+
+                <!-- Aba 6: Permissões Avançadas -->
+                <div id="aba6" class="tab-pane">
+                    <div class="checkbox-grid">
+                        <div class="checkbox-item"><input type="checkbox" id="habilitarEnvioSEI"> <label>Habilitar Envio
+                                para o SEI</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="visualizarVersoes"> <label>Visualizar
+                                Versões</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="liberarAvaliacaoSemTipologia">
+                            <label>Permitir Liberar Objetos para Avaliação sem Informar Tipologia de Arquivos</label>
+                        </div>
+                        <div class="checkbox-item"><input type="checkbox" id="arquivarDesarquivar"> <label>Permitir
+                                Arquivar/Desarquivar Documentos</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="permitirRelacionamentos"> <label>Permitir
+                                Relacionamentos</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="restringirPorDepartamento">
+                            <label>Restringir Acesso aos Documentos por Departamento do Usuário</label>
+                        </div>
+                        <div class="checkbox-item"><input type="checkbox" id="alteracaoSomenteAutorCheck"
+                                onchange="toggleEtapaDocumentalAutor()"> <label>Alteração de Objetos Somente pelo
+                                Autor</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="exigirJustificativaAlterar"> <label>Exigir
+                                Justificativa ao Alterar um Objeto</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="inativarArquivosCheck"
+                                onchange="toggleEtapaDocumentalInativar()"> <label>Inativar Arquivos</label></div>
+                    </div>
+
+                    <div id="etapaDocumentalAutorFields" class="conditional-field hidden">
+                        <div class="form-group">
+                            <label>Selecione a Etapa Documental (Alteração pelo Autor)</label>
+                            <select id="etapaDocumentalAutor">
+                                <option value="">Selecione...</option>
+                                <option>Aguardando Aprovação</option>
+                                <option>Aprovado</option>
+                                <option>Finalizado</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="etapaDocumentalInativarFields" class="conditional-field hidden">
+                        <div class="form-group">
+                            <label>Selecione a Etapa Documental (Inativar)</label>
+                            <select id="etapaDocumentalInativar">
+                                <option value="">Selecione...</option>
+                                <option>Arquivado</option>
+                                <option>Cancelado</option>
                             </select>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-row form-row-context">
-                    <div class="form-group"><label>E-mail para Notificação de Relatório de Expurgo</label><input type="email" id="emailRelatorioExpurgo" placeholder="Expurgo@dominio.com" value=""></div>
+                <!-- Aba 7: Metadados Padrão -->
+                <div id="aba7" class="tab-pane">
+                    <div class="checkbox-grid">
+                        <div class="checkbox-item"><input type="checkbox" id="habilitarMetadadosCheck"
+                                onchange="toggleMetadados()"> <label>Habilitar Valores Padrão para Metadados de
+                                Arquivo</label></div>
+                    </div>
+                    <div id="metadadosFields" class="conditional-field hidden">
+                        <div class="form-row form-row-context">
+                            <div class="form-group"><label>Autor</label><input type="text" id="autorMetadado"
+                                    placeholder="Autor Padrão" value=""></div>
+                            <div class="form-group"><label>Local da Digitalização</label><input type="text"
+                                    id="localDigitalizacao" placeholder="Local Padrão" value=""></div>
+                        </div>
+                        <div class="form-row form-row-context">
+                            <div class="form-group"><label>Responsável da Digitalização</label><input type="text"
+                                    id="responsavelDigitalizacao" placeholder="Responsável Padrão" value=""></div>
+                            <div class="form-group"><label>Local de Produção</label><input type="text"
+                                    id="localProducao" placeholder="Local de Produção Padrão" value=""></div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Aba 8: Personalizações (Grid 4 Colunas) -->
+                <div id="aba8" class="tab-pane">
+                    <div class="custom-search-grid">
+                        <div class="custom-search-item">
+                            <input type="checkbox" id="campoIdentificadorSOS" checked disabled>
+                            <label for="campoIdentificadorSOS" class="disabled-label">Identificador Sos</label>
+                        </div>
+                        <div class="custom-search-item">
+                            <input type="checkbox" id="campoLocalizacao">
+                            <label for="campoLocalizacao">Localização</label>
+                        </div>
+                        <div class="custom-search-item">
+                            <input type="checkbox" id="campoStatus">
+                            <label for="campoStatus">Status</label>
+                        </div>
+                        <div class="custom-search-item">
+                            <input type="checkbox" id="campoServico">
+                            <label for="campoServico">Serviço</label>
+                        </div>
+                        <div class="custom-search-item">
+                            <input type="checkbox" id="campoNUP" checked disabled>
+                            <label for="campoNUP" class="disabled-label">Número Único do Processo (Nup)</label>
+                        </div>
+                        <div class="custom-search-item">
+                            <input type="checkbox" id="campoDescricao">
+                            <label for="campoDescricao">Descrição</label>
+                        </div>
+                        <div class="custom-search-item">
+                            <input type="checkbox" id="campoDepartamento">
+                            <label for="campoDepartamento">Departamento</label>
+                        </div>
+                        <div class="custom-search-item">
+                            <input type="checkbox" id="campoTipoObjeto">
+                            <label for="campoTipoObjeto">Tipo Objeto</label>
+                        </div>
+                        <div class="custom-search-item">
+                            <input type="checkbox" id="campoLacre01">
+                            <label for="campoLacre01">Lacre 01</label>
+                        </div>
+                        <div class="custom-search-item">
+                            <input type="checkbox" id="campoLacre02">
+                            <label for="campoLacre02">Lacre 02</label>
+                        </div>
+                        <div class="custom-search-item">
+                            <input type="checkbox" id="campoNumeroConcorrente" checked disabled>
+                            <label for="campoNumeroConcorrente" class="disabled-label">Nº Concorrente</label>
+                        </div>
+                        <div class="custom-search-item">
+                            <input type="checkbox" id="campoClassificacao">
+                            <label for="campoClassificacao">Classificação</label>
+                        </div>
+                        <div class="custom-search-item">
+                            <input type="checkbox" id="campoFaseCorrente">
+                            <label for="campoFaseCorrente">Fase Corrente</label>
+                        </div>
+                        <div class="custom-search-item">
+                            <input type="checkbox" id="campoFaseIntermediaria">
+                            <label for="campoFaseIntermediaria">Fase Intermediária</label>
+                        </div>
+                        <div class="custom-search-item">
+                            <input type="checkbox" id="campoDestinacaoFinal">
+                            <label for="campoDestinacaoFinal">Destinação Final</label>
+                        </div>
+                        <div class="custom-search-item">
+                            <input type="checkbox" id="campoSigiloAssociado">
+                            <label for="campoSigiloAssociado">Sigilo Associado</label>
+                        </div>
+                        <div class="custom-search-item">
+                            <input type="checkbox" id="campoObservacaoClasse">
+                            <label for="campoObservacaoClasse">Observação da Classe</label>
+                        </div>
+                        <div class="custom-search-item">
+                            <input type="checkbox" id="campoStatusGestaoDocumental">
+                            <label for="campoStatusGestaoDocumental">Status Gestão Documental</label>
+                        </div>
+                        <div class="custom-search-item">
+                            <input type="checkbox" id="campoNumeroSolicitacao">
+                            <label for="campoNumeroSolicitacao">Nº Solicitação</label>
+                        </div>
+                        <div class="custom-search-item">
+                            <input type="checkbox" id="campoUsuario">
+                            <label for="campoUsuario">Usuário</label>
+                        </div>
+                        <div class="custom-search-item">
+                            <input type="checkbox" id="campoEtapaDocumental">
+                            <label for="campoEtapaDocumental">Etapa Documental</label>
+                        </div>
+                    </div>
+                    <div class="info-note">Campos Marcados São Obrigatórios e Não Podem Ser Desativados.</div>
+                </div>
+
+            </form>
+
+            <div class="dialog-footer">
+                <button class="btn-docz greyB" onclick="fecharModal()">Cancelar</button>
+                <button class="btn-docz greenB" onclick="salvarConfiguracoes()">Salvar Alterações</button>
             </div>
-
-            <!-- Aba 6: Digitalização e Assinatura -->
-            <div id="aba6" class="tab-pane">
-                <div class="checkbox-grid">
-                    <div class="checkbox-item"><input type="checkbox" id="armazenarDoczFileService"> <label>Armazenar Documentos Digitais no Docz File Service</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="permitirDigitalizar"> <label>Permitir Digitalizar</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="realizarChancela"> <label>Realizar Chancela em Documentos Digitalizados</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="realizarChancelaLote"> <label>Realizar Chancela em Documentos Digitalizados em Lote</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="marcaDaguaChancela"> <label>Adicionar Marca D'Água em Chancela de Documentos Digitalizados</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="assinaturaCertificado"> <label>Realizar Assinatura com Certificado de Usuário</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="assinaturaCertificaLote"> <label>Realizar Assinatura com Certificado de Usuário em Lote</label></div>
-                </div>
-            </div>
-
-            <!-- Aba 7: Permissões Avançadas -->
-            <div id="aba7" class="tab-pane">
-                <div class="checkbox-grid">
-                    <div class="checkbox-item"><input type="checkbox" id="habilitarEnvioSEI"> <label>Habilitar Envio para o SEI</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="visualizarVersoes"> <label>Visualizar Versões</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="liberarAvaliacaoSemTipologia"> <label>Permitir Liberar Objetos para Avaliação sem Informar Tipologia de Arquivos</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="arquivarDesarquivar"> <label>Permitir Arquivar/Desarquivar Documentos</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="permitirRelacionamentos"> <label>Permitir Relacionamentos</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="restringirPorDepartamento"> <label>Restringir Acesso aos Documentos por Departamento do Usuário</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="alteracaoSomenteAutorCheck" onchange="toggleEtapaDocumentalAutor()"> <label>Alteração de Objetos Somente pelo Autor</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="exigirJustificativaAlterar"> <label>Exigir Justificativa ao Alterar um Objeto</label></div>
-                    <div class="checkbox-item"><input type="checkbox" id="inativarArquivosCheck" onchange="toggleEtapaDocumentalInativar()"> <label>Inativar Arquivos</label></div>
-                </div>
-
-                <div id="etapaDocumentalAutorFields" class="conditional-field hidden">
-                    <div class="form-group">
-                        <label>Selecione a Etapa Documental (Alteração pelo Autor)</label>
-                        <select id="etapaDocumentalAutor">
-                            <option value="">Selecione...</option>
-                            <option>Aguardando Aprovação</option>
-                            <option>Aprovado</option>
-                            <option>Finalizado</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div id="etapaDocumentalInativarFields" class="conditional-field hidden">
-                    <div class="form-group">
-                        <label>Selecione a Etapa Documental (Inativar)</label>
-                        <select id="etapaDocumentalInativar">
-                            <option value="">Selecione...</option>
-                            <option>Arquivado</option>
-                            <option>Cancelado</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Aba 8: Metadados Padrão -->
-            <div id="aba8" class="tab-pane">
-                <div class="checkbox-grid">
-                    <div class="checkbox-item"><input type="checkbox" id="habilitarMetadadosCheck" onchange="toggleMetadados()"> <label>Habilitar Valores Padrão para Metadados de Arquivo</label></div>
-                </div>
-                <div id="metadadosFields" class="conditional-field hidden">
-                    <div class="form-row form-row-context">
-                        <div class="form-group"><label>Autor</label><input type="text" id="autorMetadado" placeholder="Autor Padrão" value=""></div>
-                        <div class="form-group"><label>Local da Digitalização</label><input type="text" id="localDigitalizacao" placeholder="Local Padrão" value=""></div>
-                    </div>
-                    <div class="form-row form-row-context">
-                        <div class="form-group"><label>Responsável da Digitalização</label><input type="text" id="responsavelDigitalizacao" placeholder="Responsável Padrão" value=""></div>
-                        <div class="form-group"><label>Local de Produção</label><input type="text" id="localProducao" placeholder="Local de Produção Padrão" value=""></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Aba 9: Personalizações (Grid 4 Colunas) -->
-            <div id="aba9" class="tab-pane">
-                <div class="custom-search-grid">
-                    <div class="custom-search-item">
-                        <input type="checkbox" id="campoIdentificadorSOS" checked disabled>
-                        <label for="campoIdentificadorSOS" class="disabled-label">Identificador Sos</label>
-                    </div>
-                    <div class="custom-search-item">
-                        <input type="checkbox" id="campoLocalizacao">
-                        <label for="campoLocalizacao">Localização</label>
-                    </div>
-                    <div class="custom-search-item">
-                        <input type="checkbox" id="campoStatus">
-                        <label for="campoStatus">Status</label>
-                    </div>
-                    <div class="custom-search-item">
-                        <input type="checkbox" id="campoServico">
-                        <label for="campoServico">Serviço</label>
-                    </div>
-                    <div class="custom-search-item">
-                        <input type="checkbox" id="campoNUP" checked disabled>
-                        <label for="campoNUP" class="disabled-label">Número Único do Processo (Nup)</label>
-                    </div>
-                    <div class="custom-search-item">
-                        <input type="checkbox" id="campoDescricao">
-                        <label for="campoDescricao">Descrição</label>
-                    </div>
-                    <div class="custom-search-item">
-                        <input type="checkbox" id="campoDepartamento">
-                        <label for="campoDepartamento">Departamento</label>
-                    </div>
-                    <div class="custom-search-item">
-                        <input type="checkbox" id="campoTipoObjeto">
-                        <label for="campoTipoObjeto">Tipo Objeto</label>
-                    </div>
-                    <div class="custom-search-item">
-                        <input type="checkbox" id="campoLacre01">
-                        <label for="campoLacre01">Lacre 01</label>
-                    </div>
-                    <div class="custom-search-item">
-                        <input type="checkbox" id="campoLacre02">
-                        <label for="campoLacre02">Lacre 02</label>
-                    </div>
-                    <div class="custom-search-item">
-                        <input type="checkbox" id="campoNumeroConcorrente" checked disabled>
-                        <label for="campoNumeroConcorrente" class="disabled-label">Nº Concorrente</label>
-                    </div>
-                    <div class="custom-search-item">
-                        <input type="checkbox" id="campoClassificacao">
-                        <label for="campoClassificacao">Classificação</label>
-                    </div>
-                    <div class="custom-search-item">
-                        <input type="checkbox" id="campoFaseCorrente">
-                        <label for="campoFaseCorrente">Fase Corrente</label>
-                    </div>
-                    <div class="custom-search-item">
-                        <input type="checkbox" id="campoFaseIntermediaria">
-                        <label for="campoFaseIntermediaria">Fase Intermediária</label>
-                    </div>
-                    <div class="custom-search-item">
-                        <input type="checkbox" id="campoDestinacaoFinal">
-                        <label for="campoDestinacaoFinal">Destinação Final</label>
-                    </div>
-                    <div class="custom-search-item">
-                        <input type="checkbox" id="campoSigiloAssociado">
-                        <label for="campoSigiloAssociado">Sigilo Associado</label>
-                    </div>
-                    <div class="custom-search-item">
-                        <input type="checkbox" id="campoObservacaoClasse">
-                        <label for="campoObservacaoClasse">Observação da Classe</label>
-                    </div>
-                    <div class="custom-search-item">
-                        <input type="checkbox" id="campoStatusGestaoDocumental">
-                        <label for="campoStatusGestaoDocumental">Status Gestão Documental</label>
-                    </div>
-                    <div class="custom-search-item">
-                        <input type="checkbox" id="campoNumeroSolicitacao">
-                        <label for="campoNumeroSolicitacao">Nº Solicitação</label>
-                    </div>
-                    <div class="custom-search-item">
-                        <input type="checkbox" id="campoUsuario">
-                        <label for="campoUsuario">Usuário</label>
-                    </div>
-                    <div class="custom-search-item">
-                        <input type="checkbox" id="campoEtapaDocumental">
-                        <label for="campoEtapaDocumental">Etapa Documental</label>
-                    </div>
-                </div>
-                <div class="info-note">Campos Marcados São Obrigatórios e Não Podem Ser Desativados.</div>
-            </div>
-
-        </form>
-
-        <div class="dialog-footer">
-            <button class="btn-docz greyB" onclick="fecharModal()">Cancelar</button>
-            <button class="btn-docz greenB" onclick="salvarConfiguracoes()">Salvar Alterações</button>
         </div>
     </div>
-</div>
 
-<script>
-    var armazensLista = [];
+    <script>
+        var armazensLista = [];
 
-    function openTab(evt, tabName) {
-        var i, tabpane, tablinks;
-        tabpane = document.getElementsByClassName("tab-pane");
-        for (i = 0; i < tabpane.length; i++) {
-            tabpane[i].classList.remove("active");
+        function openTab(evt, tabName) {
+            var i, tabpane, tablinks;
+            tabpane = document.getElementsByClassName("tab-pane");
+            for (i = 0; i < tabpane.length; i++) {
+                tabpane[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
         }
-        tablinks = document.getElementsByClassName("tab-link");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].classList.remove("active");
+
+        function adicionarArmazem() {
+            var select = document.getElementById('armazemSelect');
+            var valor = select.value;
+            if (valor === "") { alert("Selecione um armazém."); return; }
+            if (armazensLista.indexOf(valor) === -1) { armazensLista.push(valor); atualizarListaArmazens(); }
+            else { alert("Armazém já adicionado."); }
+            select.value = "";
         }
-        document.getElementById(tabName).classList.add("active");
-        evt.currentTarget.classList.add("active");
-    }
 
-    function adicionarArmazem() {
-        var select = document.getElementById('armazemSelect');
-        var valor = select.value;
-        if (valor === "") { alert("Selecione um armazém."); return; }
-        if (armazensLista.indexOf(valor) === -1) { armazensLista.push(valor); atualizarListaArmazens(); } 
-        else { alert("Armazém já adicionado."); }
-        select.value = "";
-    }
+        function removerArmazem(index) { armazensLista.splice(index, 1); atualizarListaArmazens(); }
 
-    function removerArmazem(index) { armazensLista.splice(index,1); atualizarListaArmazens(); }
-
-    function atualizarListaArmazens() {
-        var container = document.getElementById('listaArmazens');
-        container.innerHTML = '';
-        if (armazensLista.length === 0) { container.innerHTML = '<div style="padding:6px;color:#999;text-align:center;">Nenhum armazém adicionado</div>'; return; }
-        for (var i=0;i<armazensLista.length;i++) {
-            var item = document.createElement('div'); item.className='list-item';
-            item.innerHTML = '<span class="list-item-text">'+armazensLista[i]+'</span><button class="btn-remove" onclick="removerArmazem('+i+')">X</button>';
-            container.appendChild(item);
+        function atualizarListaArmazens() {
+            var container = document.getElementById('listaArmazens');
+            container.innerHTML = '';
+            if (armazensLista.length === 0) { container.innerHTML = '<div style="padding:8px;color:#999;text-align:center;">Nenhum armazém adicionado</div>'; return; }
+            for (var i = 0; i < armazensLista.length; i++) {
+                var item = document.createElement('div'); item.className = 'list-item';
+                item.innerHTML = '<span class="list-item-text">' + armazensLista[i] + '</span><button class="btn-remove" onclick="removerArmazem(' + i + ')">X</button>';
+                container.appendChild(item);
+            }
         }
-    }
-    function fecharModal() { if(confirm("Cancelar alterações?")) alert("Modal fechado."); }
-    function salvarConfiguracoes() { alert("Configurações salvas com sucesso!"); }
-    function toggleControlarVencimento() { var chk=document.getElementById('controlarVencimentoCheck'); var div=document.getElementById('controlarVencimentoFields'); chk.checked?div.classList.remove('hidden'):div.classList.add('hidden'); }
-    function toggleSlaNormal() { var chk=document.getElementById('notificarSlaNormalCheck'); var div=document.getElementById('slaNormalFields'); chk.checked?div.classList.remove('hidden'):div.classList.add('hidden'); }
-    function toggleSlaUrgente() { var chk=document.getElementById('notificarSlaUrgenteCheck'); var div=document.getElementById('slaUrgenteFields'); chk.checked?div.classList.remove('hidden'):div.classList.add('hidden'); }
-    function togglePrazoGuarda() { var chk=document.getElementById('notificarPrazoGuardaCheck'); var div=document.getElementById('prazoGuardaFields'); chk.checked?div.classList.remove('hidden'):div.classList.add('hidden'); }
-    function toggleExpurgo() { var chk=document.getElementById('notificarExpurgoCheck'); var div=document.getElementById('expurgoFields'); chk.checked?div.classList.remove('hidden'):div.classList.add('hidden'); }
-    function toggleEtapaDocumentalAutor() { var chk=document.getElementById('alteracaoSomenteAutorCheck'); var div=document.getElementById('etapaDocumentalAutorFields'); chk.checked?div.classList.remove('hidden'):div.classList.add('hidden'); }
-    function toggleEtapaDocumentalInativar() { var chk=document.getElementById('inativarArquivosCheck'); var div=document.getElementById('etapaDocumentalInativarFields'); chk.checked?div.classList.remove('hidden'):div.classList.add('hidden'); }
-    function toggleMetadados() { var chk=document.getElementById('habilitarMetadadosCheck'); var div=document.getElementById('metadadosFields'); chk.checked?div.classList.remove('hidden'):div.classList.add('hidden'); }
 
-    atualizarListaArmazens();
-</script>
+        function fecharModal() { if (confirm("Cancelar alterações?")) alert("Modal fechado."); }
+        function salvarConfiguracoes() { alert("Configurações salvas com sucesso!"); }
+        function toggleControlarVencimento() { var chk = document.getElementById('controlarVencimentoCheck'); var div = document.getElementById('controlarVencimentoFields'); chk.checked ? div.classList.remove('hidden') : div.classList.add('hidden'); }
+        function toggleSlaNormal() { var chk = document.getElementById('notificarSlaNormalCheck'); var div = document.getElementById('slaNormalFields'); chk.checked ? div.classList.remove('hidden') : div.classList.add('hidden'); }
+        function toggleSlaUrgente() { var chk = document.getElementById('notificarSlaUrgenteCheck'); var div = document.getElementById('slaUrgenteFields'); chk.checked ? div.classList.remove('hidden') : div.classList.add('hidden'); }
+        function togglePrazoGuarda() { var chk = document.getElementById('notificarPrazoGuardaCheck'); var div = document.getElementById('prazoGuardaFields'); chk.checked ? div.classList.remove('hidden') : div.classList.add('hidden'); }
+        function toggleExpurgo() { var chk = document.getElementById('notificarExpurgoCheck'); var div = document.getElementById('expurgoFields'); chk.checked ? div.classList.remove('hidden') : div.classList.add('hidden'); }
+        function toggleEtapaDocumentalAutor() { var chk = document.getElementById('alteracaoSomenteAutorCheck'); var div = document.getElementById('etapaDocumentalAutorFields'); chk.checked ? div.classList.remove('hidden') : div.classList.add('hidden'); }
+        function toggleEtapaDocumentalInativar() { var chk = document.getElementById('inativarArquivosCheck'); var div = document.getElementById('etapaDocumentalInativarFields'); chk.checked ? div.classList.remove('hidden') : div.classList.add('hidden'); }
+        function toggleMetadados() { var chk = document.getElementById('habilitarMetadadosCheck'); var div = document.getElementById('metadadosFields'); chk.checked ? div.classList.remove('hidden') : div.classList.add('hidden'); }
+
+        atualizarListaArmazens();
+    </script>
 </body>
+
 </html>
