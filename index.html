@@ -848,14 +848,15 @@
                 </div>
                 <div class="search-wrapper">
                     <input type="text" id="tabSearch" placeholder="Pesquisar permissão..." onkeydown="handleSearchKeydown(event)">
-                    
                     <button class="clear-btn" id="clearSearch" onclick="clearSearch()" title="Limpar pesquisa">✕</button>
                 </div>
             </div>
 
             <form class="tabs-body" onsubmit="return false;">
 
-                <!-- Aba 1: Dados Projeto -->
+                <!-- ========================================== -->
+                <!-- ABA 1: Dados Projeto (ATUALIZADA)          -->
+                <!-- ========================================== -->
                 <div id="aba1" class="tab-pane active">
                     <div class="form-row form-row-context">
                         <div class="form-group" style="flex: 2;">
@@ -872,7 +873,17 @@
                         <textarea id="descricao" rows="2" placeholder="Descrição do Projeto"></textarea>
                     </div>
 
-                    <div class="form-row form-row-context">
+                    <!-- ALTERNATIVOS COM CHECKBOX DE HABILITAÇÃO (NOVO) -->
+                    <div class="form-row form-row-context" style="margin-bottom: 10px;">
+                        <div class="form-group" style="flex: 1;">
+                            <div class="checkbox-item" style="border: none; background: none; padding-left: 0;">
+                                <input type="checkbox" id="habilitarAlternativos" onclick="toggleAlternativos()">
+                                <label for="habilitarAlternativos" style="font-weight: bold; color: #2b6893;">Habilitar Campos Alternativos</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row form-row-context" id="camposAlternativos" style="display: none;">
                         <div class="form-group"><label>ID Alternativo</label><input type="text" id="idAlternativo"
                                 placeholder="ID Alternativo" value=""></div>
                         <div class="form-group"><label>Nome Alternativo</label><input type="text" id="nomeAlternativo"
@@ -945,7 +956,9 @@
                     </div>
                 </div>
 
-                <!-- Aba 2: Solicitações (O.S.) -->
+                <!-- ========================================== -->
+                <!-- ABA 2: Solicitações (O.S.)                  -->
+                <!-- ========================================== -->
                 <div id="aba2" class="tab-pane">
                     <div class="checkbox-grid">
                         <div class="checkbox-item"><input type="checkbox" id="podeSolicitarCaixa"> <label>Pode Solicitar
@@ -964,7 +977,6 @@
                                 type="text" id="camposOSCaixa" placeholder="Ex: CampoA;CampoB" value=""></div>
                     </div>
 
-                    <!-- GRID UNIFICADO para parâmetros da aba 2 -->
                     <div class="checkbox-grid" id="gridAba2">
                         <div class="checkbox-item"><input type="checkbox" id="enviarNotificacaoOS"> <label>Enviar
                                 Notificação de O.S</label></div>
@@ -991,7 +1003,6 @@
                             </select>
                         </div>
 
-                        <!-- PARÂMETRO: Controlar Vencimento de Empréstimo -->
                         <div class="param-wrapper" id="wrapperControlarVencimento">
                             <div class="checkbox-item" onclick="toggleParamWrapper(this)">
                                 <input type="checkbox" id="controlarVencimentoCheck" onclick="event.stopPropagation(); toggleControlarVencimento()">
@@ -1073,7 +1084,9 @@
                     </div>
                 </div>
 
-                <!-- Aba 3: Notificações e e-mails -->
+                <!-- ========================================== -->
+                <!-- ABA 3: Notificações e e-mails               -->
+                <!-- ========================================== -->
                 <div id="aba3" class="tab-pane">
                     <div class="form-row form-row-context">
                         <div class="form-group"><label>E-mail Cliente para Comunicações/Notificações</label><input
@@ -1093,7 +1106,6 @@
                         </div>
                     </div>
 
-                    <!-- GRID UNIFICADO para parâmetros da aba 3 -->
                     <div class="checkbox-grid" id="gridAba3">
                         <div class="checkbox-item"><input type="checkbox" id="verIntegracoes"> <label>Ver
                                 Integrações</label></div>
@@ -1101,7 +1113,6 @@
                             <label>Compartilhar Pacotes de Preservação</label>
                         </div>
 
-                        <!-- PARÂMETRO: Notificações de SLA Normal -->
                         <div class="param-wrapper" id="wrapperSlaNormal">
                             <div class="checkbox-item" onclick="toggleParamWrapper(this)">
                                 <input type="checkbox" id="notificarSlaNormalCheck" onclick="event.stopPropagation(); toggleSlaNormal()">
@@ -1118,7 +1129,6 @@
                             </div>
                         </div>
 
-                        <!-- PARÂMETRO: Notificações de SLA Urgente -->
                         <div class="param-wrapper" id="wrapperSlaUrgente">
                             <div class="checkbox-item" onclick="toggleParamWrapper(this)">
                                 <input type="checkbox" id="notificarSlaUrgenteCheck" onclick="event.stopPropagation(); toggleSlaUrgente()">
@@ -1143,9 +1153,10 @@
                     </div>
                 </div>
 
-                <!-- Aba 4: Prazos e Expurgo -->
+                <!-- ========================================== -->
+                <!-- ABA 4: Prazos e Expurgo                    -->
+                <!-- ========================================== -->
                 <div id="aba4" class="tab-pane">
-                    <!-- GRID UNIFICADO para parâmetros da aba 4 -->
                     <div class="checkbox-grid" id="gridAba4">
                         <div class="checkbox-item"><input type="checkbox" id="enviarRelatorioAnual"> <label>Enviar
                                 Relatório de Expurgo Anualmente Automaticamente</label></div>
@@ -1154,7 +1165,6 @@
                             <label>Eliminar Dados após Conclusão da O.S. de Expurgo</label>
                         </div>
 
-                        <!-- PARÂMETRO: Prazo de Guarda -->
                         <div class="param-wrapper" id="wrapperPrazoGuarda">
                             <div class="checkbox-item" onclick="toggleParamWrapper(this)">
                                 <input type="checkbox" id="notificarPrazoGuardaCheck" onclick="event.stopPropagation(); togglePrazoGuarda()">
@@ -1172,7 +1182,6 @@
                             </div>
                         </div>
 
-                        <!-- PARÂMETRO: Expurgo -->
                         <div class="param-wrapper" id="wrapperExpurgo">
                             <div class="checkbox-item" onclick="toggleParamWrapper(this)">
                                 <input type="checkbox" id="notificarExpurgoCheck" onclick="event.stopPropagation(); toggleExpurgo()">
@@ -1206,9 +1215,10 @@
                     </div>
                 </div>
 
-                <!-- Aba 5: Digitalização e Assinatura -->
+                <!-- ========================================== -->
+                <!-- ABA 5: Digitalização e Assinatura          -->
+                <!-- ========================================== -->
                 <div id="aba5" class="tab-pane">
-                    <!-- GRID UNIFICADO para parâmetros da aba 5 -->
                     <div class="checkbox-grid" id="gridAba5">
                         <div class="checkbox-item"><input type="checkbox" id="armazenarDoczFileService">
                             <label>Armazenar Documentos Digitais no Docz File Service</label>
@@ -1226,7 +1236,6 @@
                         <div class="checkbox-item"><input type="checkbox" id="assinaturaCertificaLote"> <label>Realizar
                                 Assinatura com Certificado de Usuário em Lote</label></div>
 
-                        <!-- PARÂMETRO: Upload via API -->
                         <div class="param-wrapper" id="wrapperUploadAPI">
                             <div class="checkbox-item" onclick="toggleParamWrapper(this)">
                                 <input type="checkbox" id="permitirUploadAPI" onclick="event.stopPropagation(); toggleUploadAPI()">
@@ -1243,7 +1252,6 @@
                             </div>
                         </div>
 
-                        <!-- PARÂMETRO: Converter PDF/A -->
                         <div class="param-wrapper" id="wrapperPDFA">
                             <div class="checkbox-item" onclick="toggleParamWrapper(this)">
                                 <input type="checkbox" id="converterPDFA" onclick="event.stopPropagation(); togglePDFA()">
@@ -1278,7 +1286,6 @@
                             </div>
                         </div>
 
-                        <!-- PARÂMETRO: Etapa OS Recolhimento -->
                         <div class="param-wrapper" id="wrapperEtapaOSRecolhimento">
                             <div class="checkbox-item" onclick="toggleParamWrapper(this)">
                                 <input type="checkbox" id="alterarEtapaOSRecolhimento" onclick="event.stopPropagation(); toggleEtapaOSRecolhimento()">
@@ -1304,9 +1311,10 @@
                     </div>
                 </div>
 
-                <!-- Aba 6: Permissões Avançadas -->
+                <!-- ========================================== -->
+                <!-- ABA 6: Permissões Avançadas                -->
+                <!-- ========================================== -->
                 <div id="aba6" class="tab-pane">
-                    <!-- GRID UNIFICADO para parâmetros da aba 6 -->
                     <div class="checkbox-grid" id="gridAba6">
                         <div class="checkbox-item"><input type="checkbox" id="habilitarEnvioSEI"> <label>Habilitar Envio
                                 para o SEI</label></div>
@@ -1325,7 +1333,6 @@
                         <div class="checkbox-item"><input type="checkbox" id="exigirJustificativaAlterar"> <label>Exigir
                                 Justificativa ao Alterar um Objeto</label></div>
 
-                        <!-- PARÂMETRO: Alteração somente pelo autor -->
                         <div class="param-wrapper" id="wrapperAlteracaoAutor">
                             <div class="checkbox-item" onclick="toggleParamWrapper(this)">
                                 <input type="checkbox" id="alteracaoSomenteAutorCheck" onclick="event.stopPropagation(); toggleEtapaDocumentalAutor()">
@@ -1345,7 +1352,6 @@
                             </div>
                         </div>
 
-                        <!-- PARÂMETRO: Inativar Arquivos -->
                         <div class="param-wrapper" id="wrapperInativarArquivos">
                             <div class="checkbox-item" onclick="toggleParamWrapper(this)">
                                 <input type="checkbox" id="inativarArquivosCheck" onclick="event.stopPropagation(); toggleEtapaDocumentalInativar()">
@@ -1366,7 +1372,9 @@
                     </div>
                 </div>
 
-                <!-- Aba 7: Metadados Padrão -->
+                <!-- ========================================== -->
+                <!-- ABA 7: Metadados Padrão                    -->
+                <!-- ========================================== -->
                 <div id="aba7" class="tab-pane">
                     <div class="checkbox-grid" id="gridAba7">
                         <div class="param-wrapper" id="wrapperMetadados">
@@ -1393,7 +1401,9 @@
                     </div>
                 </div>
 
-                <!-- Aba 8: Pesquisas -->
+                <!-- ========================================== -->
+                <!-- ABA 8: Pesquisas                           -->
+                <!-- ========================================== -->
                 <div id="aba8" class="tab-pane">
                     <div class="formRow">
                         <label for="pesquisaPersonalizada">Pesquisa Personalizada:</label>
@@ -1415,7 +1425,9 @@
         </div>
     </div>
 
-    <!-- Modal de Pesquisa Personalizada (sobreposta) -->
+    <!-- ========================================== -->
+    <!-- MODAL DE PESQUISA PERSONALIZADA            -->
+    <!-- ========================================== -->
     <div class="modal-overlay" id="modalPesquisaOverlay">
         <div class="modal-pesquisa-container">
             <div class="modal-pesquisa-header">
@@ -1429,6 +1441,7 @@
                     <strong>Selecione os campos que deseja exibir na pesquisa avançada:</strong>
                 </div>
                 <div class="checkbox-grid" id="camposPesquisaGrid">
+                    <!-- Todos os campos da pesquisa (mantidos) -->
                     <div class="checkbox-item">
                         <input type="checkbox" id="pesqCampoIdentificadorSOS" checked disabled>
                         <label for="pesqCampoIdentificadorSOS" class="disabled-label">Identificador SOS</label>
@@ -1691,6 +1704,9 @@
         </div>
     </div>
 
+    <!-- ========================================== -->
+    <!-- SCRIPT                                     -->
+    <!-- ========================================== -->
     <script>
         var armazensLista = [];
 
@@ -1954,7 +1970,27 @@
             updateParamWrapperState('wrapperMetadados', chk.checked);
         }
 
-        // Funções para a modal de pesquisa personalizada
+        // ============================================
+        // FUNÇÃO PARA ALTERNATIVOS (NOVA)
+        // ============================================
+        function toggleAlternativos() {
+            var chk = document.getElementById('habilitarAlternativos');
+            var div = document.getElementById('camposAlternativos');
+            if (chk.checked) {
+                div.style.display = 'flex';
+                div.style.flexWrap = 'wrap';
+                div.style.gap = '20px';
+            } else {
+                div.style.display = 'none';
+                document.getElementById('idAlternativo').value = '';
+                document.getElementById('nomeAlternativo').value = '';
+                document.getElementById('codigoGuardaAlternativo').value = '';
+            }
+        }
+
+        // ============================================
+        // FUNÇÕES PARA A MODAL DE PESQUISA PERSONALIZADA
+        // ============================================
         function abrirModalPesquisa() {
             var overlay = document.getElementById('modalPesquisaOverlay');
             overlay.classList.add('active');
