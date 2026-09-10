@@ -840,15 +840,18 @@
                     <div class="tab-link" data-tab="aba2" onclick="openTab(event, 'aba2')">Solicitações (O.S.)</div>
                     <div class="tab-link" data-tab="aba3" onclick="openTab(event, 'aba3')">Notificações e E-mails</div>
                     <div class="tab-link" data-tab="aba4" onclick="openTab(event, 'aba4')">Prazos e Expurgo</div>
-                    <div class="tab-link" data-tab="aba5" onclick="openTab(event, 'aba5')">Digitalização e Assinatura</div>
+                    <div class="tab-link" data-tab="aba5" onclick="openTab(event, 'aba5')">Digitalização e Assinatura
+                    </div>
                     <div class="tab-link" data-tab="aba6" onclick="openTab(event, 'aba6')">Permissões Avançadas</div>
                     <div class="tab-link" data-tab="aba7" onclick="openTab(event, 'aba7')">Metadados Padrão</div>
                     <div class="tab-link" data-tab="aba8" onclick="openTab(event, 'aba8')">Pesquisas</div>
                     <div class="no-results" id="noResults">Nenhuma permissão encontrada</div>
                 </div>
                 <div class="search-wrapper">
-                    <input type="text" id="tabSearch" placeholder="Pesquisar permissão..." onkeydown="handleSearchKeydown(event)">
-                    <button class="clear-btn" id="clearSearch" onclick="clearSearch()" title="Limpar pesquisa">✕</button>
+                    <input type="text" id="tabSearch" placeholder="Pesquisar permissão..."
+                        onkeydown="handleSearchKeydown(event)">
+                    <button class="clear-btn" id="clearSearch" onclick="clearSearch()"
+                        title="Limpar pesquisa">✕</button>
                 </div>
             </div>
 
@@ -878,7 +881,8 @@
                         <div class="form-group" style="flex: 1;">
                             <div class="checkbox-item" style="border: none; background: none; padding-left: 0;">
                                 <input type="checkbox" id="habilitarAlternativos" onclick="toggleAlternativos()">
-                                <label for="habilitarAlternativos" style="font-weight: bold; color: #2b6893;">Habilitar Campos Alternativos</label>
+                                <label for="habilitarAlternativos" style="font-weight: bold; color: #2b6893;">Habilitar
+                                    Campos Alternativos</label>
                             </div>
                         </div>
                     </div>
@@ -1005,8 +1009,10 @@
 
                         <div class="param-wrapper" id="wrapperControlarVencimento">
                             <div class="checkbox-item" onclick="toggleParamWrapper(this)">
-                                <input type="checkbox" id="controlarVencimentoCheck" onclick="event.stopPropagation(); toggleControlarVencimento()">
-                                <label for="controlarVencimentoCheck">Controlar o Vencimento de Empréstimo do Objeto</label>
+                                <input type="checkbox" id="controlarVencimentoCheck"
+                                    onclick="event.stopPropagation(); toggleControlarVencimento()">
+                                <label for="controlarVencimentoCheck">Controlar o Vencimento de Empréstimo do
+                                    Objeto</label>
                                 <span class="toggle-icon">▼</span>
                             </div>
                             <div class="param-card-body" id="controlarVencimentoFields">
@@ -1028,7 +1034,8 @@
                                         <label>&nbsp;</label>
                                         <div class="checkbox-item">
                                             <input type="checkbox" id="alteracaoPrazoCheck">
-                                            <label for="alteracaoPrazoCheck">Permitir Alteração do Prazo pelo Solicitante</label>
+                                            <label for="alteracaoPrazoCheck">Permitir Alteração do Prazo pelo
+                                                Solicitante</label>
                                         </div>
                                     </div>
                                 </div>
@@ -1081,6 +1088,32 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- MOVIDO DA ABA 5: Alterar Etapa Documental após Conclusão de OS de Recolhimento -->
+                        <div class="param-wrapper" id="wrapperEtapaOSRecolhimento">
+                            <div class="checkbox-item" onclick="toggleParamWrapper(this)">
+                                <input type="checkbox" id="alterarEtapaOSRecolhimento"
+                                    onclick="event.stopPropagation(); toggleEtapaOSRecolhimento()">
+                                <label for="alterarEtapaOSRecolhimento">Alterar Etapa Documental após Conclusão de OS de
+                                    Recolhimento</label>
+                                <span class="toggle-icon">▼</span>
+                            </div>
+                            <div class="param-card-body" id="etapaOSRecolhimentoFields">
+                                <div class="form-row form-row-context">
+                                    <div class="form-group">
+                                        <label>Selecione a Etapa Documental após Conclusão de OS de Recolhimento</label>
+                                        <select id="etapaDocumentalPosOSRecolhimento">
+                                            <option value="">Selecione...</option>
+                                            <option>Aguardando Aprovação</option>
+                                            <option>Aprovado</option>
+                                            <option>Finalizado</option>
+                                            <option>Arquivado</option>
+                                            <option>Cancelado</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -1115,32 +1148,40 @@
 
                         <div class="param-wrapper" id="wrapperSlaNormal">
                             <div class="checkbox-item" onclick="toggleParamWrapper(this)">
-                                <input type="checkbox" id="notificarSlaNormalCheck" onclick="event.stopPropagation(); toggleSlaNormal()">
-                                <label for="notificarSlaNormalCheck">Notificar Vencimento de SLA (Prioridade Normal)</label>
+                                <input type="checkbox" id="notificarSlaNormalCheck"
+                                    onclick="event.stopPropagation(); toggleSlaNormal()">
+                                <label for="notificarSlaNormalCheck">Notificar Vencimento de SLA (Prioridade
+                                    Normal)</label>
                                 <span class="toggle-icon">▼</span>
                             </div>
                             <div class="param-card-body" id="slaNormalFields">
                                 <div class="form-row form-row-context">
-                                    <div class="form-group"><label>E-mail (Normal)</label><input type="text" id="emailSlaNormal"
-                                            placeholder="Digite os E-mails separados por ;" value=""></div>
+                                    <div class="form-group"><label>E-mail (Normal)</label><input type="text"
+                                            id="emailSlaNormal" placeholder="Digite os E-mails separados por ;"
+                                            value=""></div>
                                     <div class="form-group"><label>Tempo de Aviso Prévio (Normal) - Horas</label><input
-                                            type="text" id="tempoAvisoSlaNormal" placeholder="Exemplo: 48;24;12" value=""></div>
+                                            type="text" id="tempoAvisoSlaNormal" placeholder="Exemplo: 48;24;12"
+                                            value=""></div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="param-wrapper" id="wrapperSlaUrgente">
                             <div class="checkbox-item" onclick="toggleParamWrapper(this)">
-                                <input type="checkbox" id="notificarSlaUrgenteCheck" onclick="event.stopPropagation(); toggleSlaUrgente()">
-                                <label for="notificarSlaUrgenteCheck">Notificar Vencimento de SLA (Prioridade Urgente)</label>
+                                <input type="checkbox" id="notificarSlaUrgenteCheck"
+                                    onclick="event.stopPropagation(); toggleSlaUrgente()">
+                                <label for="notificarSlaUrgenteCheck">Notificar Vencimento de SLA (Prioridade
+                                    Urgente)</label>
                                 <span class="toggle-icon">▼</span>
                             </div>
                             <div class="param-card-body" id="slaUrgenteFields">
                                 <div class="form-row form-row-context">
                                     <div class="form-group"><label>E-mail (Urgente)</label><input type="text"
-                                            id="emailSlaUrgente" placeholder="Digite os E-mails separados por ;" value=""></div>
-                                    <div class="form-group"><label>Tempo de Aviso Prévio (Urgência) - Horas</label><input
-                                            type="text" id="tempoAvisoSlaUrgente" placeholder="Exemplo: 48;24;12" value="">
+                                            id="emailSlaUrgente" placeholder="Digite os E-mails separados por ;"
+                                            value=""></div>
+                                    <div class="form-group"><label>Tempo de Aviso Prévio (Urgência) -
+                                            Horas</label><input type="text" id="tempoAvisoSlaUrgente"
+                                            placeholder="Exemplo: 48;24;12" value="">
                                     </div>
                                 </div>
                             </div>
@@ -1148,7 +1189,8 @@
 
                         <div class="checkbox-item">
                             <input type="checkbox" id="mostrarDadosTransporteCheck">
-                            <label for="mostrarDadosTransporteCheck">Mostrar Dados do Responsável pelo Transporte na O.S.</label>
+                            <label for="mostrarDadosTransporteCheck">Mostrar Dados do Responsável pelo Transporte na
+                                O.S.</label>
                         </div>
                     </div>
                 </div>
@@ -1167,7 +1209,8 @@
 
                         <div class="param-wrapper" id="wrapperPrazoGuarda">
                             <div class="checkbox-item" onclick="toggleParamWrapper(this)">
-                                <input type="checkbox" id="notificarPrazoGuardaCheck" onclick="event.stopPropagation(); togglePrazoGuarda()">
+                                <input type="checkbox" id="notificarPrazoGuardaCheck"
+                                    onclick="event.stopPropagation(); togglePrazoGuarda()">
                                 <label for="notificarPrazoGuardaCheck">Notificar Prazo de Guarda a Vencer</label>
                                 <span class="toggle-icon">▼</span>
                             </div>
@@ -1175,16 +1218,17 @@
                                 <div class="form-row form-row-context">
                                     <div class="form-group"><label>Definir o Intervalo de Alerta (em Dias)</label><input
                                             type="text" id="intervaloAlerta" placeholder="Ex: 15;30;60" value=""></div>
-                                    <div class="form-group"><label>Destinatários do Alerta de Prazo</label><input type="text"
-                                            id="destinatariosAlerta" placeholder="Email1@dominio.com; Email2@dominio.com"
-                                            value=""></div>
+                                    <div class="form-group"><label>Destinatários do Alerta de Prazo</label><input
+                                            type="text" id="destinatariosAlerta"
+                                            placeholder="Email1@dominio.com; Email2@dominio.com" value=""></div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="param-wrapper" id="wrapperExpurgo">
                             <div class="checkbox-item" onclick="toggleParamWrapper(this)">
-                                <input type="checkbox" id="notificarExpurgoCheck" onclick="event.stopPropagation(); toggleExpurgo()">
+                                <input type="checkbox" id="notificarExpurgoCheck"
+                                    onclick="event.stopPropagation(); toggleExpurgo()">
                                 <label for="notificarExpurgoCheck">Notificar Expurgo por E-mail</label>
                                 <span class="toggle-icon">▼</span>
                             </div>
@@ -1197,10 +1241,12 @@
                                     <div class="form-group">
                                         <label>Período a ser Considerado no Relatório de Expurgo Enviado</label>
                                         <div class="radio-group">
-                                            <label><input type="radio" name="periodoExpurgo" value="mensal"> Mensal</label>
+                                            <label><input type="radio" name="periodoExpurgo" value="mensal">
+                                                Mensal</label>
                                             <label><input type="radio" name="periodoExpurgo" value="semestral">
                                                 Semestral</label>
-                                            <label><input type="radio" name="periodoExpurgo" value="anual"> Anual</label>
+                                            <label><input type="radio" name="periodoExpurgo" value="anual">
+                                                Anual</label>
                                         </div>
                                     </div>
                                 </div>
@@ -1238,8 +1284,10 @@
 
                         <div class="param-wrapper" id="wrapperUploadAPI">
                             <div class="checkbox-item" onclick="toggleParamWrapper(this)">
-                                <input type="checkbox" id="permitirUploadAPI" onclick="event.stopPropagation(); toggleUploadAPI()">
-                                <label for="permitirUploadAPI">Permitir Upload de um Arquivo por Documento via API</label>
+                                <input type="checkbox" id="permitirUploadAPI"
+                                    onclick="event.stopPropagation(); toggleUploadAPI()">
+                                <label for="permitirUploadAPI">Permitir Upload de um Arquivo por Documento via
+                                    API</label>
                                 <span class="toggle-icon">▼</span>
                             </div>
                             <div class="param-card-body" id="uploadAPIFields">
@@ -1254,7 +1302,8 @@
 
                         <div class="param-wrapper" id="wrapperPDFA">
                             <div class="checkbox-item" onclick="toggleParamWrapper(this)">
-                                <input type="checkbox" id="converterPDFA" onclick="event.stopPropagation(); togglePDFA()">
+                                <input type="checkbox" id="converterPDFA"
+                                    onclick="event.stopPropagation(); togglePDFA()">
                                 <label for="converterPDFA">Converter documentos para PDF/A</label>
                                 <span class="toggle-icon">▼</span>
                             </div>
@@ -1286,28 +1335,7 @@
                             </div>
                         </div>
 
-                        <div class="param-wrapper" id="wrapperEtapaOSRecolhimento">
-                            <div class="checkbox-item" onclick="toggleParamWrapper(this)">
-                                <input type="checkbox" id="alterarEtapaOSRecolhimento" onclick="event.stopPropagation(); toggleEtapaOSRecolhimento()">
-                                <label for="alterarEtapaOSRecolhimento">Alterar Etapa Documental após Conclusão de OS de Recolhimento</label>
-                                <span class="toggle-icon">▼</span>
-                            </div>
-                            <div class="param-card-body" id="etapaOSRecolhimentoFields">
-                                <div class="form-row form-row-context">
-                                    <div class="form-group">
-                                        <label>Selecione a Etapa Documental após Conclusão de OS de Recolhimento</label>
-                                        <select id="etapaDocumentalPosOSRecolhimento">
-                                            <option value="">Selecione...</option>
-                                            <option>Aguardando Aprovação</option>
-                                            <option>Aprovado</option>
-                                            <option>Finalizado</option>
-                                            <option>Arquivado</option>
-                                            <option>Cancelado</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- O bloco wrapperEtapaOSRecolhimento foi MOVIDO para a aba 2 -->
                     </div>
                 </div>
 
@@ -1335,7 +1363,8 @@
 
                         <div class="param-wrapper" id="wrapperAlteracaoAutor">
                             <div class="checkbox-item" onclick="toggleParamWrapper(this)">
-                                <input type="checkbox" id="alteracaoSomenteAutorCheck" onclick="event.stopPropagation(); toggleEtapaDocumentalAutor()">
+                                <input type="checkbox" id="alteracaoSomenteAutorCheck"
+                                    onclick="event.stopPropagation(); toggleEtapaDocumentalAutor()">
                                 <label for="alteracaoSomenteAutorCheck">Alteração de Objetos Somente pelo Autor</label>
                                 <span class="toggle-icon">▼</span>
                             </div>
@@ -1354,7 +1383,8 @@
 
                         <div class="param-wrapper" id="wrapperInativarArquivos">
                             <div class="checkbox-item" onclick="toggleParamWrapper(this)">
-                                <input type="checkbox" id="inativarArquivosCheck" onclick="event.stopPropagation(); toggleEtapaDocumentalInativar()">
+                                <input type="checkbox" id="inativarArquivosCheck"
+                                    onclick="event.stopPropagation(); toggleEtapaDocumentalInativar()">
                                 <label for="inativarArquivosCheck">Inativar Arquivos</label>
                                 <span class="toggle-icon">▼</span>
                             </div>
@@ -1379,8 +1409,10 @@
                     <div class="checkbox-grid" id="gridAba7">
                         <div class="param-wrapper" id="wrapperMetadados">
                             <div class="checkbox-item" onclick="toggleParamWrapper(this)">
-                                <input type="checkbox" id="habilitarMetadadosCheck" onclick="event.stopPropagation(); toggleMetadados()">
-                                <label for="habilitarMetadadosCheck">Habilitar Valores Padrão para Metadados de Arquivo</label>
+                                <input type="checkbox" id="habilitarMetadadosCheck"
+                                    onclick="event.stopPropagation(); toggleMetadados()">
+                                <label for="habilitarMetadadosCheck">Habilitar Valores Padrão para Metadados de
+                                    Arquivo</label>
                                 <span class="toggle-icon">▼</span>
                             </div>
                             <div class="param-card-body" id="metadadosFields">
@@ -1391,8 +1423,9 @@
                                             id="localDigitalizacao" placeholder="Local Padrão" value=""></div>
                                 </div>
                                 <div class="form-row form-row-context">
-                                    <div class="form-group"><label>Responsável da Digitalização</label><input type="text"
-                                            id="responsavelDigitalizacao" placeholder="Responsável Padrão" value=""></div>
+                                    <div class="form-group"><label>Responsável da Digitalização</label><input
+                                            type="text" id="responsavelDigitalizacao" placeholder="Responsável Padrão"
+                                            value=""></div>
                                     <div class="form-group"><label>Local de Produção</label><input type="text"
                                             id="localProducao" placeholder="Local de Produção Padrão" value=""></div>
                                 </div>
@@ -1409,11 +1442,13 @@
                         <label for="pesquisaPersonalizada">Pesquisa Personalizada:</label>
                         <div class="formRight">
                             <a href="#" onclick="abrirModalPesquisa(); return false;" title="Personalizar Pesquisa">
-                                <img src="https://doczhml.sosdocs.com.br/Docz/app/images/icons/search.png" alt="Personalizar Pesquisa">
+                                <img src="https://doczhml.sosdocs.com.br/Docz/app/images/icons/search.png"
+                                    alt="Personalizar Pesquisa">
                             </a>
                         </div>
                     </div>
-                    <div class="info-note" style="margin-top: 15px;">Clique no ícone de pesquisa para personalizar os campos disponíveis na pesquisa avançada.</div>
+                    <div class="info-note" style="margin-top: 15px;">Clique no ícone de pesquisa para personalizar os
+                        campos disponíveis na pesquisa avançada.</div>
                 </div>
 
             </form>
@@ -1815,11 +1850,11 @@
                         tabLink.style.display = '';
                         tabLink.classList.add('highlight');
                         if (matchTabId === tabId) {
-                            var fakeEvent = { currentTarget: tabLink };
+                            var fakeEvent = {currentTarget: tabLink};
                             openTab(fakeEvent, tabId);
                             setTimeout(function () {
                                 if (firstMatch) {
-                                    firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                    firstMatch.scrollIntoView({behavior: 'smooth', block: 'center'});
                                     firstMatch.style.transition = 'all 0.3s';
                                     setTimeout(function () {
                                         firstMatch.style.boxShadow = '0 0 0 4px rgba(255, 193, 7, 0.5)';
@@ -1866,18 +1901,18 @@
         function adicionarArmazem() {
             var select = document.getElementById('armazemSelect');
             var valor = select.value;
-            if (valor === "") { alert("Selecione um armazém."); return; }
-            if (armazensLista.indexOf(valor) === -1) { armazensLista.push(valor); atualizarListaArmazens(); }
-            else { alert("Armazém já adicionado."); }
+            if (valor === "") {alert("Selecione um armazém."); return;}
+            if (armazensLista.indexOf(valor) === -1) {armazensLista.push(valor); atualizarListaArmazens();}
+            else {alert("Armazém já adicionado.");}
             select.value = "";
         }
 
-        function removerArmazem(index) { armazensLista.splice(index, 1); atualizarListaArmazens(); }
+        function removerArmazem(index) {armazensLista.splice(index, 1); atualizarListaArmazens();}
 
         function atualizarListaArmazens() {
             var container = document.getElementById('listaArmazens');
             container.innerHTML = '';
-            if (armazensLista.length === 0) { container.innerHTML = '<div style="padding:6px;color:#999;text-align:center;">Nenhum armazém adicionado</div>'; return; }
+            if (armazensLista.length === 0) {container.innerHTML = '<div style="padding:6px;color:#999;text-align:center;">Nenhum armazém adicionado</div>'; return;}
             for (var i = 0; i < armazensLista.length; i++) {
                 var item = document.createElement('div'); item.className = 'list-item';
                 item.innerHTML = '<span class="list-item-text">' + armazensLista[i] + '</span><button class="btn-remove" onclick="removerArmazem(' + i + ')">X</button>';
@@ -1885,8 +1920,8 @@
             }
         }
 
-        function fecharModal() { if (confirm("Cancelar alterações?")) alert("Modal fechado."); }
-        function salvarConfiguracoes() { alert("Configurações salvas com sucesso!"); }
+        function fecharModal() {if (confirm("Cancelar alterações?")) alert("Modal fechado.");}
+        function salvarConfiguracoes() {alert("Configurações salvas com sucesso!");}
 
         // ============================================
         // FUNÇÕES DE TOGGLE PARA OS WRAPPERS DE PARÂMETROS
@@ -1899,10 +1934,10 @@
         function updateParamWrapperState(wrapperId, isChecked) {
             var wrapper = document.getElementById(wrapperId);
             if (!wrapper) return;
-            
+
             var body = wrapper.querySelector('.param-card-body');
             var icon = wrapper.querySelector('.toggle-icon');
-            
+
             if (isChecked) {
                 wrapper.classList.add('active');
                 if (body) body.classList.add('visible');
@@ -2007,7 +2042,7 @@
         }
 
         // Fechar modal ao clicar fora
-        document.getElementById('modalPesquisaOverlay').addEventListener('click', function(e) {
+        document.getElementById('modalPesquisaOverlay').addEventListener('click', function (e) {
             if (e.target === this) {
                 fecharModalPesquisa();
             }
@@ -2027,7 +2062,7 @@
             }
         });
 
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             var searchInput = document.getElementById('tabSearch');
             var clearBtn = document.getElementById('clearSearch');
             if (e.target !== searchInput && e.target !== clearBtn) {
@@ -2038,9 +2073,9 @@
         atualizarListaArmazens();
 
         // Inicialização: garantir que os wrappers com checkboxes marcados fiquem ativos
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var wrappers = document.querySelectorAll('.param-wrapper');
-            wrappers.forEach(function(wrapper) {
+            wrappers.forEach(function (wrapper) {
                 var checkbox = wrapper.querySelector('.checkbox-item input[type="checkbox"]');
                 if (checkbox && checkbox.checked) {
                     var body = wrapper.querySelector('.param-card-body');
