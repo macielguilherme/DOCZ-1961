@@ -106,6 +106,9 @@
             flex-direction: column;
         }
 
+        /* ============================================
+           BARRA DE ABAS PRINCIPAIS
+           ============================================ */
         .tabs-nav {
             display: flex;
             background: #efefef;
@@ -116,6 +119,7 @@
             align-items: center;
             padding: 2px 0;
             position: relative;
+            flex-shrink: 0;
         }
 
         .tabs-nav .tab-links-wrapper {
@@ -194,22 +198,6 @@
             font-style: italic;
         }
 
-        .tabs-nav .search-wrapper .search-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            padding: 4px 6px;
-            border-radius: 2px;
-            color: #666;
-            transition: all 0.2s;
-        }
-
-        .tabs-nav .search-wrapper .search-btn:hover {
-            background: #e0e0e0;
-            color: #2b6893;
-        }
-
         .tabs-nav .search-wrapper .clear-btn {
             background: none;
             border: none;
@@ -254,21 +242,54 @@
             display: inline-block;
         }
 
-        .highlight-item {
-            background-color: #fff3cd !important;
-            border-color: #ffc107 !important;
-            box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.3);
-            transition: all 0.3s;
+        /* ============================================
+           BARRA DE SUBTABS
+           ============================================ */
+        .subtabs-nav {
+            display: none;
+            background: #f4f6f7;
+            border-bottom: 1px solid #cdcdcd;
+            padding: 0 12px;
+            flex-shrink: 0;
+            overflow-x: auto;
+            white-space: nowrap;
+            align-items: stretch;
+            min-height: 38px;
         }
 
-        .highlight-item label {
-            color: #856404 !important;
+        .subtabs-nav.visible {
+            display: flex;
         }
 
-        .tab-pane.active {
-            scroll-behavior: smooth;
+        .subtabs-nav .subtab-link {
+            padding: 9px 16px;
+            border: 1px solid transparent;
+            border-bottom: 2px solid transparent;
+            background: transparent;
+            color: #52616b;
+            font: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.15s;
         }
 
+        .subtabs-nav .subtab-link:hover {
+            background: #e6ecef;
+            color: #2b6893;
+        }
+
+        .subtabs-nav .subtab-link.active {
+            color: #2b6893;
+            background: #fafafa;
+            border-color: #d5dade;
+            border-bottom-color: #2b6893;
+        }
+
+        /* ============================================
+           CONTEÚDO
+           ============================================ */
         .tabs-body {
             padding: 20px;
             overflow-y: auto;
@@ -285,6 +306,14 @@
             display: block;
             height: 100%;
             overflow-y: auto;
+        }
+
+        .subtab-pane {
+            display: none;
+        }
+
+        .subtab-pane.active {
+            display: block;
         }
 
         .form-row {
@@ -351,17 +380,17 @@
         }
 
         /* ============================================
-           GRID UNIFICADO COM DENSE FLOW
+           GRID DE CHECKBOX - COM DENSE
            ============================================ */
         .checkbox-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             grid-auto-flow: row dense;
+            align-items: start;
             gap: 12px 20px;
             margin-bottom: 20px;
         }
 
-        /* Itens simples do grid */
         .checkbox-item {
             display: flex;
             align-items: center;
@@ -407,38 +436,55 @@
         }
 
         /* ============================================
-           PARAM WRAPPER - OCUPA 1 COLUNA POR PADRÃO
+           PARAM WRAPPER - CARD EXPANSÍVEL
            ============================================ */
         .param-wrapper {
-            display: contents;
-        }
-
-        /* O checkbox do wrapper se comporta como um item normal */
-        .param-wrapper .checkbox-item {
+            display: grid;
             grid-column: span 1;
+            grid-template-columns: minmax(0, 1fr);
+            align-content: start;
+            min-width: 0;
         }
 
-        /* Quando ativo, o checkbox ocupa 3 colunas */
-        .param-wrapper.active .checkbox-item {
+        .param-wrapper > .checkbox-item {
             grid-column: 1 / -1;
-            background: #f0f4f8;
-            border-color: #2b6893;
-            border-radius: 3px 3px 0 0;
+            width: 100%;
+            min-height: 44px;
+        }
+
+        .param-wrapper > .param-card-body {
+            display: none;
+            grid-column: 1 / -1;
+            width: 100%;
+        }
+
+        .param-wrapper.active {
+            grid-column: 1 / -1;
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .param-wrapper.active > .param-card-body {
+            display: grid;
+        }
+
+        .param-wrapper.active > .checkbox-item {
+            background: #edf4f8;
+            border: 1px solid #2b6893;
             border-bottom: 1px solid #2b6893;
-            padding: 8px 12px;
+            border-radius: 4px 4px 0 0;
+            padding: 10px 14px;
             cursor: default;
         }
 
-        .param-wrapper.active .checkbox-item label {
+        .param-wrapper.active > .checkbox-item label {
             color: #2b6893;
             font-weight: bold;
         }
 
-        .param-wrapper.active .checkbox-item:hover {
-            background: #f0f4f8;
+        .param-wrapper.active > .checkbox-item:hover {
+            background: #edf4f8;
         }
 
-        /* Ícone de expansão */
         .param-wrapper .toggle-icon {
             font-size: 12px;
             color: #999;
@@ -457,20 +503,18 @@
             transform: rotate(180deg);
         }
 
-        /* Card de configurações - ocupa 3 colunas quando visível */
         .param-card-body {
-            display: none;
             background: #ffffff;
             border: 1px solid #2b6893;
-            border-radius: 0 0 3px 3px;
+            border-radius: 0 0 4px 4px;
             padding: 14px 16px 16px 16px;
             margin-top: -1px;
             grid-column: 1 / -1;
             transition: all 0.3s ease;
-        }
-
-        .param-card-body.visible {
-            display: block;
+            grid-template-columns: minmax(0, 1fr);
+            align-content: start;
+            gap: 14px;
+            min-width: 0;
         }
 
         .param-card-body .form-row-context {
@@ -494,7 +538,6 @@
             flex: 1;
         }
 
-        /* Ajuste para checkbox dentro do card */
         .param-card-body .checkbox-item {
             background: #f9f9f9;
             border: 1px solid #e0e0e0;
@@ -529,7 +572,7 @@
         }
 
         /* ============================================
-           OUTROS ESTILOS (mantidos)
+           SEÇÕES E LISTAS
            ============================================ */
         .section-title {
             font-weight: bold;
@@ -661,172 +704,546 @@
             min-width: 180px;
         }
 
-        .formRow .formRight {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        /* ============================================
+           REFINAMENTO VISUAL DOCZ
+           ============================================ */
+        :root {
+            color-scheme: light;
+            --docz-blue: #2b6893;
+            --docz-blue-dark: #205578;
+            --docz-border: #c7cdd2;
+            --docz-surface: #fafafa;
+            --docz-muted: #66717a;
+            --docz-frame: #585858;
         }
 
-        .formRow .formRight a {
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 4px 8px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            background: #f5f5f5;
-            transition: all 0.2s;
-            text-decoration: none;
+        body {
+            background: #e9edf0;
+            color: #333;
+            font-size: 13px;
+            padding: 12px;
         }
 
-        .formRow .formRight a:hover {
-            background: #e8e8e8;
-            border-color: #2b6893;
+        body::before {
+            background: linear-gradient(135deg, rgba(39, 65, 82, .12), rgba(225, 231, 235, .52));
+            opacity: 1;
         }
 
-        .formRow .formRight a img {
-            width: 20px;
-            height: 20px;
-            vertical-align: middle;
-        }
-
-        /* Estilos para a modal de pesquisa personalizada */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal-pesquisa-container {
-            background: #585858;
+        .modal-container {
+            background: var(--docz-frame);
+            border: 1px solid #454545;
+            border-radius: 6px;
             padding: 5px;
-            border-radius: 5px;
-            max-width: 1100px;
-            width: 95%;
-            max-height: 90vh;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
-            position: relative;
-            z-index: 1001;
-        }
-
-        .modal-pesquisa-header {
-            background: url("https://docz.sosdocs.com.br/Docz/app/images/backgrounds/titleBg.png") repeat-x 0 0;
-            height: 36px;
+            box-shadow: 0 18px 48px rgba(20, 32, 40, .28), 0 2px 8px rgba(0, 0, 0, .18);
+            width: min(1600px, 100%);
+            max-height: calc(100vh - 24px);
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 12px;
-            border-radius: 2px;
+            flex-direction: column;
+            height: min(860px, calc(100dvh - 24px));
         }
 
-        .modal-pesquisa-title {
-            font-weight: bold;
-            color: #585858;
+        .modal-header {
+            flex: 0 0 42px;
+            height: 42px;
+            padding: 0 14px;
+            border-radius: 3px 3px 0 0;
+            background-color: #e6e8e9;
+            background-image: linear-gradient(#f4f5f5, #d9dddf);
+            border-bottom: 1px solid #c4c9cc;
+        }
+
+        .modal-title {
+            color: #46525b;
+            font-size: 14px;
+        }
+
+        .modal-title .editando {
+            color: #a84036;
+            margin-right: 5px;
+        }
+
+        .ui-icon-close {
+            position: relative;
+            background-image: none;
+            text-indent: 0;
+        }
+
+        .ui-icon-close::before {
+            content: "×";
+            position: absolute;
+            inset: -2px 0 0;
+            color: #4f5961;
+            font: 20px/16px Arial, sans-serif;
+            text-align: center;
+        }
+
+        .modal-content {
+            flex: 1 1 auto;
+            height: auto;
+            max-height: none;
+            min-height: 0;
+            overflow: hidden;
+            border-radius: 0 0 3px 3px;
+            position: relative;
+        }
+
+        .tabs-nav {
+            position: sticky;
+            top: 0;
+            z-index: 5;
+            padding: 5px 8px;
+            gap: 8px;
+            background: #eef0f1;
+            border-bottom: 1px solid var(--docz-border);
+            box-shadow: 0 2px 5px rgba(36, 54, 66, .06);
+        }
+
+        .tabs-nav .tab-links-wrapper {
+            align-items: stretch;
+            gap: 3px;
+            scrollbar-width: thin;
+            scrollbar-color: #aab3b9 #e5e8ea;
+        }
+
+        .tab-link {
+            padding: 11px 13px 10px;
+            border: 1px solid transparent;
+            border-bottom: 2px solid transparent;
+            border-radius: 3px 3px 0 0;
+            color: #52616b;
+            font-size: 12px;
+        }
+
+        .tab-link:hover {
+            color: var(--docz-blue-dark);
+            background: #e3e9ed;
+        }
+
+        .tab-link.active {
+            color: var(--docz-blue);
+            background: var(--docz-surface);
+            border-color: #d5dade;
+            border-bottom-color: var(--docz-blue);
+        }
+
+        .tabs-nav .search-wrapper {
+            gap: 6px;
+            padding: 0 4px;
+            background: transparent;
+        }
+
+        .tabs-nav .search-wrapper input {
+            width: clamp(180px, 19vw, 270px);
+            min-height: 36px;
+            padding: 8px 11px;
+            border: 1px solid #b9c2c8;
+            border-radius: 4px;
             font-size: 13px;
         }
 
-        .modal-pesquisa-close {
-            height: 18px;
-            padding: 1px;
-            width: 19px;
-            display: inline-block;
-            outline: none;
-            text-align: left;
-            cursor: pointer;
-            text-decoration: none;
-            background: none;
-            border: none;
-            border-radius: 2px;
+        .tabs-nav .search-wrapper input:focus,
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--docz-blue);
+            outline: 3px solid rgba(43, 104, 147, .16);
+            outline-offset: 0;
         }
 
-        .modal-pesquisa-content {
-            background: #fafafa;
-            padding: 20px;
-            max-height: calc(90vh - 80px);
-            overflow-y: auto;
+        .tabs-nav .search-wrapper .clear-btn {
+            min-width: 34px;
+            min-height: 34px;
+            color: #54636c;
+            font-size: 16px;
         }
 
-        .modal-pesquisa-content .checkbox-grid {
+        .tabs-body {
+            padding: 24px clamp(16px, 2.4vw, 34px);
+            background: var(--docz-surface);
+            flex: 1 1 auto;
+            min-height: 0;
+        }
+
+        .tab-pane.active {
+            overflow-x: hidden;
+            padding: 2px 2px 18px;
+            min-height: 0;
+        }
+
+        .form-row { gap: 18px; }
+        .form-row-context { margin-bottom: 22px; }
+
+        .form-group { min-width: min(220px, 100%); }
+
+        .form-group label,
+        .formRow label {
+            margin-bottom: 7px;
+            color: #4e5a62;
+            font-size: 12px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group input[type="email"],
+        .form-group select,
+        .form-group textarea {
+            min-height: 36px;
+            padding: 8px 10px;
+            border-color: #c4cbd0;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .checkbox-grid { gap: 10px 14px; }
+
+        .checkbox-item,
+        .param-card-body .checkbox-item {
+            min-height: 40px;
+            padding: 8px 11px;
+            border-color: #dce1e4;
+            border-radius: 4px;
+        }
+
+        .checkbox-item:hover,
+        .param-card-body .checkbox-item:hover { background: #edf3f6; }
+
+        .checkbox-item label,
+        .param-card-body .checkbox-item label { font-size: 12px; }
+
+        .param-wrapper.active > .checkbox-item {
+            border-radius: 4px 4px 0 0;
+            border-color: var(--docz-blue);
+            background: #edf4f8;
+        }
+
+        .param-card-body {
+            border-color: var(--docz-blue);
+            border-radius: 0 0 4px 4px;
+            padding: 18px;
+        }
+
+        .dialog-footer {
+            position: sticky;
+            bottom: 0;
+            z-index: 4;
+            padding: 12px 18px;
+            background: #f1f2f3;
+            border-top: 1px solid #cbd1d5;
+        }
+
+        .btn-docz {
+            min-height: 38px;
+            padding: 9px 18px;
+            border-radius: 4px;
+            font-size: 12px;
+            transition: filter .15s ease, transform .15s ease, box-shadow .15s ease;
+        }
+
+        .btn-docz:hover { filter: brightness(1.06); box-shadow: 0 2px 5px rgba(0,0,0,.15); }
+        .btn-docz:active { transform: translateY(1px); }
+        button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+            outline: 3px solid rgba(43, 104, 147, .32);
+            outline-offset: 2px;
+        }
+
+        .greenB { background-color: #76a52c; }
+        .redB { background-color: #a93d32; }
+        .dblueB { background-color: #2e6d9d; }
+        .greyB { background-color: #e5e7e8; }
+
+        .checkbox-item input[type="checkbox"] {
+            accent-color: var(--docz-blue);
+        }
+
+        .info-note { color: var(--docz-muted); font-size: 11px; }
+
+        .subtabs-nav {
+            background: #f0f3f4;
+            border-bottom: 1px solid var(--docz-border);
+            padding: 0 12px;
+            min-height: 40px;
+            box-shadow: inset 0 -1px 0 rgba(36, 54, 66, .04);
+        }
+
+        .subtabs-nav .subtab-link {
+            padding: 10px 16px;
+            font-size: 12.5px;
+            border-radius: 0;
+        }
+
+        .subtabs-nav .subtab-link.active {
+            background: var(--docz-surface);
+            border-bottom-color: var(--docz-blue);
+        }
+
+        .checkbox-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-auto-flow: row dense;
+            align-items: stretch;
+            gap: 10px 14px;
+        }
+
+        .checkbox-grid > .checkbox-item,
+        .param-wrapper > .checkbox-item,
+        .param-card-body .checkbox-item {
+            min-height: 44px;
+            padding: 10px 12px;
+        }
+
+        .tab-pane:not(#aba1) .form-row {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px 20px;
-            margin-bottom: 0;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
         }
 
-        .modal-pesquisa-content .checkbox-item {
-            background: #f9f9f9;
-            border: 1px solid #e0e0e0;
-            border-radius: 3px;
-            padding: 6px 10px;
+        .tab-pane:not(#aba1) .form-group {
+            min-width: 0;
+            width: 100%;
+            flex: initial;
+        }
+
+        .checkbox-grid > .form-group { min-width: 0; width: 100%; }
+
+        .tab-pane:not(#aba1) .form-group input,
+        .tab-pane:not(#aba1) .form-group select,
+        .tab-pane:not(#aba1) .form-group textarea { width: 100%; }
+
+        .param-card-body {
+            display: none;
+            grid-template-columns: minmax(0, 1fr);
+            align-content: start;
+            gap: 14px;
+            min-width: 0;
+            padding: 16px;
+        }
+
+        .param-card-body.visible { display: grid; }
+
+        .param-card-body > .form-row,
+        .param-card-body > .checkbox-grid,
+        .param-card-body > .checkbox-item { grid-column: 1 / -1; min-width: 0; }
+
+        .param-card-body .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            margin: 0;
+        }
+
+        .param-card-body .form-row .form-group {
+            min-width: 0;
+            width: 100%;
+        }
+
+        .param-card-body .checkbox-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px 14px;
+            margin: 0;
+        }
+
+        .param-card-body .checkbox-grid > .checkbox-item:only-child { grid-column: 1 / -1; }
+
+        #camposPesquisaGrid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+        .param-card-body .checkbox-item { border-radius: 4px; }
+
+        .checkbox-item {
             display: flex;
+            flex-direction: row;
             align-items: center;
             gap: 10px;
-            transition: background 0.2s;
-        }
-
-        .modal-pesquisa-content .checkbox-item:hover {
-            background: #f0f0f0;
-        }
-
-        .modal-pesquisa-content .checkbox-item input[type="checkbox"] {
-            margin: 0;
-            width: 16px;
-            height: 16px;
+            width: 100%;
+            min-width: 0;
+            min-height: 44px;
+            padding: 10px 12px;
+            background: #f7f9fa;
+            border: 1px solid #d6dde1;
+            border-radius: 4px;
             cursor: pointer;
-            flex-shrink: 0;
         }
 
-        .modal-pesquisa-content .checkbox-item input[type="checkbox"]:disabled {
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
+        .param-wrapper > .checkbox-item { min-height: 44px; }
 
-        .modal-pesquisa-content .checkbox-item label {
-            font-weight: normal;
+        .checkbox-item input[type="checkbox"] {
+            flex: 0 0 18px;
+            width: 18px;
+            height: 18px;
             margin: 0;
+            align-self: center;
+        }
+
+        .checkbox-item label {
+            flex: 1 1 auto;
+            min-width: 0;
+            margin: 0;
+            line-height: 1.4;
             cursor: pointer;
-            font-size: 11px;
-            color: #444;
-            flex: 1;
         }
 
-        .modal-pesquisa-content .checkbox-item .disabled-label {
-            color: #999;
-            font-style: italic;
+        .checkbox-item:hover {
+            background: #eef3f6;
+            border-color: #bac8d1;
         }
 
-        .modal-pesquisa-content .info-note {
-            margin-top: 15px;
+        .checkbox-grid.project-flags-grid { margin-bottom: 12px; }
+
+        #camposAlternativos {
+            display: none;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin: 0 0 18px;
+            padding: 16px;
+            background: #fff;
+            border: 1px solid var(--docz-border);
+            border-radius: 4px;
         }
 
-        .modal-pesquisa-footer {
-            padding: 15px;
-            background: #fafafa;
-            border-top: 1px double #ccc;
+        #camposAlternativos.visible { display: grid; }
+
+        #aba3 .email-address-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+        /* ============================================
+           CARD DE PESQUISA PERSONALIZADA (inline)
+           ============================================ */
+        .pesquisa-card-wrapper {
+            display: grid;
+            grid-column: 1 / -1;
+            grid-template-columns: minmax(0, 1fr);
+            min-width: 0;
+        }
+
+        .pesquisa-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            width: 100%;
+            padding: 12px 16px;
+            min-height: 48px;
+            border: 1px solid var(--docz-border);
+            border-radius: 4px;
+            background: #f7f9fa;
+            color: var(--docz-blue);
+            font: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            text-align: left;
+            cursor: pointer;
+            transition: background .15s, border-color .15s;
+        }
+
+        .pesquisa-card-header:hover {
+            background: #eef3f6;
+            border-color: #bac8d1;
+        }
+
+        .pesquisa-card-header[aria-expanded="true"] {
+            background: #edf4f8;
+            border-color: var(--docz-blue);
+            border-bottom: 1px solid var(--docz-blue);
+            border-radius: 4px 4px 0 0;
+        }
+
+        .pesquisa-card-icon {
+            color: #687780;
+            font-size: 12px;
+            transition: transform .2s ease;
+            user-select: none;
+        }
+
+        .pesquisa-card-header[aria-expanded="true"] .pesquisa-card-icon {
+            transform: rotate(180deg);
+            color: var(--docz-blue);
+        }
+
+        .pesquisa-card-body {
+            display: none;
+            padding: 18px;
+            background: #fff;
+            border: 1px solid var(--docz-blue);
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .pesquisa-card-body.visible {
+            display: block;
+        }
+
+        .pesquisa-card-body #camposPesquisaGrid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 10px 14px;
+        }
+
+        .pesquisa-card-actions {
             display: flex;
             justify-content: flex-end;
             gap: 10px;
+            margin-top: 18px;
+            padding-top: 14px;
+            border-top: 1px solid #e0e4e7;
+        }
+
+        /* ============================================
+           RESPONSIVO
+           ============================================ */
+        @media (max-width: 1200px) {
+            .pesquisa-card-body #camposPesquisaGrid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 900px) {
+            .modal-container {
+                height: min(860px, calc(100dvh - 16px));
+                max-height: min(860px, calc(100dvh - 16px));
+            }
+            .checkbox-grid,
+            .param-card-body .checkbox-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            #aba3 .email-address-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            #camposAlternativos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            #camposPesquisaGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .tab-pane:not(#aba1) .form-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .tabs-nav { align-items: stretch; flex-direction: column; }
+            .tabs-nav .search-wrapper { width: 100%; margin: 0; padding: 3px 2px; }
+            .tabs-nav .search-wrapper input,
+            .tabs-nav .search-wrapper input:focus { width: 100%; }
+        }
+
+        @media (max-width: 560px) {
+            body { padding: 0; }
+            .modal-container { height: 100dvh; max-height: 100dvh; border-radius: 0; padding: 4px; }
+            .modal-header { padding: 0 10px; }
+            .tabs-body { padding: 16px 12px; }
+            .checkbox-grid,
+            .param-card-body .checkbox-grid,
+            .param-card-body .form-row { grid-template-columns: minmax(0, 1fr); }
+            #camposAlternativos { grid-template-columns: minmax(0, 1fr); }
+            #camposPesquisaGrid { grid-template-columns: minmax(0, 1fr); }
+            .tab-pane:not(#aba1) .form-row { grid-template-columns: minmax(0, 1fr); }
+            #aba3 .email-address-grid { grid-template-columns: minmax(0, 1fr); }
+            .form-row { gap: 14px; }
+            .form-group { min-width: 100%; }
+            .formRow { align-items: stretch; flex-direction: column; }
+            .formRow label { min-width: 0; }
+            .dialog-footer { padding: 10px; gap: 8px; }
+            .dialog-footer .btn-docz { flex: 1; padding: 8px; }
+            .subtabs-nav { padding: 0 6px; }
+            .subtabs-nav .subtab-link { padding: 9px 12px; font-size: 11.5px; }
+            .pesquisa-card-actions { flex-direction: column; }
+            .pesquisa-card-actions .btn-docz { width: 100%; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
         }
     </style>
 </head>
 
 <body>
 
-    <div class="modal-container">
+    <div class="modal-container" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div class="modal-header">
-            <span class="modal-title"><span class="editando">Editando</span> Configurações do Projeto</span>
+            <span class="modal-title" id="modalTitle"><span class="editando">Editando</span> <span id="projectTitle">{{Nome do Projeto}}</span></span>
             <a href="#" class="wijmo-wijdialog-titlebar-close ui-corner-all wijmo-wijdialog-captionbutton" role="button"
                 onclick="fecharModal(); return false;">
                 <span class="ui-icon ui-icon-close">close</span>
@@ -834,40 +1251,43 @@
         </div>
 
         <div class="modal-content">
-            <div class="tabs-nav" id="mainTabs">
+            <!-- BARRA DE ABAS PRINCIPAIS -->
+            <div class="tabs-nav" id="mainTabs" role="tablist" aria-label="Categorias de configuração">
                 <div class="tab-links-wrapper" id="tabLinksWrapper">
-                    <div class="tab-link active" data-tab="aba1" onclick="openTab(event, 'aba1')">Dados Projeto</div>
-                    <div class="tab-link" data-tab="aba2" onclick="openTab(event, 'aba2')">Solicitações (O.S.)</div>
-                    <div class="tab-link" data-tab="aba3" onclick="openTab(event, 'aba3')">Notificações e E-mails</div>
-                    <div class="tab-link" data-tab="aba4" onclick="openTab(event, 'aba4')">Prazos e Expurgo</div>
-                    <div class="tab-link" data-tab="aba5" onclick="openTab(event, 'aba5')">Digitalização e Assinatura
-                    </div>
-                    <div class="tab-link" data-tab="aba6" onclick="openTab(event, 'aba6')">Permissões Avançadas</div>
-                    <div class="tab-link" data-tab="aba7" onclick="openTab(event, 'aba7')">Metadados Padrão</div>
-                    <div class="tab-link" data-tab="aba8" onclick="openTab(event, 'aba8')">Pesquisas</div>
-                    <div class="no-results" id="noResults">Nenhuma permissão encontrada</div>
+                    <div class="tab-link active" role="tab" aria-selected="true" tabindex="0" data-tab="aba1" onclick="openTab(event, 'aba1')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba1')}">Dados do Projeto</div>
+                    <div class="tab-link" role="tab" aria-selected="false" tabindex="0" data-tab="aba2" onclick="openTab(event, 'aba2')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba2')}">Solicitações (O.S.)</div>
+                    <div class="tab-link" role="tab" aria-selected="false" tabindex="0" data-tab="aba3" onclick="openTab(event, 'aba3')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba3')}">Notificações e E-mails</div>
+                    <div class="tab-link" role="tab" aria-selected="false" tabindex="0" data-tab="aba4" onclick="openTab(event, 'aba4')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba4')}">Prazos e Expurgo</div>
+                    <div class="tab-link" role="tab" aria-selected="false" tabindex="0" data-tab="aba5" onclick="openTab(event, 'aba5')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba5')}">Digitalização e Assinatura</div>
+                    <div class="tab-link" role="tab" aria-selected="false" tabindex="0" data-tab="aba6" onclick="openTab(event, 'aba6')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba6')}">Permissões Avançadas</div>
+                    <div class="tab-link" role="tab" aria-selected="false" tabindex="0" data-tab="aba7" onclick="openTab(event, 'aba7')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba7')}">Metadados Padrão</div>
+                    <div class="tab-link" role="tab" aria-selected="false" tabindex="0" data-tab="aba8" onclick="openTab(event, 'aba8')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba8')}">Pesquisas</div>
+                    <div class="no-results" id="noResults" role="status" aria-live="polite">Nenhuma Configuração Encontrada</div>
                 </div>
-                <div class="search-wrapper">
-                    <input type="text" id="tabSearch" placeholder="Pesquisar permissão..."
-                        onkeydown="handleSearchKeydown(event)">
+                <div class="search-wrapper" role="search">
+                    <input type="search" id="tabSearch" aria-label="Pesquisar configurações" placeholder="Pesquisar Configuração..."
+                        oninput="searchPermissions()" onkeydown="handleSearchKeydown(event)">
                     <button class="clear-btn" id="clearSearch" onclick="clearSearch()"
                         title="Limpar pesquisa">✕</button>
                 </div>
             </div>
 
+            <!-- BARRA DE SUBTABS (compartilhada) -->
+            <div class="subtabs-nav" id="subtabsNav" role="tablist" aria-label="Subseções"></div>
+
             <form class="tabs-body" onsubmit="return false;">
 
                 <!-- ========================================== -->
-                <!-- ABA 1: Dados Projeto (ATUALIZADA)          -->
+                <!-- ABA 1: Dados do Projeto                     -->
                 <!-- ========================================== -->
-                <div id="aba1" class="tab-pane active">
+                <div id="aba1" class="tab-pane active" data-subtabs="[]">
                     <div class="form-row form-row-context">
                         <div class="form-group" style="flex: 2;">
                             <label>Nome do Projeto</label>
                             <input type="text" id="nomeProjeto" placeholder="Nome do Projeto" value="">
                         </div>
                         <div class="form-group">
-                            <label>Código Guarda</label>
+                            <label>Código de Guarda</label>
                             <input type="text" id="codigoGuarda" value="" disabled>
                         </div>
                     </div>
@@ -876,38 +1296,36 @@
                         <textarea id="descricao" rows="2" placeholder="Descrição do Projeto"></textarea>
                     </div>
 
-                    <!-- ALTERNATIVOS COM CHECKBOX DE HABILITAÇÃO (NOVO) -->
-                    <div class="form-row form-row-context" style="margin-bottom: 10px;">
-                        <div class="form-group" style="flex: 1;">
-                            <div class="checkbox-item" style="border: none; background: none; padding-left: 0;">
-                                <input type="checkbox" id="habilitarAlternativos" onclick="toggleAlternativos()">
-                                <label for="habilitarAlternativos" style="font-weight: bold; color: #2b6893;">Habilitar
-                                    Campos Alternativos</label>
-                            </div>
+                    <div class="checkbox-grid project-flags-grid">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="habilitarAlternativos" onclick="toggleAlternativos()">
+                            <label for="habilitarAlternativos">Habilitar Campos Alternativos</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="ativoCheck">
+                            <label for="ativoCheck">Ativo</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="principalCheck">
+                            <label for="principalCheck">Principal</label>
                         </div>
                     </div>
 
-                    <div class="form-row form-row-context" id="camposAlternativos" style="display: none;">
+                    <div class="form-row form-row-context" id="camposAlternativos">
                         <div class="form-group"><label>ID Alternativo</label><input type="text" id="idAlternativo"
                                 placeholder="ID Alternativo" value=""></div>
                         <div class="form-group"><label>Nome Alternativo</label><input type="text" id="nomeAlternativo"
                                 placeholder="Nome Alternativo" value=""></div>
-                        <div class="form-group"><label>Código Guarda Alternativo</label><input type="text"
-                                id="codigoGuardaAlternativo" placeholder="Código Guarda Alternativo" value=""></div>
-                    </div>
-
-                    <div class="checkbox-grid">
-                        <div class="checkbox-item"><input type="checkbox" id="ativoCheck"> <label>Ativo</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="principalCheck"> <label>Principal</label>
-                        </div>
+                        <div class="form-group"><label>Código de Guarda Alternativo</label><input type="text"
+                                id="codigoGuardaAlternativo" placeholder="Código de Guarda Alternativo" value=""></div>
                     </div>
 
                     <div class="separator"></div>
 
                     <div class="form-row form-row-context">
-                        <div class="form-group"><label>Limite de Solicitação Diária</label><input type="number"
+                        <div class="form-group"><label>Limite Diário de Solicitações</label><input type="number"
                                 id="limiteSolicitacaoDiaria" value=""></div>
-                        <div class="form-group"><label>Limite de Objetos para Indexação por Lotes</label><input
+                        <div class="form-group"><label>Limite de Objetos para Indexação em Lote</label><input
                                 type="number" id="limiteIndexacaoLote" value=""></div>
                         <div class="form-group">
                             <label>Fuso Horário Padrão (UTC)</label>
@@ -929,8 +1347,7 @@
                                     <option value="G1 - GUARDA CEILANDIA I - DF">G1 - Guarda Ceilândia I - DF</option>
                                     <option value="G2 - GUARDA CEILANDIA II - DF">G2 - Guarda Ceilândia II - DF</option>
                                     <option value="G3 - GUARDA TERESINA/PI">G3 - Guarda Teresina/PI</option>
-                                    <option value="G4 - GUARDA DUQUE DE CAXIAS I - RJ">G4 - Guarda Duque de Caxias I -
-                                        RJ</option>
+                                    <option value="G4 - GUARDA DUQUE DE CAXIAS I - RJ">G4 - Guarda Duque de Caxias I - RJ</option>
                                     <option value="G5 - GUARDA SIA/DF">G5 - Guarda SIA/DF</option>
                                     <option value="G6 - GUARDA ITAPEVI - SP">G6 - Guarda Itapevi - SP</option>
                                     <option value="G7 - GUARDA SALVADOR/BA">G7 - Guarda Salvador/BA</option>
@@ -945,10 +1362,10 @@
 
                     <div class="checkbox-grid">
                         <div class="checkbox-item"><input type="checkbox" id="permitirAdicionarArquivos">
-                            <label>Permitir Adicionar Arquivo(s)</label>
+                            <label>Permitir Adicionar Arquivos</label>
                         </div>
                         <div class="checkbox-item"><input type="checkbox" id="permitirImprimirEtiquetas">
-                            <label>Permitir Imprimir Etiquetas</label>
+                            <label>Permitir Impressão de Etiquetas</label>
                         </div>
                         <div class="checkbox-item"><input type="checkbox" id="compartilharPesquisa"> <label>Compartilhar
                                 Arquivos pela Pesquisa</label></div>
@@ -963,370 +1380,466 @@
                 <!-- ========================================== -->
                 <!-- ABA 2: Solicitações (O.S.)                  -->
                 <!-- ========================================== -->
-                <div id="aba2" class="tab-pane">
-                    <div class="checkbox-grid">
-                        <div class="checkbox-item"><input type="checkbox" id="podeSolicitarCaixa"> <label>Pode Solicitar
-                                Caixa</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="podeSolicitarDocumento"> <label>Pode
-                                Solicitar Documento</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="podeSolicitarCaixaPorDocumento">
-                            <label>Pode Solicitar Caixa Através do Documento</label>
-                        </div>
-                    </div>
-
-                    <div class="form-row form-row-context">
-                        <div class="form-group"><label>Campos da Descrição da Solicitação - Documentos</label><input
-                                type="text" id="camposOSDocumento" placeholder="Ex: Campo1;Campo2" value=""></div>
-                        <div class="form-group"><label>Campos da Descrição da Solicitação - Caixas</label><input
-                                type="text" id="camposOSCaixa" placeholder="Ex: CampoA;CampoB" value=""></div>
-                    </div>
-
-                    <div class="checkbox-grid" id="gridAba2">
-                        <div class="checkbox-item"><input type="checkbox" id="enviarNotificacaoOS"> <label>Enviar
-                                Notificação de O.S</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="obrigatoriedadeDestinatario">
-                            <label>Obrigatoriedade de Destinatário na Abertura da O.S</label>
-                        </div>
-                        <div class="checkbox-item"><input type="checkbox" id="finalizarOS2Fatores"> <label>Finalizar O.S
-                                Digital com 2 Fatores</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="mostrarDadosTransporteOS"> <label>Mostrar
-                                Dados do Responsável pelo Transporte na O.S</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="disponibilizarRegistroFotografico">
-                            <label>Disponibilizar Registro Fotográfico no Atendimento da O.S</label>
-                        </div>
-                        <div class="checkbox-item"><input type="checkbox" id="inserirVinculados"> <label>Inserir
-                                Vinculados na Solicitação</label></div>
-
-                        <div class="form-group" style="grid-column: 1 / -1; margin-bottom: 0;">
-                            <label>Formato de Assinatura de O.S</label>
-                            <select id="formatoAssinaturaOS">
-                                <option value="">Selecione...</option>
-                                <option>Cliente</option>
-                                <option>Projeto</option>
-                                <option>Ambas (Cliente + Projeto)</option>
-                            </select>
-                        </div>
-
-                        <div class="param-wrapper" id="wrapperControlarVencimento">
-                            <div class="checkbox-item" onclick="toggleParamWrapper(this)">
-                                <input type="checkbox" id="controlarVencimentoCheck"
-                                    onclick="event.stopPropagation(); toggleControlarVencimento()">
-                                <label for="controlarVencimentoCheck">Controlar o Vencimento de Empréstimo do
-                                    Objeto</label>
-                                <span class="toggle-icon">▼</span>
+                <div id="aba2" class="tab-pane" data-subtabs='[
+                    {"id":"aba2Solicitacoes","label":"Solicitações","active":true},
+                    {"id":"aba2Fluxos","label":"Fluxos e Prazos"}
+                ]'>
+                    <div id="aba2Solicitacoes" class="subtab-pane active">
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item"><input type="checkbox" id="podeSolicitarCaixa"> <label>Permitir
+                                    Solicitação de Caixa</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="podeSolicitarDocumento"> <label>Permitir
+                                    Solicitação de Documento</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="podeSolicitarCaixaPorDocumento">
+                                <label>Permitir Solicitação de Caixa via Documento</label>
                             </div>
-                            <div class="param-card-body" id="controlarVencimentoFields">
-                                <div class="form-row form-row-context">
-                                    <div class="form-group">
-                                        <label>Prazo Padrão para Devolução de Objeto (em dias)</label>
-                                        <select id="prazoDevolucao">
-                                            <option value="">Selecione...</option>
-                                            <option value="7">7</option>
-                                            <option value="14">14</option>
-                                            <option value="30">30</option>
-                                            <option value="45">45</option>
-                                            <option value="60">60</option>
-                                            <option value="90">90</option>
-                                            <option value="indeterminado">Tempo Indeterminado</option>
-                                        </select>
+                        </div>
+
+                        <div class="form-row form-row-context">
+                            <div class="form-group"><label>Campos da Descrição da Solicitação — Documentos</label><input
+                                    type="text" id="camposOSDocumento" placeholder="Ex: Campo1;Campo2" value=""></div>
+                            <div class="form-group"><label>Campos da Descrição da Solicitação — Caixas</label><input
+                                    type="text" id="camposOSCaixa" placeholder="Ex: CampoA;CampoB" value=""></div>
+                        </div>
+
+                        <div class="checkbox-grid" id="gridAba2">
+                            <div class="checkbox-item"><input type="checkbox" id="enviarNotificacaoOS"> <label>Enviar
+                                    Notificação de O.S.</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="obrigatoriedadeDestinatario">
+                                <label>Exigir Destinatário na Abertura da O.S.</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="finalizarOS2Fatores"> <label>Finalizar O.S.
+                                    Digital com Dois Fatores</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="mostrarDadosTransporteOS"> <label>Exibir
+                                    Dados do Responsável pelo Transporte na O.S.</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="disponibilizarRegistroFotografico">
+                                <label>Disponibilizar Registro Fotográfico no Atendimento da O.S.</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="inserirVinculados"> <label>Inserir Itens
+                                    Vinculados na Solicitação</label></div>
+
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label>Formato de Assinatura da O.S.</label>
+                                <select id="formatoAssinaturaOS">
+                                    <option value="">Selecione...</option>
+                                    <option>Cliente</option>
+                                    <option>Projeto</option>
+                                    <option>Ambas (Cliente + Projeto)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="aba2Fluxos" class="subtab-pane">
+                        <div class="checkbox-grid">
+                            <div class="param-wrapper" id="wrapperControlarVencimento">
+                                <div class="checkbox-item" onclick="toggleParamWrapper(this)">
+                                    <input type="checkbox" id="controlarVencimentoCheck"
+                                        onclick="event.stopPropagation(); toggleControlarVencimento()">
+                                    <label for="controlarVencimentoCheck">Controlar Vencimento de Empréstimo de
+                                        Objeto</label>
+                                    <span class="toggle-icon">▼</span>
+                                </div>
+                                <div class="param-card-body" id="controlarVencimentoFields">
+                                    <div class="form-row form-row-context">
+                                        <div class="form-group">
+                                            <label>Prazo Padrão para Devolução de Objeto (em dias)</label>
+                                            <select id="prazoDevolucao">
+                                                <option value="">Selecione...</option>
+                                                <option value="7">7</option>
+                                                <option value="14">14</option>
+                                                <option value="30">30</option>
+                                                <option value="45">45</option>
+                                                <option value="60">60</option>
+                                                <option value="90">90</option>
+                                                <option value="indeterminado">Tempo Indeterminado</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>&nbsp;</label>
+                                            <div class="checkbox-item">
+                                                <input type="checkbox" id="alteracaoPrazoCheck">
+                                                <label for="alteracaoPrazoCheck">Permitir Alteração do Prazo pelo
+                                                    Solicitante</label>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label>&nbsp;</label>
+                                    <div class="form-row form-row-context">
+                                        <div class="form-group">
+                                            <label>Dia do Mês para Envio de Notificação de Empréstimo Vencido</label>
+                                            <select id="diaEnvioNotificacao">
+                                                <option value="">Selecione...</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="13">13</option>
+                                                <option value="14">14</option>
+                                                <option value="15">15</option>
+                                                <option value="16">16</option>
+                                                <option value="17">17</option>
+                                                <option value="18">18</option>
+                                                <option value="19">19</option>
+                                                <option value="20">20</option>
+                                                <option value="21">21</option>
+                                                <option value="22">22</option>
+                                                <option value="23">23</option>
+                                                <option value="24">24</option>
+                                                <option value="25">25</option>
+                                                <option value="26">26</option>
+                                                <option value="27">27</option>
+                                                <option value="28">28</option>
+                                                <option value="29">29</option>
+                                                <option value="30">30</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tempo de Inatividade para Bloqueio do Usuário (em dias)</label>
+                                            <select id="tempoBloqueioUsuario">
+                                                <option value="">Selecione...</option>
+                                                <option value="30">30</option>
+                                                <option value="60">60</option>
+                                                <option value="90">90</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="param-wrapper" id="wrapperEtapaOSRecolhimento">
+                                <div class="checkbox-item" onclick="toggleParamWrapper(this)">
+                                    <input type="checkbox" id="alterarEtapaOSRecolhimento"
+                                        onclick="event.stopPropagation(); toggleEtapaOSRecolhimento()">
+                                    <label for="alterarEtapaOSRecolhimento">Alterar Etapa Documental após Conclusão de O.S. de
+                                        Recolhimento</label>
+                                    <span class="toggle-icon">▼</span>
+                                </div>
+                                <div class="param-card-body" id="etapaOSRecolhimentoFields">
+                                    <div class="form-row form-row-context">
+                                        <div class="form-group">
+                                            <label>Etapa Documental após Conclusão de O.S. de Recolhimento</label>
+                                            <select id="etapaDocumentalPosOSRecolhimento">
+                                                <option value="">Selecione...</option>
+                                                <option>Aguardando Aprovação</option>
+                                                <option>Aprovado</option>
+                                                <option>Finalizado</option>
+                                                <option>Arquivado</option>
+                                                <option>Cancelado</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- ABA 3: Notificações e E-mails               -->
+                <!-- ========================================== -->
+                <div id="aba3" class="tab-pane" data-subtabs='[
+                    {"id":"aba3Emails","label":"Destinatários","active":true},
+                    {"id":"aba3Alertas","label":"Integrações e Alertas"}
+                ]'>
+                    <div id="aba3Emails" class="subtab-pane active">
+                        <div class="form-row form-row-context email-address-grid">
+                            <div class="form-group"><label>E-mail do Cliente para Comunicações e Notificações</label><input
+                                    type="email" id="emailComunicacoes" placeholder="Cliente@dominio.com" value=""></div>
+                            <div class="form-group"><label>E-mail do Cliente para Notificações de Lotes</label><input
+                                    type="email" id="emailNotificacaoLote" placeholder="Lotes@dominio.com" value=""></div>
+                            <div class="form-group"><label>E-mail da Gestão Documental</label><input type="email"
+                                    id="emailGestaoDocumental" placeholder="Gestao@dominio.com" value=""></div>
+                            <div class="form-group"><label>E-mail da Digitalização</label><input type="email"
+                                    id="emailDigitalizacao" placeholder="Digitalizacao@dominio.com" value=""></div>
+                            <div class="form-group"><label>E-mail para Notificação de Novos Arquivos</label><input
+                                    type="email" id="emailNovosArquivos" placeholder="Novosarquivos@dominio.com" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="aba3Alertas" class="subtab-pane">
+                        <div class="checkbox-grid" id="gridAba3">
+                            <div class="checkbox-item"><input type="checkbox" id="verIntegracoes"> <label>Ver
+                                    Integrações</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="compartilharPacotesPreservacao">
+                                <label>Compartilhar Pacotes de Preservação</label>
+                            </div>
+
+                            <div class="param-wrapper" id="wrapperSlaNormal">
+                                <div class="checkbox-item" onclick="toggleParamWrapper(this)">
+                                    <input type="checkbox" id="notificarSlaNormalCheck"
+                                        onclick="event.stopPropagation(); toggleSlaNormal()">
+                                    <label for="notificarSlaNormalCheck">Notificar Vencimento de SLA — Prioridade
+                                        Normal</label>
+                                    <span class="toggle-icon">▼</span>
+                                </div>
+                                <div class="param-card-body" id="slaNormalFields">
+                                    <div class="form-row form-row-context">
+                                        <div class="form-group"><label>E-mail — Prioridade Normal</label><input type="text"
+                                                id="emailSlaNormal" placeholder="Digite os E-mails separados por ;"
+                                                value=""></div>
+                                        <div class="form-group"><label>Tempo de Aviso Prévio — Prioridade Normal (Horas)</label><input
+                                                type="text" id="tempoAvisoSlaNormal" placeholder="Exemplo: 48;24;12"
+                                                value=""></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="param-wrapper" id="wrapperSlaUrgente">
+                                <div class="checkbox-item" onclick="toggleParamWrapper(this)">
+                                    <input type="checkbox" id="notificarSlaUrgenteCheck"
+                                        onclick="event.stopPropagation(); toggleSlaUrgente()">
+                                    <label for="notificarSlaUrgenteCheck">Notificar Vencimento de SLA — Prioridade
+                                        Urgente</label>
+                                    <span class="toggle-icon">▼</span>
+                                </div>
+                                <div class="param-card-body" id="slaUrgenteFields">
+                                    <div class="form-row form-row-context">
+                                        <div class="form-group"><label>E-mail — Prioridade Urgente</label><input type="text"
+                                                id="emailSlaUrgente" placeholder="Digite os E-mails separados por ;"
+                                                value=""></div>
+                                        <div class="form-group"><label>Tempo de Aviso Prévio — Prioridade Urgente
+                                                (Horas)</label><input type="text" id="tempoAvisoSlaUrgente"
+                                                placeholder="Exemplo: 48;24;12" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="mostrarDadosTransporteCheck">
+                                <label for="mostrarDadosTransporteCheck">Exibir Dados do Responsável pelo Transporte na
+                                    O.S.</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- ABA 4: Prazos e Expurgo                     -->
+                <!-- ========================================== -->
+                <div id="aba4" class="tab-pane" data-subtabs='[
+                    {"id":"aba4Rotinas","label":"Rotinas de Expurgo","active":true},
+                    {"id":"aba4Alertas","label":"Alertas e Relatórios"}
+                ]'>
+                    <div id="aba4Rotinas" class="subtab-pane active">
+                        <div class="checkbox-grid" id="gridAba4">
+                            <div class="checkbox-item"><input type="checkbox" id="enviarRelatorioAnual"> <label>Enviar
+                                    Relatório de Expurgo Anual Automaticamente</label></div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="eliminarDadosExpurgo">
+                                <label>Eliminar Dados após Conclusão da O.S. de Expurgo</label>
+                            </div>
+                        </div>
+                        <div class="form-row form-row-context" style="margin-top: 20px;">
+                            <div class="form-group"><label>E-mail para Notificação do Relatório de Expurgo</label><input
+                                    type="email" id="emailRelatorioExpurgo" placeholder="Expurgo@dominio.com" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="aba4Alertas" class="subtab-pane">
+                        <div class="checkbox-grid">
+                            <div class="param-wrapper" id="wrapperPrazoGuarda">
+                                <div class="checkbox-item" onclick="toggleParamWrapper(this)">
+                                    <input type="checkbox" id="notificarPrazoGuardaCheck"
+                                        onclick="event.stopPropagation(); togglePrazoGuarda()">
+                                    <label for="notificarPrazoGuardaCheck">Notificar Prazo de Guarda a Vencer</label>
+                                    <span class="toggle-icon">▼</span>
+                                </div>
+                                <div class="param-card-body" id="prazoGuardaFields">
+                                    <div class="form-row form-row-context">
+                                        <div class="form-group"><label>Intervalo de Alerta (em Dias)</label><input
+                                                type="text" id="intervaloAlerta" placeholder="Ex: 15;30;60" value=""></div>
+                                        <div class="form-group"><label>Destinatários do Alerta de Prazo</label><input
+                                                type="text" id="destinatariosAlerta"
+                                                placeholder="Email1@dominio.com; Email2@dominio.com" value=""></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="param-wrapper" id="wrapperExpurgo">
+                                <div class="checkbox-item" onclick="toggleParamWrapper(this)">
+                                    <input type="checkbox" id="notificarExpurgoCheck"
+                                        onclick="event.stopPropagation(); toggleExpurgo()">
+                                    <label for="notificarExpurgoCheck">Notificar Expurgo por E-mail</label>
+                                    <span class="toggle-icon">▼</span>
+                                </div>
+                                <div class="param-card-body" id="expurgoFields">
+                                    <div class="form-row form-row-context">
+                                        <div class="form-group">
+                                            <label>Periodicidade do Envio do E-mail de Expurgo (em Dias)</label>
+                                            <input type="number" id="periodicidadeExpurgo" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Período Considerado no Relatório de Expurgo</label>
+                                            <div class="radio-group">
+                                                <label><input type="radio" name="periodoExpurgo" value="mensal">
+                                                    Mensal</label>
+                                                <label><input type="radio" name="periodoExpurgo" value="semestral">
+                                                    Semestral</label>
+                                                <label><input type="radio" name="periodoExpurgo" value="anual">
+                                                    Anual</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- ABA 5: Digitalização e Assinatura           -->
+                <!-- ========================================== -->
+                <div id="aba5" class="tab-pane" data-subtabs='[
+                    {"id":"aba5Digitalizacao","label":"Digitalização","active":true},
+                    {"id":"aba5Assinatura","label":"Assinatura, PDF/A e API"}
+                ]'>
+                    <div id="aba5Digitalizacao" class="subtab-pane active">
+                        <div class="checkbox-grid" id="gridAba5">
+                            <div class="checkbox-item"><input type="checkbox" id="armazenarDoczFileService">
+                                <label>Armazenar Documentos Digitais no Docz File Service</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="permitirDigitalizar"> <label>Permitir
+                                    Digitalização</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="realizarChancela"> <label>Realizar
+                                    Chancela em Documentos Digitalizados</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="realizarChancelaLote"> <label>Realizar
+                                    Chancela em Lote de Documentos Digitalizados</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="marcaDaguaChancela"> <label>Adicionar
+                                    Marca D'Água em Chancela de Documentos Digitalizados</label></div>
+                        </div>
+                    </div>
+                    <div id="aba5Assinatura" class="subtab-pane">
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item"><input type="checkbox" id="assinaturaCertificado"> <label>Realizar
+                                    Assinatura com Certificado de Usuário</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="assinaturaCertificaLote"> <label>Realizar
+                                    Assinatura com Certificado de Usuário em Lote</label></div>
+
+                            <div class="param-wrapper" id="wrapperUploadAPI">
+                                <div class="checkbox-item" onclick="toggleParamWrapper(this)">
+                                    <input type="checkbox" id="permitirUploadAPI"
+                                        onclick="event.stopPropagation(); toggleUploadAPI()">
+                                    <label for="permitirUploadAPI">Permitir Upload de um Arquivo por Documento via
+                                        API</label>
+                                    <span class="toggle-icon">▼</span>
+                                </div>
+                                <div class="param-card-body" id="uploadAPIFields">
+                                    <div class="checkbox-grid">
                                         <div class="checkbox-item">
-                                            <input type="checkbox" id="alteracaoPrazoCheck">
-                                            <label for="alteracaoPrazoCheck">Permitir Alteração do Prazo pelo
-                                                Solicitante</label>
+                                            <input type="checkbox" id="substituirArquivoAPI">
+                                            <label for="substituirArquivoAPI">Substituir Arquivo Existente via API</label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row form-row-context">
-                                    <div class="form-group">
-                                        <label>Dia do Mês para Envio de Notificação de Empréstimo Vencido</label>
-                                        <select id="diaEnvioNotificacao">
-                                            <option value="">Selecione...</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                            <option value="11">11</option>
-                                            <option value="12">12</option>
-                                            <option value="13">13</option>
-                                            <option value="14">14</option>
-                                            <option value="15">15</option>
-                                            <option value="16">16</option>
-                                            <option value="17">17</option>
-                                            <option value="18">18</option>
-                                            <option value="19">19</option>
-                                            <option value="20">20</option>
-                                            <option value="21">21</option>
-                                            <option value="22">22</option>
-                                            <option value="23">23</option>
-                                            <option value="24">24</option>
-                                            <option value="25">25</option>
-                                            <option value="26">26</option>
-                                            <option value="27">27</option>
-                                            <option value="28">28</option>
-                                            <option value="29">29</option>
-                                            <option value="30">30</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Tempo de Inatividade para Bloqueio do Usuário (Em Dias)</label>
-                                        <select id="tempoBloqueioUsuario">
-                                            <option value="">Selecione...</option>
-                                            <option value="30">30</option>
-                                            <option value="60">60</option>
-                                            <option value="90">90</option>
-                                        </select>
-                                    </div>
+                            </div>
+
+                            <div class="param-wrapper" id="wrapperPDFA">
+                                <div class="checkbox-item" onclick="toggleParamWrapper(this)">
+                                    <input type="checkbox" id="converterPDFA"
+                                        onclick="event.stopPropagation(); togglePDFA()">
+                                    <label for="converterPDFA">Converter Documentos para PDF/A</label>
+                                    <span class="toggle-icon">▼</span>
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- MOVIDO DA ABA 5: Alterar Etapa Documental após Conclusão de OS de Recolhimento -->
-                        <div class="param-wrapper" id="wrapperEtapaOSRecolhimento">
-                            <div class="checkbox-item" onclick="toggleParamWrapper(this)">
-                                <input type="checkbox" id="alterarEtapaOSRecolhimento"
-                                    onclick="event.stopPropagation(); toggleEtapaOSRecolhimento()">
-                                <label for="alterarEtapaOSRecolhimento">Alterar Etapa Documental após Conclusão de OS de
-                                    Recolhimento</label>
-                                <span class="toggle-icon">▼</span>
-                            </div>
-                            <div class="param-card-body" id="etapaOSRecolhimentoFields">
-                                <div class="form-row form-row-context">
-                                    <div class="form-group">
-                                        <label>Selecione a Etapa Documental após Conclusão de OS de Recolhimento</label>
-                                        <select id="etapaDocumentalPosOSRecolhimento">
-                                            <option value="">Selecione...</option>
-                                            <option>Aguardando Aprovação</option>
-                                            <option>Aprovado</option>
-                                            <option>Finalizado</option>
-                                            <option>Arquivado</option>
-                                            <option>Cancelado</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ========================================== -->
-                <!-- ABA 3: Notificações e e-mails               -->
-                <!-- ========================================== -->
-                <div id="aba3" class="tab-pane">
-                    <div class="form-row form-row-context">
-                        <div class="form-group"><label>E-mail Cliente para Comunicações/Notificações</label><input
-                                type="email" id="emailComunicacoes" placeholder="Cliente@dominio.com" value=""></div>
-                        <div class="form-group"><label>E-mail Cliente para Notificações de Lotes</label><input
-                                type="email" id="emailNotificacaoLote" placeholder="Lotes@dominio.com" value=""></div>
-                    </div>
-                    <div class="form-row form-row-context">
-                        <div class="form-group"><label>E-mail Gestão Documental</label><input type="email"
-                                id="emailGestaoDocumental" placeholder="Gestao@dominio.com" value=""></div>
-                        <div class="form-group"><label>E-mail Digitalização</label><input type="email"
-                                id="emailDigitalizacao" placeholder="Digitalizacao@dominio.com" value=""></div>
-                    </div>
-                    <div class="form-row form-row-context">
-                        <div class="form-group"><label>E-mail para Notificação de Novos Arquivos</label><input
-                                type="email" id="emailNovosArquivos" placeholder="Novosarquivos@dominio.com" value="">
-                        </div>
-                    </div>
-
-                    <div class="checkbox-grid" id="gridAba3">
-                        <div class="checkbox-item"><input type="checkbox" id="verIntegracoes"> <label>Ver
-                                Integrações</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="compartilharPacotesPreservacao">
-                            <label>Compartilhar Pacotes de Preservação</label>
-                        </div>
-
-                        <div class="param-wrapper" id="wrapperSlaNormal">
-                            <div class="checkbox-item" onclick="toggleParamWrapper(this)">
-                                <input type="checkbox" id="notificarSlaNormalCheck"
-                                    onclick="event.stopPropagation(); toggleSlaNormal()">
-                                <label for="notificarSlaNormalCheck">Notificar Vencimento de SLA (Prioridade
-                                    Normal)</label>
-                                <span class="toggle-icon">▼</span>
-                            </div>
-                            <div class="param-card-body" id="slaNormalFields">
-                                <div class="form-row form-row-context">
-                                    <div class="form-group"><label>E-mail (Normal)</label><input type="text"
-                                            id="emailSlaNormal" placeholder="Digite os E-mails separados por ;"
-                                            value=""></div>
-                                    <div class="form-group"><label>Tempo de Aviso Prévio (Normal) - Horas</label><input
-                                            type="text" id="tempoAvisoSlaNormal" placeholder="Exemplo: 48;24;12"
-                                            value=""></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="param-wrapper" id="wrapperSlaUrgente">
-                            <div class="checkbox-item" onclick="toggleParamWrapper(this)">
-                                <input type="checkbox" id="notificarSlaUrgenteCheck"
-                                    onclick="event.stopPropagation(); toggleSlaUrgente()">
-                                <label for="notificarSlaUrgenteCheck">Notificar Vencimento de SLA (Prioridade
-                                    Urgente)</label>
-                                <span class="toggle-icon">▼</span>
-                            </div>
-                            <div class="param-card-body" id="slaUrgenteFields">
-                                <div class="form-row form-row-context">
-                                    <div class="form-group"><label>E-mail (Urgente)</label><input type="text"
-                                            id="emailSlaUrgente" placeholder="Digite os E-mails separados por ;"
-                                            value=""></div>
-                                    <div class="form-group"><label>Tempo de Aviso Prévio (Urgência) -
-                                            Horas</label><input type="text" id="tempoAvisoSlaUrgente"
-                                            placeholder="Exemplo: 48;24;12" value="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="mostrarDadosTransporteCheck">
-                            <label for="mostrarDadosTransporteCheck">Mostrar Dados do Responsável pelo Transporte na
-                                O.S.</label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ========================================== -->
-                <!-- ABA 4: Prazos e Expurgo                    -->
-                <!-- ========================================== -->
-                <div id="aba4" class="tab-pane">
-                    <div class="checkbox-grid" id="gridAba4">
-                        <div class="checkbox-item"><input type="checkbox" id="enviarRelatorioAnual"> <label>Enviar
-                                Relatório de Expurgo Anualmente Automaticamente</label></div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="eliminarDadosExpurgo">
-                            <label>Eliminar Dados após Conclusão da O.S. de Expurgo</label>
-                        </div>
-
-                        <div class="param-wrapper" id="wrapperPrazoGuarda">
-                            <div class="checkbox-item" onclick="toggleParamWrapper(this)">
-                                <input type="checkbox" id="notificarPrazoGuardaCheck"
-                                    onclick="event.stopPropagation(); togglePrazoGuarda()">
-                                <label for="notificarPrazoGuardaCheck">Notificar Prazo de Guarda a Vencer</label>
-                                <span class="toggle-icon">▼</span>
-                            </div>
-                            <div class="param-card-body" id="prazoGuardaFields">
-                                <div class="form-row form-row-context">
-                                    <div class="form-group"><label>Definir o Intervalo de Alerta (em Dias)</label><input
-                                            type="text" id="intervaloAlerta" placeholder="Ex: 15;30;60" value=""></div>
-                                    <div class="form-group"><label>Destinatários do Alerta de Prazo</label><input
-                                            type="text" id="destinatariosAlerta"
-                                            placeholder="Email1@dominio.com; Email2@dominio.com" value=""></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="param-wrapper" id="wrapperExpurgo">
-                            <div class="checkbox-item" onclick="toggleParamWrapper(this)">
-                                <input type="checkbox" id="notificarExpurgoCheck"
-                                    onclick="event.stopPropagation(); toggleExpurgo()">
-                                <label for="notificarExpurgoCheck">Notificar Expurgo por E-mail</label>
-                                <span class="toggle-icon">▼</span>
-                            </div>
-                            <div class="param-card-body" id="expurgoFields">
-                                <div class="form-row form-row-context">
-                                    <div class="form-group">
-                                        <label>Periodicidade do Envio de E-mail de Expurgo (em Dias)</label>
-                                        <input type="number" id="periodicidadeExpurgo" value="">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Período a ser Considerado no Relatório de Expurgo Enviado</label>
-                                        <div class="radio-group">
-                                            <label><input type="radio" name="periodoExpurgo" value="mensal">
-                                                Mensal</label>
-                                            <label><input type="radio" name="periodoExpurgo" value="semestral">
-                                                Semestral</label>
-                                            <label><input type="radio" name="periodoExpurgo" value="anual">
-                                                Anual</label>
+                                <div class="param-card-body" id="pdfaFields">
+                                    <div class="form-row form-row-context">
+                                        <div class="form-group">
+                                            <label>Etapa Documental de Entrada (PDF/A)</label>
+                                            <select id="etapaDocumentalEntradaPDFA">
+                                                <option value="">Selecione...</option>
+                                                <option>Aguardando Aprovação</option>
+                                                <option>Aprovado</option>
+                                                <option>Finalizado</option>
+                                                <option>Arquivado</option>
+                                                <option>Cancelado</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Etapa Documental de Saída (PDF/A)</label>
+                                            <select id="etapaDocumentalSaidaPDFA">
+                                                <option value="">Selecione...</option>
+                                                <option>Aguardando Aprovação</option>
+                                                <option>Aprovado</option>
+                                                <option>Finalizado</option>
+                                                <option>Arquivado</option>
+                                                <option>Cancelado</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="form-row form-row-context" style="margin-top: 20px;">
-                        <div class="form-group"><label>E-mail para Notificação de Relatório de Expurgo</label><input
-                                type="email" id="emailRelatorioExpurgo" placeholder="Expurgo@dominio.com" value="">
-                        </div>
-                    </div>
                 </div>
 
                 <!-- ========================================== -->
-                <!-- ABA 5: Digitalização e Assinatura          -->
+                <!-- ABA 6: Permissões Avançadas                 -->
                 <!-- ========================================== -->
-                <div id="aba5" class="tab-pane">
-                    <div class="checkbox-grid" id="gridAba5">
-                        <div class="checkbox-item"><input type="checkbox" id="armazenarDoczFileService">
-                            <label>Armazenar Documentos Digitais no Docz File Service</label>
-                        </div>
-                        <div class="checkbox-item"><input type="checkbox" id="permitirDigitalizar"> <label>Permitir
-                                Digitalizar</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="realizarChancela"> <label>Realizar
-                                Chancela em Documentos Digitalizados</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="realizarChancelaLote"> <label>Realizar
-                                Chancela em Documentos Digitalizados em Lote</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="marcaDaguaChancela"> <label>Adicionar
-                                Marca D'Água em Chancela de Documentos Digitalizados</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="assinaturaCertificado"> <label>Realizar
-                                Assinatura com Certificado de Usuário</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="assinaturaCertificaLote"> <label>Realizar
-                                Assinatura com Certificado de Usuário em Lote</label></div>
-
-                        <div class="param-wrapper" id="wrapperUploadAPI">
-                            <div class="checkbox-item" onclick="toggleParamWrapper(this)">
-                                <input type="checkbox" id="permitirUploadAPI"
-                                    onclick="event.stopPropagation(); toggleUploadAPI()">
-                                <label for="permitirUploadAPI">Permitir Upload de um Arquivo por Documento via
-                                    API</label>
-                                <span class="toggle-icon">▼</span>
+                <div id="aba6" class="tab-pane" data-subtabs='[
+                    {"id":"aba6Acesso","label":"Acesso e Operações","active":true},
+                    {"id":"aba6Alteracoes","label":"Alterações e Inativação"}
+                ]'>
+                    <div id="aba6Acesso" class="subtab-pane active">
+                        <div class="checkbox-grid" id="gridAba6">
+                            <div class="checkbox-item"><input type="checkbox" id="habilitarEnvioSEI"> <label>Habilitar Envio
+                                    para o SEI</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="visualizarVersoes"> <label>Visualizar
+                                    Versões</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="liberarAvaliacaoSemTipologia">
+                                <label>Permitir Liberação de Objetos para Avaliação sem Tipologia de Arquivos</label>
                             </div>
-                            <div class="param-card-body" id="uploadAPIFields">
-                                <div class="checkbox-grid" style="margin-bottom: 0; grid-template-columns: 1fr;">
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="substituirArquivoAPI">
-                                        <label for="substituirArquivoAPI">Substituir Arquivo Existente via API</label>
+                            <div class="checkbox-item"><input type="checkbox" id="arquivarDesarquivar"> <label>Permitir
+                                    Arquivar e Desarquivar Documentos</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="permitirRelacionamentos"> <label>Permitir
+                                    Relacionamentos</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="restringirPorDepartamento">
+                                <label>Restringir Acesso a Documentos por Departamento do Usuário</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="exigirJustificativaAlterar"> <label>Exigir
+                                    Justificativa ao Alterar um Objeto</label></div>
+                        </div>
+                    </div>
+                    <div id="aba6Alteracoes" class="subtab-pane">
+                        <div class="checkbox-grid">
+                            <div class="param-wrapper" id="wrapperAlteracaoAutor">
+                                <div class="checkbox-item" onclick="toggleParamWrapper(this)">
+                                    <input type="checkbox" id="alteracaoSomenteAutorCheck"
+                                        onclick="event.stopPropagation(); toggleEtapaDocumentalAutor()">
+                                    <label for="alteracaoSomenteAutorCheck">Alteração de Objetos Somente pelo Autor</label>
+                                    <span class="toggle-icon">▼</span>
+                                </div>
+                                <div class="param-card-body" id="etapaDocumentalAutorFields">
+                                    <div class="form-group">
+                                        <label>Etapa Documental — Alteração pelo Autor</label>
+                                        <select id="etapaDocumentalAutor">
+                                            <option value="">Selecione...</option>
+                                            <option>Aguardando Aprovação</option>
+                                            <option>Aprovado</option>
+                                            <option>Finalizado</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="param-wrapper" id="wrapperPDFA">
-                            <div class="checkbox-item" onclick="toggleParamWrapper(this)">
-                                <input type="checkbox" id="converterPDFA"
-                                    onclick="event.stopPropagation(); togglePDFA()">
-                                <label for="converterPDFA">Converter documentos para PDF/A</label>
-                                <span class="toggle-icon">▼</span>
-                            </div>
-                            <div class="param-card-body" id="pdfaFields">
-                                <div class="form-row form-row-context">
+                            <div class="param-wrapper" id="wrapperInativarArquivos">
+                                <div class="checkbox-item" onclick="toggleParamWrapper(this)">
+                                    <input type="checkbox" id="inativarArquivosCheck"
+                                        onclick="event.stopPropagation(); toggleEtapaDocumentalInativar()">
+                                    <label for="inativarArquivosCheck">Inativar Arquivos</label>
+                                    <span class="toggle-icon">▼</span>
+                                </div>
+                                <div class="param-card-body" id="etapaDocumentalInativarFields">
                                     <div class="form-group">
-                                        <label>Selecione a Etapa Documental Entrada (para PDF/A)</label>
-                                        <select id="etapaDocumentalEntradaPDFA">
+                                        <label>Etapa Documental — Inativação</label>
+                                        <select id="etapaDocumentalInativar">
                                             <option value="">Selecione...</option>
-                                            <option>Aguardando Aprovação</option>
-                                            <option>Aprovado</option>
-                                            <option>Finalizado</option>
-                                            <option>Arquivado</option>
-                                            <option>Cancelado</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Selecione a Etapa Documental Saída (para PDF/A)</label>
-                                        <select id="etapaDocumentalSaidaPDFA">
-                                            <option value="">Selecione...</option>
-                                            <option>Aguardando Aprovação</option>
-                                            <option>Aprovado</option>
-                                            <option>Finalizado</option>
                                             <option>Arquivado</option>
                                             <option>Cancelado</option>
                                         </select>
@@ -1334,78 +1847,13 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- O bloco wrapperEtapaOSRecolhimento foi MOVIDO para a aba 2 -->
                     </div>
                 </div>
 
                 <!-- ========================================== -->
-                <!-- ABA 6: Permissões Avançadas                -->
+                <!-- ABA 7: Metadados Padrão                     -->
                 <!-- ========================================== -->
-                <div id="aba6" class="tab-pane">
-                    <div class="checkbox-grid" id="gridAba6">
-                        <div class="checkbox-item"><input type="checkbox" id="habilitarEnvioSEI"> <label>Habilitar Envio
-                                para o SEI</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="visualizarVersoes"> <label>Visualizar
-                                Versões</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="liberarAvaliacaoSemTipologia">
-                            <label>Permitir Liberar Objetos para Avaliação sem Informar Tipologia de Arquivos</label>
-                        </div>
-                        <div class="checkbox-item"><input type="checkbox" id="arquivarDesarquivar"> <label>Permitir
-                                Arquivar/Desarquivar Documentos</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="permitirRelacionamentos"> <label>Permitir
-                                Relacionamentos</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="restringirPorDepartamento">
-                            <label>Restringir Acesso aos Documentos por Departamento do Usuário</label>
-                        </div>
-                        <div class="checkbox-item"><input type="checkbox" id="exigirJustificativaAlterar"> <label>Exigir
-                                Justificativa ao Alterar um Objeto</label></div>
-
-                        <div class="param-wrapper" id="wrapperAlteracaoAutor">
-                            <div class="checkbox-item" onclick="toggleParamWrapper(this)">
-                                <input type="checkbox" id="alteracaoSomenteAutorCheck"
-                                    onclick="event.stopPropagation(); toggleEtapaDocumentalAutor()">
-                                <label for="alteracaoSomenteAutorCheck">Alteração de Objetos Somente pelo Autor</label>
-                                <span class="toggle-icon">▼</span>
-                            </div>
-                            <div class="param-card-body" id="etapaDocumentalAutorFields">
-                                <div class="form-group">
-                                    <label>Selecione a Etapa Documental (Alteração pelo Autor)</label>
-                                    <select id="etapaDocumentalAutor">
-                                        <option value="">Selecione...</option>
-                                        <option>Aguardando Aprovação</option>
-                                        <option>Aprovado</option>
-                                        <option>Finalizado</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="param-wrapper" id="wrapperInativarArquivos">
-                            <div class="checkbox-item" onclick="toggleParamWrapper(this)">
-                                <input type="checkbox" id="inativarArquivosCheck"
-                                    onclick="event.stopPropagation(); toggleEtapaDocumentalInativar()">
-                                <label for="inativarArquivosCheck">Inativar Arquivos</label>
-                                <span class="toggle-icon">▼</span>
-                            </div>
-                            <div class="param-card-body" id="etapaDocumentalInativarFields">
-                                <div class="form-group">
-                                    <label>Selecione a Etapa Documental (Inativar)</label>
-                                    <select id="etapaDocumentalInativar">
-                                        <option value="">Selecione...</option>
-                                        <option>Arquivado</option>
-                                        <option>Cancelado</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ========================================== -->
-                <!-- ABA 7: Metadados Padrão                    -->
-                <!-- ========================================== -->
-                <div id="aba7" class="tab-pane">
+                <div id="aba7" class="tab-pane" data-subtabs="[]">
                     <div class="checkbox-grid" id="gridAba7">
                         <div class="param-wrapper" id="wrapperMetadados">
                             <div class="checkbox-item" onclick="toggleParamWrapper(this)">
@@ -1423,7 +1871,7 @@
                                             id="localDigitalizacao" placeholder="Local Padrão" value=""></div>
                                 </div>
                                 <div class="form-row form-row-context">
-                                    <div class="form-group"><label>Responsável da Digitalização</label><input
+                                    <div class="form-group"><label>Responsável pela Digitalização</label><input
                                             type="text" id="responsavelDigitalizacao" placeholder="Responsável Padrão"
                                             value=""></div>
                                     <div class="form-group"><label>Local de Produção</label><input type="text"
@@ -1435,20 +1883,281 @@
                 </div>
 
                 <!-- ========================================== -->
-                <!-- ABA 8: Pesquisas                           -->
+                <!-- ABA 8: Pesquisas                            -->
                 <!-- ========================================== -->
-                <div id="aba8" class="tab-pane">
-                    <div class="formRow">
-                        <label for="pesquisaPersonalizada">Pesquisa Personalizada:</label>
-                        <div class="formRight">
-                            <a href="#" onclick="abrirModalPesquisa(); return false;" title="Personalizar Pesquisa">
-                                <img src="https://doczhml.sosdocs.com.br/Docz/app/images/icons/search.png"
-                                    alt="Personalizar Pesquisa">
-                            </a>
+                <div id="aba8" class="tab-pane" data-subtabs="[]">
+                    <div class="pesquisa-card-wrapper" id="pesquisaWrapper">
+                        <button type="button" class="pesquisa-card-header" id="pesquisaToggle"
+                                aria-expanded="false" aria-controls="pesquisaCardBody"
+                                onclick="togglePesquisaCard()">
+                            <span class="pesquisa-card-title">Pesquisa Personalizada</span>
+                            <span class="pesquisa-card-icon" aria-hidden="true">▼</span>
+                        </button>
+
+                        <div class="pesquisa-card-body" id="pesquisaCardBody">
+                            <div class="info-note" style="margin-bottom: 14px;">
+                                Selecione os campos que deseja exibir na pesquisa avançada. Campos marcados são obrigatórios e não podem ser desativados.
+                            </div>
+                            <div class="checkbox-grid" id="camposPesquisaGrid">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoIdentificadorSOS" checked disabled>
+                                    <label for="pesqCampoIdentificadorSOS" class="disabled-label">Identificador SOS</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoLocalizacao">
+                                    <label for="pesqCampoLocalizacao">Localização</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoStatus">
+                                    <label for="pesqCampoStatus">Status</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoServico">
+                                    <label for="pesqCampoServico">Serviço</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoIdentificadorCliente" checked disabled>
+                                    <label for="pesqCampoIdentificadorCliente" class="disabled-label">Identificador Cliente</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoDescricao">
+                                    <label for="pesqCampoDescricao">Descrição</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoDepartamento">
+                                    <label for="pesqCampoDepartamento">Departamento</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoTipoObjeto">
+                                    <label for="pesqCampoTipoObjeto">Tipo de Objeto</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoLacre01">
+                                    <label for="pesqCampoLacre01">Lacre 01</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoLacre02">
+                                    <label for="pesqCampoLacre02">Lacre 02</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoNumeroUltimaSolicitacao">
+                                    <label for="pesqCampoNumeroUltimaSolicitacao">Nº Última Solicitação</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoUsuario">
+                                    <label for="pesqCampoUsuario">Usuário</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoNumeroConcorrente" checked disabled>
+                                    <label for="pesqCampoNumeroConcorrente" class="disabled-label">Nº Concorrente</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoClassificacao">
+                                    <label for="pesqCampoClassificacao">Classificação</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoPaginas">
+                                    <label for="pesqCampoPaginas">Páginas</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoIdNuxeo">
+                                    <label for="pesqCampoIdNuxeo">IdNuxeo</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoVolume">
+                                    <label for="pesqCampoVolume">Volume</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoFaseIntermediaria">
+                                    <label for="pesqCampoFaseIntermediaria">Fase Intermediária</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoDestinacaoFinal">
+                                    <label for="pesqCampoDestinacaoFinal">Destinação Final</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoFaseCorrente">
+                                    <label for="pesqCampoFaseCorrente">Fase Corrente</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoObservacoes">
+                                    <label for="pesqCampoObservacoes">Observações</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoDataInicio">
+                                    <label for="pesqCampoDataInicio">Data de Início</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoEtapaIndexacao">
+                                    <label for="pesqCampoEtapaIndexacao">Etapa Indexação</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoDataCatalogacaoComplementar">
+                                    <label for="pesqCampoDataCatalogacaoComplementar">Data Catalogação Complementar</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoNumeroRG">
+                                    <label for="pesqCampoNumeroRG">Número RG</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoNomePaciente">
+                                    <label for="pesqCampoNomePaciente">Nome do Paciente</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoNumeroProntuario">
+                                    <label for="pesqCampoNumeroProntuario">Nº Prontuário</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoDestino">
+                                    <label for="pesqCampoDestino">Destino</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoNumeroDossie">
+                                    <label for="pesqCampoNumeroDossie">Número do Dossiê</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoMatricula">
+                                    <label for="pesqCampoMatricula">Matrícula</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoDepartamentoLotacao">
+                                    <label for="pesqCampoDepartamentoLotacao">Departamento de Lotação</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoUnidade">
+                                    <label for="pesqCampoUnidade">Unidade</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoOrigem">
+                                    <label for="pesqCampoOrigem">Origem</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoAnexo">
+                                    <label for="pesqCampoAnexo">Anexo</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoNumeroRegistro">
+                                    <label for="pesqCampoNumeroRegistro">Nº Registro</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoResponsavel">
+                                    <label for="pesqCampoResponsavel">Responsável</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoContratante">
+                                    <label for="pesqCampoContratante">Contratante</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoDataProducao">
+                                    <label for="pesqCampoDataProducao">Data de Produção</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoDataDestinacao">
+                                    <label for="pesqCampoDataDestinacao">Data de Destinação</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoImplantacao">
+                                    <label for="pesqCampoImplantacao">Implantação</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoJustificativaAlteracao">
+                                    <label for="pesqCampoJustificativaAlteracao">Justificativa de Alteração</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoNomeColaborador">
+                                    <label for="pesqCampoNomeColaborador">Nome do Colaborador</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoTipoDocumental">
+                                    <label for="pesqCampoTipoDocumental">Tipo Documental</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoDataNascimento">
+                                    <label for="pesqCampoDataNascimento">Data de Nascimento</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoNomeMae">
+                                    <label for="pesqCampoNomeMae">Nome da Mãe</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoNomePai">
+                                    <label for="pesqCampoNomePai">Nome do Pai</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoCPF">
+                                    <label for="pesqCampoCPF">CPF</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoDataObito">
+                                    <label for="pesqCampoDataObito">Data do Óbito</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoSigiloAssociado">
+                                    <label for="pesqCampoSigiloAssociado">Sigilo Associado</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoStatusGestaoDocumental">
+                                    <label for="pesqCampoStatusGestaoDocumental">Status Gestão Documental</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoNomeAssinante">
+                                    <label for="pesqCampoNomeAssinante">Nome do Assinante</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoClasse">
+                                    <label for="pesqCampoClasse">Classe</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoSubclasse">
+                                    <label for="pesqCampoSubclasse">Subclasse</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoGrupo">
+                                    <label for="pesqCampoGrupo">Grupo</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoSubgrupo">
+                                    <label for="pesqCampoSubgrupo">Subgrupo</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoDataEvento">
+                                    <label for="pesqCampoDataEvento">Data do Evento</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoPrazoAdicionalGuarda">
+                                    <label for="pesqCampoPrazoAdicionalGuarda">Prazo Adicional de Guarda</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoJustificativaAlteracao2">
+                                    <label for="pesqCampoJustificativaAlteracao2">Justificativa da Alteração</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoAnoInicial">
+                                    <label for="pesqCampoAnoInicial">Ano Inicial</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoColaborador">
+                                    <label for="pesqCampoColaborador">Colaborador</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoCentroCustos">
+                                    <label for="pesqCampoCentroCustos">Centro de Custos</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoCPF2">
+                                    <label for="pesqCampoCPF2">CPF</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="pesqCampoAvaliacao">
+                                    <label for="pesqCampoAvaliacao">Avaliação</label>
+                                </div>
+                            </div>
+                            <div class="pesquisa-card-actions">
+                                <button type="button" class="btn-docz greyB" onclick="fecharPesquisaCard()">Cancelar</button>
+                                <button type="button" class="btn-docz greenB" onclick="salvarPersonalizacaoPesquisa()">Salvar Personalização</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="info-note" style="margin-top: 15px;">Clique no ícone de pesquisa para personalizar os
-                        campos disponíveis na pesquisa avançada.</div>
                 </div>
 
             </form>
@@ -1460,291 +2169,67 @@
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- MODAL DE PESQUISA PERSONALIZADA            -->
-    <!-- ========================================== -->
-    <div class="modal-overlay" id="modalPesquisaOverlay">
-        <div class="modal-pesquisa-container">
-            <div class="modal-pesquisa-header">
-                <span class="modal-pesquisa-title">Personalizar Pesquisa</span>
-                <a href="#" class="modal-pesquisa-close ui-corner-all" onclick="fecharModalPesquisa(); return false;">
-                    <span class="ui-icon ui-icon-close">close</span>
-                </a>
-            </div>
-            <div class="modal-pesquisa-content">
-                <div style="margin-bottom: 15px; font-size: 12px; color: #555;">
-                    <strong>Selecione os campos que deseja exibir na pesquisa avançada:</strong>
-                </div>
-                <div class="checkbox-grid" id="camposPesquisaGrid">
-                    <!-- Todos os campos da pesquisa (mantidos) -->
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoIdentificadorSOS" checked disabled>
-                        <label for="pesqCampoIdentificadorSOS" class="disabled-label">Identificador SOS</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoLocalizacao">
-                        <label for="pesqCampoLocalizacao">Localização</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoStatus">
-                        <label for="pesqCampoStatus">Status</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoServico">
-                        <label for="pesqCampoServico">Serviço</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoIdentificadorCliente" checked disabled>
-                        <label for="pesqCampoIdentificadorCliente" class="disabled-label">Identificador Cliente</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoDescricao">
-                        <label for="pesqCampoDescricao">Descrição</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoDepartamento">
-                        <label for="pesqCampoDepartamento">Departamento</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoTipoObjeto">
-                        <label for="pesqCampoTipoObjeto">Tipo de Objeto</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoLacre01">
-                        <label for="pesqCampoLacre01">Lacre 01</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoLacre02">
-                        <label for="pesqCampoLacre02">Lacre 02</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoNumeroUltimaSolicitacao">
-                        <label for="pesqCampoNumeroUltimaSolicitacao">Nº Última Solicitação</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoUsuario">
-                        <label for="pesqCampoUsuario">Usuário</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoNumeroConcorrente" checked disabled>
-                        <label for="pesqCampoNumeroConcorrente" class="disabled-label">Nº Concorrente</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoClassificacao">
-                        <label for="pesqCampoClassificacao">Classificação</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoPaginas">
-                        <label for="pesqCampoPaginas">Páginas</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoIdNuxeo">
-                        <label for="pesqCampoIdNuxeo">IdNuxeo</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoVolume">
-                        <label for="pesqCampoVolume">Volume</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoFaseIntermediaria">
-                        <label for="pesqCampoFaseIntermediaria">Fase intermediária</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoDestinacaoFinal">
-                        <label for="pesqCampoDestinacaoFinal">Destinação final</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoFaseCorrente">
-                        <label for="pesqCampoFaseCorrente">Fase Corrente</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoObservacoes">
-                        <label for="pesqCampoObservacoes">Observações</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoDataInicio">
-                        <label for="pesqCampoDataInicio">Data de Início</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoEtapaIndexacao">
-                        <label for="pesqCampoEtapaIndexacao">Etapa Indexação</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoDataCatalogacaoComplementar">
-                        <label for="pesqCampoDataCatalogacaoComplementar">Data Catalogação Complementar</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoNumeroRG">
-                        <label for="pesqCampoNumeroRG">Número RG</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoNomePaciente">
-                        <label for="pesqCampoNomePaciente">Nome do paciente</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoNumeroProntuario">
-                        <label for="pesqCampoNumeroProntuario">Nº Prontuário</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoDestino">
-                        <label for="pesqCampoDestino">Destino</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoNumeroDossie">
-                        <label for="pesqCampoNumeroDossie">Número do Dossiê</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoMatricula">
-                        <label for="pesqCampoMatricula">Matrícula</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoDepartamentoLotacao">
-                        <label for="pesqCampoDepartamentoLotacao">Departamento de Lotação</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoUnidade">
-                        <label for="pesqCampoUnidade">Unidade</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoOrigem">
-                        <label for="pesqCampoOrigem">Origem</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoAnexo">
-                        <label for="pesqCampoAnexo">Anexo</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoNumeroRegistro">
-                        <label for="pesqCampoNumeroRegistro">Nº Registro</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoResponsavel">
-                        <label for="pesqCampoResponsavel">Responsável</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoContratante">
-                        <label for="pesqCampoContratante">Contratante</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoDataProducao">
-                        <label for="pesqCampoDataProducao">Data de Produção</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoDataDestinacao">
-                        <label for="pesqCampoDataDestinacao">Data de Destinação</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoImplantacao">
-                        <label for="pesqCampoImplantacao">Implantação</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoJustificativaAlteracao">
-                        <label for="pesqCampoJustificativaAlteracao">Justificativa de Alteração</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoNomeColaborador">
-                        <label for="pesqCampoNomeColaborador">Nome do Colaborador</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoTipoDocumental">
-                        <label for="pesqCampoTipoDocumental">Tipo Documental</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoDataNascimento">
-                        <label for="pesqCampoDataNascimento">Data de Nascimento</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoNomeMae">
-                        <label for="pesqCampoNomeMae">Nome da mãe</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoNomePai">
-                        <label for="pesqCampoNomePai">Nome do pai</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoCPF">
-                        <label for="pesqCampoCPF">CPF</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoDataObito">
-                        <label for="pesqCampoDataObito">Data do óbito</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoSigiloAssociado">
-                        <label for="pesqCampoSigiloAssociado">Sigilo Associado</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoStatusGestaoDocumental">
-                        <label for="pesqCampoStatusGestaoDocumental">Status Gestão Documental</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoNomeAssinante">
-                        <label for="pesqCampoNomeAssinante">Nome do Assinante</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoClasse">
-                        <label for="pesqCampoClasse">Classe</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoSubclasse">
-                        <label for="pesqCampoSubclasse">Subclasse</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoGrupo">
-                        <label for="pesqCampoGrupo">Grupo</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoSubgrupo">
-                        <label for="pesqCampoSubgrupo">Subgrupo</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoDataEvento">
-                        <label for="pesqCampoDataEvento">Data do Evento</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoPrazoAdicionalGuarda">
-                        <label for="pesqCampoPrazoAdicionalGuarda">Prazo Adicional de Guarda</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoJustificativaAlteracao2">
-                        <label for="pesqCampoJustificativaAlteracao2">Justificativa da Alteração</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoAnoInicial">
-                        <label for="pesqCampoAnoInicial">Ano Inicial</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoColaborador">
-                        <label for="pesqCampoColaborador">Colaborador</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoCentroCustos">
-                        <label for="pesqCampoCentroCustos">Centro de Custos</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoCPF2">
-                        <label for="pesqCampoCPF2">CPF</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="pesqCampoAvaliacao">
-                        <label for="pesqCampoAvaliacao">Avaliação</label>
-                    </div>
-                </div>
-                <div class="info-note">Campos marcados são obrigatórios e não podem ser desativados.</div>
-            </div>
-            <div class="modal-pesquisa-footer">
-                <button class="btn-docz greyB" onclick="fecharModalPesquisa()">Cancelar</button>
-                <button class="btn-docz greenB" onclick="salvarPersonalizacaoPesquisa()">Salvar Personalização</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- SCRIPT                                     -->
-    <!-- ========================================== -->
+    <!-- SCRIPT -->
     <script>
         var armazensLista = [];
 
+        // ============================================
+        // SUBTABS COMPARTILHADAS
+        // ============================================
+        function renderSubtabs(activeTabId) {
+            var subtabsNav = document.getElementById('subtabsNav');
+            var pane = document.getElementById(activeTabId);
+            if (!subtabsNav || !pane) return;
+
+            subtabsNav.innerHTML = '';
+            subtabsNav.classList.remove('visible');
+
+            var subtabsJson = pane.getAttribute('data-subtabs');
+            if (!subtabsJson) return;
+
+            var subtabs;
+            try { subtabs = JSON.parse(subtabsJson); } catch (e) { return; }
+            if (!Array.isArray(subtabs) || subtabs.length === 0) return;
+
+            subtabs.forEach(function (st) {
+                var btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'subtab-link' + (st.active ? ' active' : '');
+                btn.setAttribute('role', 'tab');
+                btn.setAttribute('aria-selected', st.active ? 'true' : 'false');
+                btn.setAttribute('aria-controls', st.id);
+                btn.textContent = st.label;
+                btn.dataset.subtab = st.id;
+                btn.onclick = function () { openSubtab(st.id); };
+                subtabsNav.appendChild(btn);
+            });
+
+            subtabsNav.classList.add('visible');
+        }
+
+        function openSubtab(paneId) {
+            var subtabsNav = document.getElementById('subtabsNav');
+            if (!subtabsNav) return;
+
+            subtabsNav.querySelectorAll('.subtab-link').forEach(function (btn) {
+                var isActive = btn.dataset.subtab === paneId;
+                btn.classList.toggle('active', isActive);
+                btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+
+            var activeTab = document.querySelector('.tab-pane.active');
+            if (!activeTab) return;
+
+            activeTab.querySelectorAll('.subtab-pane').forEach(function (sp) {
+                var isActive = sp.id === paneId;
+                sp.classList.toggle('active', isActive);
+                sp.setAttribute('aria-hidden', String(!isActive));
+            });
+        }
+
+        // ============================================
+        // NAVEGAÇÃO DE ABAS
+        // ============================================
         function openTab(evt, tabName) {
             var i, tabpane, tablinks;
             tabpane = document.getElementsByClassName("tab-pane");
@@ -1754,26 +2239,48 @@
             tablinks = document.getElementsByClassName("tab-link");
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].classList.remove("active");
+                tablinks[i].setAttribute("aria-selected", "false");
             }
             document.getElementById(tabName).classList.add("active");
 
             var clickedTab = evt.currentTarget;
             clickedTab.classList.add("active");
+            clickedTab.setAttribute("aria-selected", "true");
 
-            document.getElementById('tabSearch').value = '';
-            document.getElementById('clearSearch').classList.remove('visible');
-            document.getElementById('noResults').classList.remove('visible');
+            renderSubtabs(tabName);
 
-            document.querySelectorAll('.highlight-item').forEach(function (el) {
-                el.classList.remove('highlight-item');
-            });
+            var pane = document.getElementById(tabName);
+            var subtabPanes = pane.querySelectorAll('.subtab-pane');
+            if (subtabPanes.length > 0) {
+                var hasActive = false;
+                subtabPanes.forEach(function (sp) {
+                    if (sp.classList.contains('active')) hasActive = true;
+                });
+                if (!hasActive) {
+                    subtabPanes[0].classList.add('active');
+                    var firstId = subtabPanes[0].id;
+                    var btn = document.querySelector('#subtabsNav .subtab-link[data-subtab="' + firstId + '"]');
+                    if (btn) btn.classList.add('active');
+                }
+            }
 
-            document.querySelectorAll('.tab-link').forEach(function (el) {
-                el.classList.remove('highlight');
-                el.style.display = '';
-            });
+            if (!evt.fromSearch) {
+                document.getElementById('tabSearch').value = '';
+                document.getElementById('clearSearch').classList.remove('visible');
+                document.getElementById('noResults').classList.remove('visible');
+                document.querySelectorAll('.highlight-item').forEach(function (el) {
+                    el.classList.remove('highlight-item');
+                });
+                document.querySelectorAll('.tab-link').forEach(function (el) {
+                    el.classList.remove('highlight');
+                    el.style.display = '';
+                });
+            }
         }
 
+        // ============================================
+        // PESQUISA DE CONFIGURAÇÕES
+        // ============================================
         function handleSearchKeydown(event) {
             if (event.key === 'Enter') {
                 event.preventDefault();
@@ -1796,7 +2303,6 @@
             var noResults = document.getElementById('noResults');
             var clearBtn = document.getElementById('clearSearch');
             var foundItems = 0;
-            var tabFound = false;
 
             if (searchTerm === '') {
                 tabLinks.forEach(function (el) {
@@ -1825,7 +2331,7 @@
                 var tabId = tab.id;
                 var tabLink = document.querySelector('.tab-link[data-tab="' + tabId + '"]');
 
-                var checkboxes = tab.querySelectorAll('.checkbox-item, #checkboxContainer label');
+                var checkboxes = tab.querySelectorAll('.checkbox-item');
                 var hasMatch = false;
 
                 checkboxes.forEach(function (item) {
@@ -1845,23 +2351,15 @@
                 });
 
                 if (hasMatch) {
-                    tabFound = true;
                     if (tabLink) {
                         tabLink.style.display = '';
                         tabLink.classList.add('highlight');
                         if (matchTabId === tabId) {
-                            var fakeEvent = {currentTarget: tabLink};
+                            var fakeEvent = {currentTarget: tabLink, fromSearch: true};
                             openTab(fakeEvent, tabId);
                             setTimeout(function () {
                                 if (firstMatch) {
                                     firstMatch.scrollIntoView({behavior: 'smooth', block: 'center'});
-                                    firstMatch.style.transition = 'all 0.3s';
-                                    setTimeout(function () {
-                                        firstMatch.style.boxShadow = '0 0 0 4px rgba(255, 193, 7, 0.5)';
-                                    }, 100);
-                                    setTimeout(function () {
-                                        firstMatch.style.boxShadow = '';
-                                    }, 2000);
                                 }
                             }, 300);
                         }
@@ -1898,6 +2396,9 @@
             document.getElementById('tabSearch').focus();
         }
 
+        // ============================================
+        // ARMAZÉM
+        // ============================================
         function adicionarArmazem() {
             var select = document.getElementById('armazemSelect');
             var valor = select.value;
@@ -1912,7 +2413,7 @@
         function atualizarListaArmazens() {
             var container = document.getElementById('listaArmazens');
             container.innerHTML = '';
-            if (armazensLista.length === 0) {container.innerHTML = '<div style="padding:6px;color:#999;text-align:center;">Nenhum armazém adicionado</div>'; return;}
+            if (armazensLista.length === 0) {container.innerHTML = '<div style="padding:6px;color:#999;text-align:center;">Nenhum Armazém Adicionado</div>'; return;}
             for (var i = 0; i < armazensLista.length; i++) {
                 var item = document.createElement('div'); item.className = 'list-item';
                 item.innerHTML = '<span class="list-item-text">' + armazensLista[i] + '</span><button class="btn-remove" onclick="removerArmazem(' + i + ')">X</button>';
@@ -1920,16 +2421,16 @@
             }
         }
 
+        // ============================================
+        // AÇÕES DO MODAL PRINCIPAL
+        // ============================================
         function fecharModal() {if (confirm("Cancelar alterações?")) alert("Modal fechado.");}
         function salvarConfiguracoes() {alert("Configurações salvas com sucesso!");}
 
         // ============================================
-        // FUNÇÕES DE TOGGLE PARA OS WRAPPERS DE PARÂMETROS
+        // WRAPPERS DE PARÂMETROS
         // ============================================
-
-        function toggleParamWrapper(header) {
-            // Função placeholder - o toggle é controlado pelo checkbox
-        }
+        function toggleParamWrapper(header) {}
 
         function updateParamWrapperState(wrapperId, isChecked) {
             var wrapper = document.getElementById(wrapperId);
@@ -1949,74 +2450,61 @@
             }
         }
 
-        // Funções específicas com atualização do estado visual
         function toggleControlarVencimento() {
             var chk = document.getElementById('controlarVencimentoCheck');
             updateParamWrapperState('wrapperControlarVencimento', chk.checked);
         }
-
         function toggleSlaNormal() {
             var chk = document.getElementById('notificarSlaNormalCheck');
             updateParamWrapperState('wrapperSlaNormal', chk.checked);
         }
-
         function toggleSlaUrgente() {
             var chk = document.getElementById('notificarSlaUrgenteCheck');
             updateParamWrapperState('wrapperSlaUrgente', chk.checked);
         }
-
         function togglePrazoGuarda() {
             var chk = document.getElementById('notificarPrazoGuardaCheck');
             updateParamWrapperState('wrapperPrazoGuarda', chk.checked);
         }
-
         function toggleExpurgo() {
             var chk = document.getElementById('notificarExpurgoCheck');
             updateParamWrapperState('wrapperExpurgo', chk.checked);
         }
-
         function toggleUploadAPI() {
             var chk = document.getElementById('permitirUploadAPI');
             updateParamWrapperState('wrapperUploadAPI', chk.checked);
         }
-
         function togglePDFA() {
             var chk = document.getElementById('converterPDFA');
             updateParamWrapperState('wrapperPDFA', chk.checked);
         }
-
         function toggleEtapaOSRecolhimento() {
             var chk = document.getElementById('alterarEtapaOSRecolhimento');
             updateParamWrapperState('wrapperEtapaOSRecolhimento', chk.checked);
         }
-
         function toggleEtapaDocumentalAutor() {
             var chk = document.getElementById('alteracaoSomenteAutorCheck');
             updateParamWrapperState('wrapperAlteracaoAutor', chk.checked);
         }
-
         function toggleEtapaDocumentalInativar() {
             var chk = document.getElementById('inativarArquivosCheck');
             updateParamWrapperState('wrapperInativarArquivos', chk.checked);
         }
-
         function toggleMetadados() {
             var chk = document.getElementById('habilitarMetadadosCheck');
             updateParamWrapperState('wrapperMetadados', chk.checked);
         }
 
         // ============================================
-        // FUNÇÃO PARA ALTERNATIVOS (NOVA)
+        // CAMPOS ALTERNATIVOS
         // ============================================
         function toggleAlternativos() {
             var chk = document.getElementById('habilitarAlternativos');
             var div = document.getElementById('camposAlternativos');
             if (chk.checked) {
-                div.style.display = 'flex';
-                div.style.flexWrap = 'wrap';
-                div.style.gap = '20px';
+                div.classList.add('visible');
             } else {
-                div.style.display = 'none';
+                div.classList.remove('visible');
                 document.getElementById('idAlternativo').value = '';
                 document.getElementById('nomeAlternativo').value = '';
                 document.getElementById('codigoGuardaAlternativo').value = '';
@@ -2024,58 +2512,68 @@
         }
 
         // ============================================
-        // FUNÇÕES PARA A MODAL DE PESQUISA PERSONALIZADA
+        // CARD DE PESQUISA PERSONALIZADA
         // ============================================
-        function abrirModalPesquisa() {
-            var overlay = document.getElementById('modalPesquisaOverlay');
-            overlay.classList.add('active');
+        function togglePesquisaCard() {
+            var header = document.getElementById('pesquisaToggle');
+            var body = document.getElementById('pesquisaCardBody');
+            if (!header || !body) return;
+
+            var isOpen = header.getAttribute('aria-expanded') === 'true';
+            if (isOpen) {
+                fecharPesquisaCard();
+            } else {
+                header.setAttribute('aria-expanded', 'true');
+                body.classList.add('visible');
+            }
         }
 
-        function fecharModalPesquisa() {
-            var overlay = document.getElementById('modalPesquisaOverlay');
-            overlay.classList.remove('active');
+        function fecharPesquisaCard() {
+            var header = document.getElementById('pesquisaToggle');
+            var body = document.getElementById('pesquisaCardBody');
+            if (header) header.setAttribute('aria-expanded', 'false');
+            if (body) body.classList.remove('visible');
         }
 
         function salvarPersonalizacaoPesquisa() {
-            fecharModalPesquisa();
+            fecharPesquisaCard();
             alert("Personalização da pesquisa salva com sucesso!");
         }
 
-        // Fechar modal ao clicar fora
-        document.getElementById('modalPesquisaOverlay').addEventListener('click', function (e) {
-            if (e.target === this) {
-                fecharModalPesquisa();
-            }
-        });
-
-        document.addEventListener('keydown', function (e) {
-            if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
-                e.preventDefault();
-                document.getElementById('tabSearch').focus();
-                document.getElementById('tabSearch').select();
-            }
-            if (e.key === 'Escape') {
-                clearSearch();
-                if (document.getElementById('modalPesquisaOverlay').classList.contains('active')) {
-                    fecharModalPesquisa();
-                }
-            }
-        });
-
-        document.addEventListener('click', function (e) {
-            var searchInput = document.getElementById('tabSearch');
-            var clearBtn = document.getElementById('clearSearch');
-            if (e.target !== searchInput && e.target !== clearBtn) {
-                // Manter os destaques
-            }
-        });
-
-        atualizarListaArmazens();
-
-        // Inicialização: garantir que os wrappers com checkboxes marcados fiquem ativos
+        // ============================================
+        // INICIALIZAÇÃO
+        // ============================================
         document.addEventListener('DOMContentLoaded', function () {
-            var wrappers = document.querySelectorAll('.param-wrapper');
-            wrappers.forEach(function (wrapper) {
+            renderSubtabs('aba1');
+
+            var projectNameInput = document.getElementById('nomeProjeto');
+            var projectTitle = document.getElementById('projectTitle');
+            if (projectNameInput && projectTitle) {
+                var updateProjectTitle = function () {
+                    projectTitle.textContent = projectNameInput.value.trim() || '{{Nome do Projeto}}';
+                };
+                projectNameInput.addEventListener('input', updateProjectTitle);
+                updateProjectTitle();
+            }
+
+            document.querySelectorAll('.tab-link').forEach(function (tab) {
+                var pane = document.getElementById(tab.getAttribute('data-tab'));
+                if (pane) {
+                    tab.setAttribute('aria-controls', pane.id);
+                    pane.setAttribute('role', 'tabpanel');
+                    pane.setAttribute('aria-labelledby', tab.id || (tab.id = 'tab-' + pane.id));
+                }
+            });
+
+            document.querySelectorAll('label:not([for])').forEach(function (label, index) {
+                var control = label.querySelector('input, select, textarea') ||
+                    (label.parentElement && label.parentElement.querySelector('input, select, textarea'));
+                if (!control) return;
+                if (!control.id) control.id = 'docz-field-' + (index + 1);
+                label.htmlFor = control.id;
+            });
+
+            document.querySelectorAll('.param-wrapper').forEach(function (wrapper) {
                 var checkbox = wrapper.querySelector('.checkbox-item input[type="checkbox"]');
                 if (checkbox && checkbox.checked) {
                     var body = wrapper.querySelector('.param-card-body');
@@ -2086,6 +2584,24 @@
                 }
             });
         });
+
+        document.addEventListener('keydown', function (e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+                e.preventDefault();
+                document.getElementById('tabSearch').focus();
+                document.getElementById('tabSearch').select();
+            }
+            if (e.key === 'Escape') {
+                var header = document.getElementById('pesquisaToggle');
+                if (header && header.getAttribute('aria-expanded') === 'true') {
+                    fecharPesquisaCard();
+                } else {
+                    clearSearch();
+                }
+            }
+        });
+
+        atualizarListaArmazens();
     </script>
 </body>
 
