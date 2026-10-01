@@ -107,13 +107,13 @@
         }
 
         /* ============================================
-           BARRA DE ABAS PRINCIPAIS
-           ============================================ */
+       BARRA DE ABAS PRINCIPAIS
+       ============================================ */
         .tabs-nav {
             display: flex;
             background: #efefef;
             border-bottom: 1px solid #cdcdcd;
-            overflow-x: auto;
+            overflow: visible;
             white-space: nowrap;
             flex-wrap: nowrap;
             align-items: center;
@@ -175,6 +175,7 @@
             background: #efefef;
             padding-left: 10px;
             margin-left: auto;
+            position: relative;
         }
 
         .tabs-nav .search-wrapper input {
@@ -218,15 +219,124 @@
             display: inline-block;
         }
 
-        .tab-link.highlight {
-            background: #fff3cd;
-            border-color: #ffc107;
-            color: #856404;
+        /* ============================================
+       DROPDOWN DE RESULTADOS DA PESQUISA
+       ============================================ */
+        .search-results {
+            position: absolute;
+            top: 100%;
+            right: 8px;
+            width: 380px;
+            max-height: 340px;
+            overflow-y: auto;
+            background: #fff;
+            border: 1px solid #b9c2c8;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .18);
+            z-index: 1000;
+            display: none;
         }
 
-        .tab-link.highlight.active {
-            background: #fff3cd;
-            border-bottom-color: #ffc107;
+        .search-results.visible {
+            display: block;
+        }
+
+        .search-results .result-item {
+            padding: 9px 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #eef1f3;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            transition: background .12s;
+        }
+
+        .search-results .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-results .result-item:hover,
+        .search-results .result-item.active {
+            background: #edf4f8;
+        }
+
+        .search-results .result-item .result-label {
+            font-size: 12px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .search-results .result-item .result-path {
+            font-size: 10.5px;
+            color: #7a8790;
+            font-style: italic;
+        }
+
+        .search-results .result-item .result-label mark {
+            background: #fff3a3;
+            color: #7a5c00;
+            padding: 0 1px;
+            border-radius: 2px;
+        }
+
+        .search-results .result-empty {
+            padding: 14px;
+            text-align: center;
+            color: #999;
+            font-style: italic;
+            font-size: 11.5px;
+        }
+
+        /* ============================================
+   DESTAQUE DE RESULTADO DA PESQUISA
+   ============================================ */
+
+        /* Apenas o label dentro do item destacado ganha fundo amarelo */
+        .search-target-highlight label {
+            background-color: #fff3cd;
+            color: #7a5c00;
+            border-radius: 3px;
+            padding: 1px 4px;
+            transition: background-color .25s ease;
+        }
+
+        /* Labels dentro de checkbox-item (padding levemente maior) */
+        .search-target-highlight.checkbox-item label {
+            padding: 2px 6px;
+            display: inline-block;
+        }
+
+        /* Garante que o container NÃO receba destaque */
+        .form-group.search-target-highlight,
+        label.search-target-highlight,
+        .checkbox-item.search-target-highlight {
+            outline: none !important;
+            background: transparent !important;
+            animation: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Inputs / selects / textareas NÃO são destacados */
+        .search-target-highlight input,
+        .search-target-highlight select,
+        .search-target-highlight textarea {
+            outline: none !important;
+            background: initial !important;
+            box-shadow: none !important;
+            animation: none !important;
+        }
+
+        @keyframes searchPulse {
+
+            0%,
+            100% {
+                background-color: #fff3cd;
+            }
+
+            50% {
+                background-color: #ffe082;
+            }
         }
 
         .no-results {
@@ -243,18 +353,21 @@
         }
 
         /* ============================================
-           BARRA DE SUBTABS
-           ============================================ */
+       BARRA DE SUBTABS — ALINHADA AO CONTEÚDO
+       ============================================ */
         .subtabs-nav {
             display: none;
-            background: #f4f6f7;
-            border-bottom: 1px solid #cdcdcd;
-            padding: 0 12px;
+            background: #f0f3f4;
+            border-bottom: 1px solid var(--docz-border);
+            padding: 0 clamp(16px, 2.4vw, 34px);
             flex-shrink: 0;
             overflow-x: auto;
             white-space: nowrap;
             align-items: stretch;
-            min-height: 38px;
+            min-height: 42px;
+            box-shadow: inset 0 -1px 0 rgba(36, 54, 66, .04);
+            scrollbar-width: thin;
+            scrollbar-color: #aab3b9 #e5e8ea;
         }
 
         .subtabs-nav.visible {
@@ -262,34 +375,53 @@
         }
 
         .subtabs-nav .subtab-link {
-            padding: 9px 16px;
+            padding: 11px 18px;
             border: 1px solid transparent;
             border-bottom: 2px solid transparent;
             background: transparent;
             color: #52616b;
             font: inherit;
-            font-size: 12px;
+            font-size: 12.5px;
             font-weight: 600;
             cursor: pointer;
             flex-shrink: 0;
             transition: all 0.15s;
+            border-radius: 0;
+            position: relative;
         }
 
         .subtabs-nav .subtab-link:hover {
             background: #e6ecef;
-            color: #2b6893;
+            color: var(--docz-blue);
         }
 
         .subtabs-nav .subtab-link.active {
-            color: #2b6893;
-            background: #fafafa;
+            color: var(--docz-blue);
+            background: var(--docz-surface);
             border-color: #d5dade;
-            border-bottom-color: #2b6893;
+            border-bottom-color: var(--docz-blue);
+        }
+
+        .subtabs-nav .subtab-link:first-child {
+            margin-left: 0;
+        }
+
+        .subtabs-nav::-webkit-scrollbar {
+            height: 3px;
+        }
+
+        .subtabs-nav::-webkit-scrollbar-track {
+            background: #e0e0e0;
+        }
+
+        .subtabs-nav::-webkit-scrollbar-thumb {
+            background: #999;
+            border-radius: 3px;
         }
 
         /* ============================================
-           CONTEÚDO
-           ============================================ */
+       CONTEÚDO
+       ============================================ */
         .tabs-body {
             padding: 20px;
             overflow-y: auto;
@@ -380,8 +512,8 @@
         }
 
         /* ============================================
-           GRID DE CHECKBOX - COM DENSE
-           ============================================ */
+       GRID DE CHECKBOX
+       ============================================ */
         .checkbox-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -436,8 +568,8 @@
         }
 
         /* ============================================
-           PARAM WRAPPER - CARD EXPANSÍVEL
-           ============================================ */
+       PARAM WRAPPER - CARD EXPANSÍVEL
+       ============================================ */
         .param-wrapper {
             display: grid;
             grid-column: span 1;
@@ -446,13 +578,13 @@
             min-width: 0;
         }
 
-        .param-wrapper > .checkbox-item {
+        .param-wrapper>.checkbox-item {
             grid-column: 1 / -1;
             width: 100%;
             min-height: 44px;
         }
 
-        .param-wrapper > .param-card-body {
+        .param-wrapper>.param-card-body {
             display: none;
             grid-column: 1 / -1;
             width: 100%;
@@ -463,11 +595,11 @@
             grid-template-columns: minmax(0, 1fr);
         }
 
-        .param-wrapper.active > .param-card-body {
+        .param-wrapper.active>.param-card-body {
             display: grid;
         }
 
-        .param-wrapper.active > .checkbox-item {
+        .param-wrapper.active>.checkbox-item {
             background: #edf4f8;
             border: 1px solid #2b6893;
             border-bottom: 1px solid #2b6893;
@@ -476,12 +608,12 @@
             cursor: default;
         }
 
-        .param-wrapper.active > .checkbox-item label {
+        .param-wrapper.active>.checkbox-item label {
             color: #2b6893;
             font-weight: bold;
         }
 
-        .param-wrapper.active > .checkbox-item:hover {
+        .param-wrapper.active>.checkbox-item:hover {
             background: #edf4f8;
         }
 
@@ -503,77 +635,9 @@
             transform: rotate(180deg);
         }
 
-        .param-card-body {
-            background: #ffffff;
-            border: 1px solid #2b6893;
-            border-radius: 0 0 4px 4px;
-            padding: 14px 16px 16px 16px;
-            margin-top: -1px;
-            grid-column: 1 / -1;
-            transition: all 0.3s ease;
-            grid-template-columns: minmax(0, 1fr);
-            align-content: start;
-            gap: 14px;
-            min-width: 0;
-        }
-
-        .param-card-body .form-row-context {
-            margin-bottom: 0;
-        }
-
-        .param-card-body .form-row-context:last-child {
-            margin-bottom: 0;
-        }
-
-        .param-card-body .form-group {
-            margin-bottom: 0;
-        }
-
-        .param-card-body .form-row {
-            gap: 16px;
-        }
-
-        .param-card-body .form-row .form-group {
-            min-width: 180px;
-            flex: 1;
-        }
-
-        .param-card-body .checkbox-item {
-            background: #f9f9f9;
-            border: 1px solid #e0e0e0;
-            border-radius: 3px;
-            padding: 6px 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: background 0.2s;
-            grid-column: span 1 !important;
-        }
-
-        .param-card-body .checkbox-item:hover {
-            background: #f0f0f0;
-        }
-
-        .param-card-body .checkbox-item input[type="checkbox"] {
-            margin: 0;
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-
-        .param-card-body .checkbox-item label {
-            font-weight: normal;
-            margin: 0;
-            cursor: pointer;
-            font-size: 11px;
-            color: #444;
-            flex: 1;
-        }
-
         /* ============================================
-           SEÇÕES E LISTAS
-           ============================================ */
+       SEÇÕES E LISTAS
+       ============================================ */
         .section-title {
             font-weight: bold;
             font-size: 12px;
@@ -705,8 +769,8 @@
         }
 
         /* ============================================
-           REFINAMENTO VISUAL DOCZ
-           ============================================ */
+       REFINAMENTO VISUAL DOCZ
+       ============================================ */
         :root {
             color-scheme: light;
             --docz-blue: #2b6893;
@@ -790,12 +854,14 @@
         .tabs-nav {
             position: sticky;
             top: 0;
-            z-index: 5;
+            z-index: 50;
             padding: 5px 8px;
             gap: 8px;
             background: #eef0f1;
             border-bottom: 1px solid var(--docz-border);
             box-shadow: 0 2px 5px rgba(36, 54, 66, .06);
+            overflow: visible;
+            flex-wrap: nowrap;
         }
 
         .tabs-nav .tab-links-wrapper {
@@ -870,10 +936,17 @@
             min-height: 0;
         }
 
-        .form-row { gap: 18px; }
-        .form-row-context { margin-bottom: 22px; }
+        .form-row {
+            gap: 18px;
+        }
 
-        .form-group { min-width: min(220px, 100%); }
+        .form-row-context {
+            margin-bottom: 22px;
+        }
+
+        .form-group {
+            min-width: min(220px, 100%);
+        }
 
         .form-group label,
         .formRow label {
@@ -894,32 +967,29 @@
             font-size: 13px;
         }
 
-        .checkbox-grid { gap: 10px 14px; }
+        .checkbox-grid {
+            gap: 10px 14px;
+        }
 
-        .checkbox-item,
-        .param-card-body .checkbox-item {
+        .checkbox-item {
             min-height: 40px;
             padding: 8px 11px;
             border-color: #dce1e4;
             border-radius: 4px;
         }
 
-        .checkbox-item:hover,
-        .param-card-body .checkbox-item:hover { background: #edf3f6; }
+        .checkbox-item:hover {
+            background: #edf3f6;
+        }
 
-        .checkbox-item label,
-        .param-card-body .checkbox-item label { font-size: 12px; }
+        .checkbox-item label {
+            font-size: 12px;
+        }
 
-        .param-wrapper.active > .checkbox-item {
+        .param-wrapper.active>.checkbox-item {
             border-radius: 4px 4px 0 0;
             border-color: var(--docz-blue);
             background: #edf4f8;
-        }
-
-        .param-card-body {
-            border-color: var(--docz-blue);
-            border-radius: 0 0 4px 4px;
-            padding: 18px;
         }
 
         .dialog-footer {
@@ -939,41 +1009,47 @@
             transition: filter .15s ease, transform .15s ease, box-shadow .15s ease;
         }
 
-        .btn-docz:hover { filter: brightness(1.06); box-shadow: 0 2px 5px rgba(0,0,0,.15); }
-        .btn-docz:active { transform: translateY(1px); }
-        button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+        .btn-docz:hover {
+            filter: brightness(1.06);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .15);
+        }
+
+        .btn-docz:active {
+            transform: translateY(1px);
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible {
             outline: 3px solid rgba(43, 104, 147, .32);
             outline-offset: 2px;
         }
 
-        .greenB { background-color: #76a52c; }
-        .redB { background-color: #a93d32; }
-        .dblueB { background-color: #2e6d9d; }
-        .greyB { background-color: #e5e7e8; }
+        .greenB {
+            background-color: #76a52c;
+        }
+
+        .redB {
+            background-color: #a93d32;
+        }
+
+        .dblueB {
+            background-color: #2e6d9d;
+        }
+
+        .greyB {
+            background-color: #e5e7e8;
+        }
 
         .checkbox-item input[type="checkbox"] {
             accent-color: var(--docz-blue);
         }
 
-        .info-note { color: var(--docz-muted); font-size: 11px; }
-
-        .subtabs-nav {
-            background: #f0f3f4;
-            border-bottom: 1px solid var(--docz-border);
-            padding: 0 12px;
-            min-height: 40px;
-            box-shadow: inset 0 -1px 0 rgba(36, 54, 66, .04);
-        }
-
-        .subtabs-nav .subtab-link {
-            padding: 10px 16px;
-            font-size: 12.5px;
-            border-radius: 0;
-        }
-
-        .subtabs-nav .subtab-link.active {
-            background: var(--docz-surface);
-            border-bottom-color: var(--docz-blue);
+        .info-note {
+            color: var(--docz-muted);
+            font-size: 11px;
         }
 
         .checkbox-grid {
@@ -983,69 +1059,43 @@
             gap: 10px 14px;
         }
 
-        .checkbox-grid > .checkbox-item,
-        .param-wrapper > .checkbox-item,
-        .param-card-body .checkbox-item {
+        .checkbox-grid>.checkbox-item,
+        .param-wrapper>.checkbox-item {
             min-height: 44px;
             padding: 10px 12px;
         }
 
-        .tab-pane:not(#aba1) .form-row {
+        .tab-pane:not(#aba1) .form-row,
+        #aba1 .subtab-pane .form-row {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 14px;
         }
 
-        .tab-pane:not(#aba1) .form-group {
+        .tab-pane:not(#aba1) .form-group,
+        #aba1 .subtab-pane .form-group {
             min-width: 0;
             width: 100%;
             flex: initial;
         }
 
-        .checkbox-grid > .form-group { min-width: 0; width: 100%; }
-
-        .tab-pane:not(#aba1) .form-group input,
-        .tab-pane:not(#aba1) .form-group select,
-        .tab-pane:not(#aba1) .form-group textarea { width: 100%; }
-
-        .param-card-body {
-            display: none;
-            grid-template-columns: minmax(0, 1fr);
-            align-content: start;
-            gap: 14px;
-            min-width: 0;
-            padding: 16px;
-        }
-
-        .param-card-body.visible { display: grid; }
-
-        .param-card-body > .form-row,
-        .param-card-body > .checkbox-grid,
-        .param-card-body > .checkbox-item { grid-column: 1 / -1; min-width: 0; }
-
-        .param-card-body .form-row {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 14px;
-            margin: 0;
-        }
-
-        .param-card-body .form-row .form-group {
+        .checkbox-grid>.form-group {
             min-width: 0;
             width: 100%;
         }
 
-        .param-card-body .checkbox-grid {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 10px 14px;
-            margin: 0;
+        .tab-pane:not(#aba1) .form-group input,
+        .tab-pane:not(#aba1) .form-group select,
+        .tab-pane:not(#aba1) .form-group textarea,
+        #aba1 .subtab-pane .form-group input,
+        #aba1 .subtab-pane .form-group select,
+        #aba1 .subtab-pane .form-group textarea {
+            width: 100%;
         }
 
-        .param-card-body .checkbox-grid > .checkbox-item:only-child { grid-column: 1 / -1; }
-
-        #camposPesquisaGrid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-
-        .param-card-body .checkbox-item { border-radius: 4px; }
+        #camposPesquisaGrid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
 
         .checkbox-item {
             display: flex;
@@ -1062,7 +1112,9 @@
             cursor: pointer;
         }
 
-        .param-wrapper > .checkbox-item { min-height: 44px; }
+        .param-wrapper>.checkbox-item {
+            min-height: 44px;
+        }
 
         .checkbox-item input[type="checkbox"] {
             flex: 0 0 18px;
@@ -1085,7 +1137,9 @@
             border-color: #bac8d1;
         }
 
-        .checkbox-grid.project-flags-grid { margin-bottom: 12px; }
+        .checkbox-grid.project-flags-grid {
+            margin-bottom: 12px;
+        }
 
         #camposAlternativos {
             display: none;
@@ -1098,13 +1152,17 @@
             border-radius: 4px;
         }
 
-        #camposAlternativos.visible { display: grid; }
+        #camposAlternativos.visible {
+            display: grid;
+        }
 
-        #aba3 .email-address-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        #aba3 .email-address-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
 
         /* ============================================
-           CARD DE PESQUISA PERSONALIZADA (inline)
-           ============================================ */
+       CARD DE PESQUISA PERSONALIZADA (inline)
+       ============================================ */
         .pesquisa-card-wrapper {
             display: grid;
             grid-column: 1 / -1;
@@ -1184,8 +1242,77 @@
         }
 
         /* ============================================
-           RESPONSIVO
-           ============================================ */
+       CARDS EXPANSÍVEIS — REGRAS CONSOLIDADAS
+       ============================================ */
+        .param-card-body {
+            display: none;
+            grid-template-columns: minmax(0, 1fr);
+            align-content: start;
+            gap: 14px;
+            min-width: 0;
+            padding: 16px;
+            background: #ffffff;
+            border: 1px solid var(--docz-blue);
+            border-radius: 0 0 4px 4px;
+        }
+
+        .param-card-body.visible {
+            display: grid;
+        }
+
+        .param-card-body>.form-row,
+        .param-card-body>.checkbox-grid,
+        .param-card-body>.checkbox-item {
+            grid-column: 1 / -1;
+            min-width: 0;
+        }
+
+        .param-card-body .form-row {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin: 0;
+        }
+
+        .param-card-body .form-row .form-group {
+            min-width: 0;
+            width: 100%;
+        }
+
+        .param-card-body .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-auto-flow: row dense;
+            gap: 10px 14px;
+            margin: 0;
+        }
+
+        .param-card-body .checkbox-grid>.checkbox-item {
+            grid-column: span 1;
+            min-height: 44px;
+            padding: 10px 12px;
+            border-radius: 4px;
+        }
+
+        .param-card-body .checkbox-grid:has(> .checkbox-item:only-child) {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .param-card-body .checkbox-grid:has(> .checkbox-item:only-child)>.checkbox-item {
+            grid-column: 1 / -1;
+        }
+
+        .param-card-body .checkbox-grid.cols-1 {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .param-card-body .checkbox-grid.cols-1>.checkbox-item {
+            grid-column: 1 / -1;
+        }
+
+        /* ============================================
+       RESPONSIVO
+       ============================================ */
         @media (max-width: 1200px) {
             .pesquisa-card-body #camposPesquisaGrid {
                 grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1197,44 +1324,170 @@
                 height: min(860px, calc(100dvh - 16px));
                 max-height: min(860px, calc(100dvh - 16px));
             }
+
+            .subtabs-nav {
+                padding: 0 clamp(12px, 2vw, 24px);
+            }
+
+            .subtabs-nav .subtab-link {
+                padding: 10px 14px;
+                font-size: 12px;
+            }
+
             .checkbox-grid,
-            .param-card-body .checkbox-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            #aba3 .email-address-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            #camposAlternativos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            #camposPesquisaGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            .tab-pane:not(#aba1) .form-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            .tabs-nav { align-items: stretch; flex-direction: column; }
-            .tabs-nav .search-wrapper { width: 100%; margin: 0; padding: 3px 2px; }
+            .param-card-body .checkbox-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .param-card-body .form-row {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .param-card-body .checkbox-grid:has(> .checkbox-item:only-child),
+            .param-card-body .checkbox-grid.cols-1 {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            #aba3 .email-address-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            #camposAlternativos {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            #camposPesquisaGrid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .tab-pane:not(#aba1) .form-row,
+            #aba1 .subtab-pane .form-row {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .tabs-nav {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .tabs-nav .search-wrapper {
+                width: 100%;
+                margin: 0;
+                padding: 3px 2px;
+            }
+
             .tabs-nav .search-wrapper input,
-            .tabs-nav .search-wrapper input:focus { width: 100%; }
+            .tabs-nav .search-wrapper input:focus {
+                width: 100%;
+            }
+
+            .search-results {
+                width: 100%;
+                right: 0;
+            }
         }
 
         @media (max-width: 560px) {
-            body { padding: 0; }
-            .modal-container { height: 100dvh; max-height: 100dvh; border-radius: 0; padding: 4px; }
-            .modal-header { padding: 0 10px; }
-            .tabs-body { padding: 16px 12px; }
+            body {
+                padding: 0;
+            }
+
+            .modal-container {
+                height: 100dvh;
+                max-height: 100dvh;
+                border-radius: 0;
+                padding: 4px;
+            }
+
+            .modal-header {
+                padding: 0 10px;
+            }
+
+            .tabs-body {
+                padding: 16px 12px;
+            }
+
+            .subtabs-nav {
+                padding: 0 12px;
+            }
+
+            .subtabs-nav .subtab-link {
+                padding: 9px 12px;
+                font-size: 11.5px;
+            }
+
             .checkbox-grid,
             .param-card-body .checkbox-grid,
-            .param-card-body .form-row { grid-template-columns: minmax(0, 1fr); }
-            #camposAlternativos { grid-template-columns: minmax(0, 1fr); }
-            #camposPesquisaGrid { grid-template-columns: minmax(0, 1fr); }
-            .tab-pane:not(#aba1) .form-row { grid-template-columns: minmax(0, 1fr); }
-            #aba3 .email-address-grid { grid-template-columns: minmax(0, 1fr); }
-            .form-row { gap: 14px; }
-            .form-group { min-width: 100%; }
-            .formRow { align-items: stretch; flex-direction: column; }
-            .formRow label { min-width: 0; }
-            .dialog-footer { padding: 10px; gap: 8px; }
-            .dialog-footer .btn-docz { flex: 1; padding: 8px; }
-            .subtabs-nav { padding: 0 6px; }
-            .subtabs-nav .subtab-link { padding: 9px 12px; font-size: 11.5px; }
-            .pesquisa-card-actions { flex-direction: column; }
-            .pesquisa-card-actions .btn-docz { width: 100%; }
+            .param-card-body .form-row {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .param-card-body .checkbox-grid:has(> .checkbox-item:only-child),
+            .param-card-body .checkbox-grid.cols-1 {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            #camposAlternativos {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            #camposPesquisaGrid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .tab-pane:not(#aba1) .form-row,
+            #aba1 .subtab-pane .form-row {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            #aba3 .email-address-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .form-row {
+                gap: 14px;
+            }
+
+            .form-group {
+                min-width: 100%;
+            }
+
+            .formRow {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .formRow label {
+                min-width: 0;
+            }
+
+            .dialog-footer {
+                padding: 10px;
+                gap: 8px;
+            }
+
+            .dialog-footer .btn-docz {
+                flex: 1;
+                padding: 8px;
+            }
+
+            .pesquisa-card-actions {
+                flex-direction: column;
+            }
+
+            .pesquisa-card-actions .btn-docz {
+                width: 100%;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important;
+            }
         }
     </style>
 </head>
@@ -1243,7 +1496,8 @@
 
     <div class="modal-container" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div class="modal-header">
-            <span class="modal-title" id="modalTitle"><span class="editando">Editando</span> <span id="projectTitle">{{Nome do Projeto}}</span></span>
+            <span class="modal-title" id="modalTitle"><span class="editando">Editando</span> <span
+                    id="projectTitle">{{Nome do Projeto}}</span></span>
             <a href="#" class="wijmo-wijdialog-titlebar-close ui-corner-all wijmo-wijdialog-captionbutton" role="button"
                 onclick="fecharModal(); return false;">
                 <span class="ui-icon ui-icon-close">close</span>
@@ -1254,21 +1508,49 @@
             <!-- BARRA DE ABAS PRINCIPAIS -->
             <div class="tabs-nav" id="mainTabs" role="tablist" aria-label="Categorias de configuração">
                 <div class="tab-links-wrapper" id="tabLinksWrapper">
-                    <div class="tab-link active" role="tab" aria-selected="true" tabindex="0" data-tab="aba1" onclick="openTab(event, 'aba1')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba1')}">Dados do Projeto</div>
-                    <div class="tab-link" role="tab" aria-selected="false" tabindex="0" data-tab="aba2" onclick="openTab(event, 'aba2')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba2')}">Solicitações (O.S.)</div>
-                    <div class="tab-link" role="tab" aria-selected="false" tabindex="0" data-tab="aba3" onclick="openTab(event, 'aba3')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba3')}">Notificações e E-mails</div>
-                    <div class="tab-link" role="tab" aria-selected="false" tabindex="0" data-tab="aba4" onclick="openTab(event, 'aba4')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba4')}">Prazos e Expurgo</div>
-                    <div class="tab-link" role="tab" aria-selected="false" tabindex="0" data-tab="aba5" onclick="openTab(event, 'aba5')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba5')}">Digitalização e Assinatura</div>
-                    <div class="tab-link" role="tab" aria-selected="false" tabindex="0" data-tab="aba6" onclick="openTab(event, 'aba6')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba6')}">Permissões Avançadas</div>
-                    <div class="tab-link" role="tab" aria-selected="false" tabindex="0" data-tab="aba7" onclick="openTab(event, 'aba7')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba7')}">Metadados Padrão</div>
-                    <div class="tab-link" role="tab" aria-selected="false" tabindex="0" data-tab="aba8" onclick="openTab(event, 'aba8')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba8')}">Pesquisas</div>
-                    <div class="no-results" id="noResults" role="status" aria-live="polite">Nenhuma Configuração Encontrada</div>
+                    <div class="tab-link active" role="tab" aria-selected="true" tabindex="0" data-tab="aba1"
+                        onclick="openTab(event, 'aba1')"
+                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba1')}">
+                        Dados do Projeto</div>
+                    <div class="tab-link" role="tab" aria-selected="false" tabindex="0" data-tab="aba2"
+                        onclick="openTab(event, 'aba2')"
+                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba2')}">
+                        Solicitações (O.S.)</div>
+                    <div class="tab-link" role="tab" aria-selected="false" tabindex="0" data-tab="aba3"
+                        onclick="openTab(event, 'aba3')"
+                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba3')}">
+                        Notificações e E-mails</div>
+                    <div class="tab-link" role="tab" aria-selected="false" tabindex="0" data-tab="aba4"
+                        onclick="openTab(event, 'aba4')"
+                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba4')}">
+                        Prazos e Expurgo</div>
+                    <div class="tab-link" role="tab" aria-selected="false" tabindex="0" data-tab="aba5"
+                        onclick="openTab(event, 'aba5')"
+                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba5')}">
+                        Digitalização e Assinatura</div>
+                    <div class="tab-link" role="tab" aria-selected="false" tabindex="0" data-tab="aba6"
+                        onclick="openTab(event, 'aba6')"
+                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba6')}">
+                        Permissões Avançadas</div>
+                    <div class="tab-link" role="tab" aria-selected="false" tabindex="0" data-tab="aba7"
+                        onclick="openTab(event, 'aba7')"
+                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba7')}">
+                        Metadados Padrão</div>
+                    <div class="tab-link" role="tab" aria-selected="false" tabindex="0" data-tab="aba8"
+                        onclick="openTab(event, 'aba8')"
+                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab(event,'aba8')}">
+                        Pesquisas</div>
+                    <div class="no-results" id="noResults" role="status" aria-live="polite">Nenhuma Configuração
+                        Encontrada</div>
                 </div>
                 <div class="search-wrapper" role="search">
-                    <input type="search" id="tabSearch" aria-label="Pesquisar configurações" placeholder="Pesquisar Configuração..."
-                        oninput="searchPermissions()" onkeydown="handleSearchKeydown(event)">
+                    <input type="search" id="tabSearch" aria-label="Pesquisar configurações"
+                        placeholder="Pesquisar Configuração..." autocomplete="off" oninput="onSearchInput()"
+                        onkeydown="handleSearchKeydown(event)" onfocus="onSearchInput()">
                     <button class="clear-btn" id="clearSearch" onclick="clearSearch()"
                         title="Limpar pesquisa">✕</button>
+                    <div class="search-results" id="searchResults" role="listbox" aria-label="Resultados da pesquisa">
+                    </div>
                 </div>
             </div>
 
@@ -1280,101 +1562,133 @@
                 <!-- ========================================== -->
                 <!-- ABA 1: Dados do Projeto                     -->
                 <!-- ========================================== -->
-                <div id="aba1" class="tab-pane active" data-subtabs="[]">
-                    <div class="form-row form-row-context">
-                        <div class="form-group" style="flex: 2;">
-                            <label>Nome do Projeto</label>
-                            <input type="text" id="nomeProjeto" placeholder="Nome do Projeto" value="">
-                        </div>
-                        <div class="form-group">
-                            <label>Código de Guarda</label>
-                            <input type="text" id="codigoGuarda" value="" disabled>
-                        </div>
-                    </div>
-                    <div class="form-group" style="margin-bottom: 20px;">
-                        <label>Descrição</label>
-                        <textarea id="descricao" rows="2" placeholder="Descrição do Projeto"></textarea>
-                    </div>
+                <!-- ========================================== -->
+                <!-- ABA 1: Dados do Projeto                     -->
+                <!-- ========================================== -->
+                <div id="aba1" class="tab-pane active" data-subtabs='[
+    {"id":"aba1Identificacao","label":"Identificação","active":true},
+    {"id":"aba1Operacionais","label":"Parâmetros Operacionais"},
+    {"id":"aba1Comportamento","label":"Comportamento"}
+]'>
 
-                    <div class="checkbox-grid project-flags-grid">
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="habilitarAlternativos" onclick="toggleAlternativos()">
-                            <label for="habilitarAlternativos">Habilitar Campos Alternativos</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="ativoCheck">
-                            <label for="ativoCheck">Ativo</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="principalCheck">
-                            <label for="principalCheck">Principal</label>
-                        </div>
-                    </div>
-
-                    <div class="form-row form-row-context" id="camposAlternativos">
-                        <div class="form-group"><label>ID Alternativo</label><input type="text" id="idAlternativo"
-                                placeholder="ID Alternativo" value=""></div>
-                        <div class="form-group"><label>Nome Alternativo</label><input type="text" id="nomeAlternativo"
-                                placeholder="Nome Alternativo" value=""></div>
-                        <div class="form-group"><label>Código de Guarda Alternativo</label><input type="text"
-                                id="codigoGuardaAlternativo" placeholder="Código de Guarda Alternativo" value=""></div>
-                    </div>
-
-                    <div class="separator"></div>
-
-                    <div class="form-row form-row-context">
-                        <div class="form-group"><label>Limite Diário de Solicitações</label><input type="number"
-                                id="limiteSolicitacaoDiaria" value=""></div>
-                        <div class="form-group"><label>Limite de Objetos para Indexação em Lote</label><input
-                                type="number" id="limiteIndexacaoLote" value=""></div>
-                        <div class="form-group">
-                            <label>Fuso Horário Padrão (UTC)</label>
-                            <select id="fusoHorario">
-                                <option value="">Selecione...</option>
-                                <option>America/Sao_Paulo (UTC-03:00)</option>
-                                <option>America/New_York (UTC-04:00)</option>
-                                <option>Europe/London (UTC+01:00)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-row form-row-context">
-                        <div class="form-group" style="flex: 2;">
-                            <label>Armazém</label>
-                            <div class="armazem-select-row">
-                                <select id="armazemSelect">
-                                    <option value="">Selecione o Armazém...</option>
-                                    <option value="G1 - GUARDA CEILANDIA I - DF">G1 - Guarda Ceilândia I - DF</option>
-                                    <option value="G2 - GUARDA CEILANDIA II - DF">G2 - Guarda Ceilândia II - DF</option>
-                                    <option value="G3 - GUARDA TERESINA/PI">G3 - Guarda Teresina/PI</option>
-                                    <option value="G4 - GUARDA DUQUE DE CAXIAS I - RJ">G4 - Guarda Duque de Caxias I - RJ</option>
-                                    <option value="G5 - GUARDA SIA/DF">G5 - Guarda SIA/DF</option>
-                                    <option value="G6 - GUARDA ITAPEVI - SP">G6 - Guarda Itapevi - SP</option>
-                                    <option value="G7 - GUARDA SALVADOR/BA">G7 - Guarda Salvador/BA</option>
-                                    <option value="G8 - GUARDA SERRA/ES">G8 - Guarda Serra/ES</option>
-                                </select>
-                                <button type="button" class="btn-docz dblueB" onclick="adicionarArmazem()"
-                                    style="padding:4px 10px;">+ Adicionar</button>
+                    <!-- SUBABA: Identificação -->
+                    <div id="aba1Identificacao" class="subtab-pane active">
+                        <div class="form-row form-row-context">
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label>Nome do Projeto</label>
+                                <input type="text" id="nomeProjeto" placeholder="Nome do Projeto" value="">
                             </div>
-                            <div class="simple-list" id="listaArmazens"></div>
+                            <div class="form-group">
+                                <label>Código de Guarda</label>
+                                <input type="text" id="codigoGuarda" value="" disabled>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label>Descrição</label>
+                            <textarea id="descricao" rows="2" placeholder="Descrição do Projeto"></textarea>
+                        </div>
+
+                        <div class="checkbox-grid project-flags-grid">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="habilitarAlternativos" onclick="toggleAlternativos()">
+                                <label for="habilitarAlternativos">Habilitar Campos Alternativos</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="ativoCheck">
+                                <label for="ativoCheck">Ativo</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="principalCheck">
+                                <label for="principalCheck">Principal</label>
+                            </div>
+                        </div>
+
+                        <div class="form-row form-row-context" id="camposAlternativos">
+                            <div class="form-group"><label>ID Alternativo</label><input type="text" id="idAlternativo"
+                                    placeholder="ID Alternativo" value=""></div>
+                            <div class="form-group"><label>Nome Alternativo</label><input type="text"
+                                    id="nomeAlternativo" placeholder="Nome Alternativo" value=""></div>
+                            <div class="form-group"><label>Código de Guarda Alternativo</label><input type="text"
+                                    id="codigoGuardaAlternativo" placeholder="Código de Guarda Alternativo" value="">
+                            </div>
                         </div>
                     </div>
 
-                    <div class="checkbox-grid">
-                        <div class="checkbox-item"><input type="checkbox" id="permitirAdicionarArquivos">
-                            <label>Permitir Adicionar Arquivos</label>
+                    <!-- SUBABA: Parâmetros Operacionais -->
+                    <div id="aba1Operacionais" class="subtab-pane">
+                        <div class="form-row form-row-context">
+                            <div class="form-group">
+                                <label>Limite Diário de Solicitações</label>
+                                <input type="number" id="limiteSolicitacaoDiaria" value="">
+                            </div>
+                            <div class="form-group">
+                                <label>Limite de Objetos para Indexação em Lote</label>
+                                <input type="number" id="limiteIndexacaoLote" value="">
+                            </div>
+                            <div class="form-group">
+                                <label>Fuso Horário Padrão (UTC)</label>
+                                <select id="fusoHorario">
+                                    <option value="">Selecione...</option>
+                                    <option>America/Sao_Paulo (UTC-03:00)</option>
+                                    <option>America/New_York (UTC-04:00)</option>
+                                    <option>Europe/London (UTC+01:00)</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="checkbox-item"><input type="checkbox" id="permitirImprimirEtiquetas">
-                            <label>Permitir Impressão de Etiquetas</label>
+
+                        <div class="form-row form-row-context">
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label>Armazém</label>
+                                <div class="armazem-select-row">
+                                    <select id="armazemSelect">
+                                        <option value="">Selecione o Armazém...</option>
+                                        <option value="G1 - GUARDA CEILANDIA I - DF">G1 - Guarda Ceilândia I - DF
+                                        </option>
+                                        <option value="G2 - GUARDA CEILANDIA II - DF">G2 - Guarda Ceilândia II - DF
+                                        </option>
+                                        <option value="G3 - GUARDA TERESINA/PI">G3 - Guarda Teresina/PI</option>
+                                        <option value="G4 - GUARDA DUQUE DE CAXIAS I - RJ">G4 - Guarda Duque de Caxias I
+                                            - RJ</option>
+                                        <option value="G5 - GUARDA SIA/DF">G5 - Guarda SIA/DF</option>
+                                        <option value="G6 - GUARDA ITAPEVI - SP">G6 - Guarda Itapevi - SP</option>
+                                        <option value="G7 - GUARDA SALVADOR/BA">G7 - Guarda Salvador/BA</option>
+                                        <option value="G8 - GUARDA SERRA/ES">G8 - Guarda Serra/ES</option>
+                                    </select>
+                                    <button type="button" class="btn-docz dblueB" onclick="adicionarArmazem()"
+                                        style="padding:4px 10px;">+ Adicionar</button>
+                                </div>
+                                <div class="simple-list" id="listaArmazens"></div>
+                            </div>
                         </div>
-                        <div class="checkbox-item"><input type="checkbox" id="compartilharPesquisa"> <label>Compartilhar
-                                Arquivos pela Pesquisa</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="compartilharSolicitacao">
-                            <label>Compartilhar Arquivos pela Solicitação</label>
-                        </div>
-                        <div class="checkbox-item"><input type="checkbox" id="substituirFotolabel"> <label>Substituir
-                                Arquivo de Fotolabel</label></div>
                     </div>
+
+                    <!-- SUBABA: Comportamento -->
+                    <div id="aba1Comportamento" class="subtab-pane">
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="permitirAdicionarArquivos">
+                                <label for="permitirAdicionarArquivos">Permitir Adicionar Arquivos</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="permitirImprimirEtiquetas">
+                                <label for="permitirImprimirEtiquetas">Permitir Impressão de Etiquetas</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="compartilharPesquisa">
+                                <label for="compartilharPesquisa">Compartilhar Arquivos pela Pesquisa</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="compartilharSolicitacao">
+                                <label for="compartilharSolicitacao">Compartilhar Arquivos pela Solicitação</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="substituirFotolabel">
+                                <label for="substituirFotolabel">Substituir Arquivo de Fotolabel</label>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <!-- ========================================== -->
@@ -1388,8 +1702,10 @@
                         <div class="checkbox-grid">
                             <div class="checkbox-item"><input type="checkbox" id="podeSolicitarCaixa"> <label>Permitir
                                     Solicitação de Caixa</label></div>
-                            <div class="checkbox-item"><input type="checkbox" id="podeSolicitarDocumento"> <label>Permitir
-                                    Solicitação de Documento</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="podeSolicitarDocumento">
+                                <label>Permitir
+                                    Solicitação de Documento</label>
+                            </div>
                             <div class="checkbox-item"><input type="checkbox" id="podeSolicitarCaixaPorDocumento">
                                 <label>Permitir Solicitação de Caixa via Documento</label>
                             </div>
@@ -1408,14 +1724,18 @@
                             <div class="checkbox-item"><input type="checkbox" id="obrigatoriedadeDestinatario">
                                 <label>Exigir Destinatário na Abertura da O.S.</label>
                             </div>
-                            <div class="checkbox-item"><input type="checkbox" id="finalizarOS2Fatores"> <label>Finalizar O.S.
+                            <div class="checkbox-item"><input type="checkbox" id="finalizarOS2Fatores"> <label>Finalizar
+                                    O.S.
                                     Digital com Dois Fatores</label></div>
-                            <div class="checkbox-item"><input type="checkbox" id="mostrarDadosTransporteOS"> <label>Exibir
-                                    Dados do Responsável pelo Transporte na O.S.</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="mostrarDadosTransporteOS">
+                                <label>Exibir
+                                    Dados do Responsável pelo Transporte na O.S.</label>
+                            </div>
                             <div class="checkbox-item"><input type="checkbox" id="disponibilizarRegistroFotografico">
                                 <label>Disponibilizar Registro Fotográfico no Atendimento da O.S.</label>
                             </div>
-                            <div class="checkbox-item"><input type="checkbox" id="inserirVinculados"> <label>Inserir Itens
+                            <div class="checkbox-item"><input type="checkbox" id="inserirVinculados"> <label>Inserir
+                                    Itens
                                     Vinculados na Solicitação</label></div>
 
                             <div class="form-group" style="margin-bottom: 0;">
@@ -1517,7 +1837,8 @@
                                 <div class="checkbox-item" onclick="toggleParamWrapper(this)">
                                     <input type="checkbox" id="alterarEtapaOSRecolhimento"
                                         onclick="event.stopPropagation(); toggleEtapaOSRecolhimento()">
-                                    <label for="alterarEtapaOSRecolhimento">Alterar Etapa Documental após Conclusão de O.S. de
+                                    <label for="alterarEtapaOSRecolhimento">Alterar Etapa Documental após Conclusão de
+                                        O.S. de
                                         Recolhimento</label>
                                     <span class="toggle-icon">▼</span>
                                 </div>
@@ -1550,16 +1871,19 @@
                 ]'>
                     <div id="aba3Emails" class="subtab-pane active">
                         <div class="form-row form-row-context email-address-grid">
-                            <div class="form-group"><label>E-mail do Cliente para Comunicações e Notificações</label><input
-                                    type="email" id="emailComunicacoes" placeholder="Cliente@dominio.com" value=""></div>
+                            <div class="form-group"><label>E-mail do Cliente para Comunicações e
+                                    Notificações</label><input type="email" id="emailComunicacoes"
+                                    placeholder="Cliente@dominio.com" value=""></div>
                             <div class="form-group"><label>E-mail do Cliente para Notificações de Lotes</label><input
-                                    type="email" id="emailNotificacaoLote" placeholder="Lotes@dominio.com" value=""></div>
+                                    type="email" id="emailNotificacaoLote" placeholder="Lotes@dominio.com" value="">
+                            </div>
                             <div class="form-group"><label>E-mail da Gestão Documental</label><input type="email"
                                     id="emailGestaoDocumental" placeholder="Gestao@dominio.com" value=""></div>
                             <div class="form-group"><label>E-mail da Digitalização</label><input type="email"
                                     id="emailDigitalizacao" placeholder="Digitalizacao@dominio.com" value=""></div>
                             <div class="form-group"><label>E-mail para Notificação de Novos Arquivos</label><input
-                                    type="email" id="emailNovosArquivos" placeholder="Novosarquivos@dominio.com" value="">
+                                    type="email" id="emailNovosArquivos" placeholder="Novosarquivos@dominio.com"
+                                    value="">
                             </div>
                         </div>
                     </div>
@@ -1581,12 +1905,12 @@
                                 </div>
                                 <div class="param-card-body" id="slaNormalFields">
                                     <div class="form-row form-row-context">
-                                        <div class="form-group"><label>E-mail — Prioridade Normal</label><input type="text"
-                                                id="emailSlaNormal" placeholder="Digite os E-mails separados por ;"
-                                                value=""></div>
-                                        <div class="form-group"><label>Tempo de Aviso Prévio — Prioridade Normal (Horas)</label><input
-                                                type="text" id="tempoAvisoSlaNormal" placeholder="Exemplo: 48;24;12"
-                                                value=""></div>
+                                        <div class="form-group"><label>E-mail — Prioridade Normal</label><input
+                                                type="text" id="emailSlaNormal"
+                                                placeholder="Digite os E-mails separados por ;" value=""></div>
+                                        <div class="form-group"><label>Tempo de Aviso Prévio — Prioridade Normal
+                                                (Horas)</label><input type="text" id="tempoAvisoSlaNormal"
+                                                placeholder="Exemplo: 48;24;12" value=""></div>
                                     </div>
                                 </div>
                             </div>
@@ -1601,9 +1925,9 @@
                                 </div>
                                 <div class="param-card-body" id="slaUrgenteFields">
                                     <div class="form-row form-row-context">
-                                        <div class="form-group"><label>E-mail — Prioridade Urgente</label><input type="text"
-                                                id="emailSlaUrgente" placeholder="Digite os E-mails separados por ;"
-                                                value=""></div>
+                                        <div class="form-group"><label>E-mail — Prioridade Urgente</label><input
+                                                type="text" id="emailSlaUrgente"
+                                                placeholder="Digite os E-mails separados por ;" value=""></div>
                                         <div class="form-group"><label>Tempo de Aviso Prévio — Prioridade Urgente
                                                 (Horas)</label><input type="text" id="tempoAvisoSlaUrgente"
                                                 placeholder="Exemplo: 48;24;12" value="">
@@ -1655,7 +1979,8 @@
                                 <div class="param-card-body" id="prazoGuardaFields">
                                     <div class="form-row form-row-context">
                                         <div class="form-group"><label>Intervalo de Alerta (em Dias)</label><input
-                                                type="text" id="intervaloAlerta" placeholder="Ex: 15;30;60" value=""></div>
+                                                type="text" id="intervaloAlerta" placeholder="Ex: 15;30;60" value="">
+                                        </div>
                                         <div class="form-group"><label>Destinatários do Alerta de Prazo</label><input
                                                 type="text" id="destinatariosAlerta"
                                                 placeholder="Email1@dominio.com; Email2@dominio.com" value=""></div>
@@ -1718,10 +2043,14 @@
                     </div>
                     <div id="aba5Assinatura" class="subtab-pane">
                         <div class="checkbox-grid">
-                            <div class="checkbox-item"><input type="checkbox" id="assinaturaCertificado"> <label>Realizar
-                                    Assinatura com Certificado de Usuário</label></div>
-                            <div class="checkbox-item"><input type="checkbox" id="assinaturaCertificaLote"> <label>Realizar
-                                    Assinatura com Certificado de Usuário em Lote</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="assinaturaCertificado">
+                                <label>Realizar
+                                    Assinatura com Certificado de Usuário</label>
+                            </div>
+                            <div class="checkbox-item"><input type="checkbox" id="assinaturaCertificaLote">
+                                <label>Realizar
+                                    Assinatura com Certificado de Usuário em Lote</label>
+                            </div>
 
                             <div class="param-wrapper" id="wrapperUploadAPI">
                                 <div class="checkbox-item" onclick="toggleParamWrapper(this)">
@@ -1735,7 +2064,8 @@
                                     <div class="checkbox-grid">
                                         <div class="checkbox-item">
                                             <input type="checkbox" id="substituirArquivoAPI">
-                                            <label for="substituirArquivoAPI">Substituir Arquivo Existente via API</label>
+                                            <label for="substituirArquivoAPI">Substituir Arquivo Existente via
+                                                API</label>
                                         </div>
                                     </div>
                                 </div>
@@ -1788,7 +2118,8 @@
                 ]'>
                     <div id="aba6Acesso" class="subtab-pane active">
                         <div class="checkbox-grid" id="gridAba6">
-                            <div class="checkbox-item"><input type="checkbox" id="habilitarEnvioSEI"> <label>Habilitar Envio
+                            <div class="checkbox-item"><input type="checkbox" id="habilitarEnvioSEI"> <label>Habilitar
+                                    Envio
                                     para o SEI</label></div>
                             <div class="checkbox-item"><input type="checkbox" id="visualizarVersoes"> <label>Visualizar
                                     Versões</label></div>
@@ -1797,13 +2128,17 @@
                             </div>
                             <div class="checkbox-item"><input type="checkbox" id="arquivarDesarquivar"> <label>Permitir
                                     Arquivar e Desarquivar Documentos</label></div>
-                            <div class="checkbox-item"><input type="checkbox" id="permitirRelacionamentos"> <label>Permitir
-                                    Relacionamentos</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="permitirRelacionamentos">
+                                <label>Permitir
+                                    Relacionamentos</label>
+                            </div>
                             <div class="checkbox-item"><input type="checkbox" id="restringirPorDepartamento">
                                 <label>Restringir Acesso a Documentos por Departamento do Usuário</label>
                             </div>
-                            <div class="checkbox-item"><input type="checkbox" id="exigirJustificativaAlterar"> <label>Exigir
-                                    Justificativa ao Alterar um Objeto</label></div>
+                            <div class="checkbox-item"><input type="checkbox" id="exigirJustificativaAlterar">
+                                <label>Exigir
+                                    Justificativa ao Alterar um Objeto</label>
+                            </div>
                         </div>
                     </div>
                     <div id="aba6Alteracoes" class="subtab-pane">
@@ -1812,7 +2147,8 @@
                                 <div class="checkbox-item" onclick="toggleParamWrapper(this)">
                                     <input type="checkbox" id="alteracaoSomenteAutorCheck"
                                         onclick="event.stopPropagation(); toggleEtapaDocumentalAutor()">
-                                    <label for="alteracaoSomenteAutorCheck">Alteração de Objetos Somente pelo Autor</label>
+                                    <label for="alteracaoSomenteAutorCheck">Alteração de Objetos Somente pelo
+                                        Autor</label>
                                     <span class="toggle-icon">▼</span>
                                 </div>
                                 <div class="param-card-body" id="etapaDocumentalAutorFields">
@@ -1869,11 +2205,11 @@
                                             placeholder="Autor Padrão" value=""></div>
                                     <div class="form-group"><label>Local da Digitalização</label><input type="text"
                                             id="localDigitalizacao" placeholder="Local Padrão" value=""></div>
-                                </div>
-                                <div class="form-row form-row-context">
                                     <div class="form-group"><label>Responsável pela Digitalização</label><input
                                             type="text" id="responsavelDigitalizacao" placeholder="Responsável Padrão"
                                             value=""></div>
+                                </div>
+                                <div class="form-row form-row-context">
                                     <div class="form-group"><label>Local de Produção</label><input type="text"
                                             id="localProducao" placeholder="Local de Produção Padrão" value=""></div>
                                 </div>
@@ -1887,21 +2223,22 @@
                 <!-- ========================================== -->
                 <div id="aba8" class="tab-pane" data-subtabs="[]">
                     <div class="pesquisa-card-wrapper" id="pesquisaWrapper">
-                        <button type="button" class="pesquisa-card-header" id="pesquisaToggle"
-                                aria-expanded="false" aria-controls="pesquisaCardBody"
-                                onclick="togglePesquisaCard()">
+                        <button type="button" class="pesquisa-card-header" id="pesquisaToggle" aria-expanded="false"
+                            aria-controls="pesquisaCardBody" onclick="togglePesquisaCard()">
                             <span class="pesquisa-card-title">Pesquisa Personalizada</span>
                             <span class="pesquisa-card-icon" aria-hidden="true">▼</span>
                         </button>
 
                         <div class="pesquisa-card-body" id="pesquisaCardBody">
                             <div class="info-note" style="margin-bottom: 14px;">
-                                Selecione os campos que deseja exibir na pesquisa avançada. Campos marcados são obrigatórios e não podem ser desativados.
+                                Selecione os campos que deseja exibir na pesquisa avançada. Campos marcados são
+                                obrigatórios e não podem ser desativados.
                             </div>
                             <div class="checkbox-grid" id="camposPesquisaGrid">
                                 <div class="checkbox-item">
                                     <input type="checkbox" id="pesqCampoIdentificadorSOS" checked disabled>
-                                    <label for="pesqCampoIdentificadorSOS" class="disabled-label">Identificador SOS</label>
+                                    <label for="pesqCampoIdentificadorSOS" class="disabled-label">Identificador
+                                        SOS</label>
                                 </div>
                                 <div class="checkbox-item">
                                     <input type="checkbox" id="pesqCampoLocalizacao">
@@ -1917,7 +2254,8 @@
                                 </div>
                                 <div class="checkbox-item">
                                     <input type="checkbox" id="pesqCampoIdentificadorCliente" checked disabled>
-                                    <label for="pesqCampoIdentificadorCliente" class="disabled-label">Identificador Cliente</label>
+                                    <label for="pesqCampoIdentificadorCliente" class="disabled-label">Identificador
+                                        Cliente</label>
                                 </div>
                                 <div class="checkbox-item">
                                     <input type="checkbox" id="pesqCampoDescricao">
@@ -1949,7 +2287,8 @@
                                 </div>
                                 <div class="checkbox-item">
                                     <input type="checkbox" id="pesqCampoNumeroConcorrente" checked disabled>
-                                    <label for="pesqCampoNumeroConcorrente" class="disabled-label">Nº Concorrente</label>
+                                    <label for="pesqCampoNumeroConcorrente" class="disabled-label">Nº
+                                        Concorrente</label>
                                 </div>
                                 <div class="checkbox-item">
                                     <input type="checkbox" id="pesqCampoClassificacao">
@@ -1993,7 +2332,8 @@
                                 </div>
                                 <div class="checkbox-item">
                                     <input type="checkbox" id="pesqCampoDataCatalogacaoComplementar">
-                                    <label for="pesqCampoDataCatalogacaoComplementar">Data Catalogação Complementar</label>
+                                    <label for="pesqCampoDataCatalogacaoComplementar">Data Catalogação
+                                        Complementar</label>
                                 </div>
                                 <div class="checkbox-item">
                                     <input type="checkbox" id="pesqCampoNumeroRG">
@@ -2153,8 +2493,10 @@
                                 </div>
                             </div>
                             <div class="pesquisa-card-actions">
-                                <button type="button" class="btn-docz greyB" onclick="fecharPesquisaCard()">Cancelar</button>
-                                <button type="button" class="btn-docz greenB" onclick="salvarPersonalizacaoPesquisa()">Salvar Personalização</button>
+                                <button type="button" class="btn-docz greyB"
+                                    onclick="fecharPesquisaCard()">Cancelar</button>
+                                <button type="button" class="btn-docz greenB"
+                                    onclick="salvarPersonalizacaoPesquisa()">Salvar Personalização</button>
                             </div>
                         </div>
                     </div>
@@ -2172,6 +2514,7 @@
     <!-- SCRIPT -->
     <script>
         var armazensLista = [];
+        var currentHighlightTarget = null;
 
         // ============================================
         // SUBTABS COMPARTILHADAS
@@ -2265,135 +2608,249 @@
             }
 
             if (!evt.fromSearch) {
-                document.getElementById('tabSearch').value = '';
-                document.getElementById('clearSearch').classList.remove('visible');
-                document.getElementById('noResults').classList.remove('visible');
-                document.querySelectorAll('.highlight-item').forEach(function (el) {
-                    el.classList.remove('highlight-item');
-                });
-                document.querySelectorAll('.tab-link').forEach(function (el) {
-                    el.classList.remove('highlight');
-                    el.style.display = '';
-                });
-            }
-        }
-
-        // ============================================
-        // PESQUISA DE CONFIGURAÇÕES
-        // ============================================
-        function handleSearchKeydown(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                executeSearch();
-            }
-        }
-
-        function executeSearch() {
-            var searchTerm = document.getElementById('tabSearch').value.toLowerCase().trim();
-            if (searchTerm === '') {
                 clearSearch();
-                return;
             }
-            searchPermissions(true);
         }
 
-        function searchPermissions(focusFirst = false) {
-            var searchTerm = document.getElementById('tabSearch').value.toLowerCase().trim();
-            var tabLinks = document.querySelectorAll('.tab-link');
-            var noResults = document.getElementById('noResults');
+        // ============================================
+        // PESQUISA DE CONFIGURAÇÕES — DROPDOWN
+        // ============================================
+        function onSearchInput() {
+            var term = document.getElementById('tabSearch').value.trim();
+            var resultsBox = document.getElementById('searchResults');
             var clearBtn = document.getElementById('clearSearch');
-            var foundItems = 0;
 
-            if (searchTerm === '') {
-                tabLinks.forEach(function (el) {
-                    el.style.display = '';
-                    el.classList.remove('highlight');
-                });
-                noResults.classList.remove('visible');
+            if (term === '') {
+                resultsBox.classList.remove('visible');
+                resultsBox.innerHTML = '';
                 clearBtn.classList.remove('visible');
-                document.querySelectorAll('.highlight-item').forEach(function (el) {
-                    el.classList.remove('highlight-item');
-                });
                 return;
             }
 
             clearBtn.classList.add('visible');
+            renderSearchResults(term);
+        }
 
-            document.querySelectorAll('.highlight-item').forEach(function (el) {
-                el.classList.remove('highlight-item');
+        function renderSearchResults(term) {
+            var resultsBox = document.getElementById('searchResults');
+            var results = [];
+            var termLower = term.toLowerCase();
+
+            document.querySelectorAll('.tab-pane').forEach(function (pane) {
+                var tabId = pane.id;
+
+                // 🚫 Ignora a aba "Pesquisas" (aba8)
+                if (tabId === 'aba8') return;
+
+                var tabLink = document.querySelector('.tab-link[data-tab="' + tabId + '"]');
+                var tabLabel = tabLink ? tabLink.textContent.trim() : tabId;
+
+                // Coleta os subtab-panes (se houver) ou trata o pane inteiro como um bloco
+                var blocks = pane.querySelectorAll('.subtab-pane');
+                if (blocks.length === 0) blocks = [pane];
+
+                blocks.forEach(function (block) {
+                    var subId = block.classList.contains('subtab-pane') ? block.id : null;
+                    var subLabel = '';
+                    if (subId) {
+                        var subBtn = document.querySelector('#subtabsNav .subtab-link[data-subtab="' + subId + '"]');
+                        if (subBtn) subLabel = subBtn.textContent.trim();
+                    }
+
+                    // Evita duplicar o mesmo item (checkbox-item pode estar dentro de form-group também)
+                    var vistos = new Set();
+
+                    // 1) Checkboxes (.checkbox-item)
+                    block.querySelectorAll('.checkbox-item').forEach(function (item) {
+                        var label = item.querySelector('label');
+                        if (!label) return;
+                        var text = label.textContent.trim();
+                        if (text.toLowerCase().includes(termLower) && !vistos.has(item)) {
+                            vistos.add(item);
+                            results.push({
+                                item: item,
+                                label: text,
+                                tabId: tabId,
+                                tabLabel: tabLabel,
+                                subLabel: subLabel,
+                                subId: subId
+                            });
+                        }
+                    });
+
+                    // 2) Campos de formulário (.form-group)
+                    block.querySelectorAll('.form-group').forEach(function (group) {
+                        var label = group.querySelector('label');
+                        if (!label) return;
+                        var text = label.textContent.trim();
+                        if (text.toLowerCase().includes(termLower) && !vistos.has(group)) {
+                            vistos.add(group);
+                            results.push({
+                                item: group,
+                                label: text,
+                                tabId: tabId,
+                                tabLabel: tabLabel,
+                                subLabel: subLabel,
+                                subId: subId
+                            });
+                        }
+                    });
+
+                    // 3) Labels soltos (fora de .form-group e .checkbox-item)
+                    block.querySelectorAll('label').forEach(function (label) {
+                        if (label.closest('.checkbox-item') || label.closest('.form-group')) return;
+                        var text = label.textContent.trim();
+                        if (text.toLowerCase().includes(termLower) && !vistos.has(label)) {
+                            vistos.add(label);
+                            results.push({
+                                item: label,
+                                label: text,
+                                tabId: tabId,
+                                tabLabel: tabLabel,
+                                subLabel: subLabel,
+                                subId: subId
+                            });
+                        }
+                    });
+                });
             });
 
-            var allTabs = document.querySelectorAll('.tab-pane');
-            var firstMatch = null;
-            var matchTabId = null;
+            if (results.length === 0) {
+                resultsBox.innerHTML = '<div class="result-empty">Nenhum parâmetro encontrado</div>';
+                resultsBox.classList.add('visible');
+                return;
+            }
 
-            allTabs.forEach(function (tab) {
-                var tabId = tab.id;
-                var tabLink = document.querySelector('.tab-link[data-tab="' + tabId + '"]');
+            var limited = results.slice(0, 80);
+            resultsBox.innerHTML = '';
+            limited.forEach(function (r) {
+                var div = document.createElement('div');
+                div.className = 'result-item';
+                div.setAttribute('role', 'option');
 
-                var checkboxes = tab.querySelectorAll('.checkbox-item');
-                var hasMatch = false;
+                var pathParts = [r.tabLabel];
+                if (r.subLabel) pathParts.push(r.subLabel);
+                var path = pathParts.join(' › ');
 
-                checkboxes.forEach(function (item) {
-                    var label = item.querySelector('label');
-                    if (label) {
-                        var text = label.textContent.toLowerCase();
-                        if (text.includes(searchTerm)) {
-                            item.classList.add('highlight-item');
-                            foundItems++;
-                            hasMatch = true;
-                            if (!firstMatch) {
-                                firstMatch = item;
-                                matchTabId = tabId;
-                            }
-                        }
-                    }
-                });
+                var escaped = r.label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                var regex = new RegExp('(' + escaped + ')', 'ig');
+                var highlighted = r.label.replace(regex, '<mark>$1</mark>');
 
-                if (hasMatch) {
-                    if (tabLink) {
-                        tabLink.style.display = '';
-                        tabLink.classList.add('highlight');
-                        if (matchTabId === tabId) {
-                            var fakeEvent = {currentTarget: tabLink, fromSearch: true};
-                            openTab(fakeEvent, tabId);
-                            setTimeout(function () {
-                                if (firstMatch) {
-                                    firstMatch.scrollIntoView({behavior: 'smooth', block: 'center'});
-                                }
-                            }, 300);
-                        }
-                    }
-                } else {
-                    if (tabLink) {
-                        tabLink.style.display = 'none';
-                        tabLink.classList.remove('highlight');
+                div.innerHTML =
+                    '<span class="result-label">' + highlighted + '</span>' +
+                    '<span class="result-path">' + path + '</span>';
+
+                div.onclick = function () { irParaResultado(r); };
+                resultsBox.appendChild(div);
+            });
+
+            resultsBox.classList.add('visible');
+        }
+
+        function irParaResultado(r) {
+            document.getElementById('searchResults').classList.remove('visible');
+
+            var tabLink = document.querySelector('.tab-link[data-tab="' + r.tabId + '"]');
+            if (tabLink) {
+                var fakeEvent = { currentTarget: tabLink, fromSearch: true };
+                openTab(fakeEvent, r.tabId);
+            }
+
+            if (r.subId) {
+                openSubtab(r.subId);
+            }
+
+            // Se estiver dentro de card expansível, abre
+            var wrapper = r.item.closest('.param-wrapper');
+            if (wrapper) {
+                wrapper.classList.add('active');
+                var body = wrapper.querySelector('.param-card-body');
+                if (body) body.classList.add('visible');
+                var icon = wrapper.querySelector('.toggle-icon');
+                if (icon) icon.classList.add('open');
+
+                var wrapperChk = wrapper.querySelector('.checkbox-item input[type="checkbox"]');
+                if (wrapperChk) {
+                    wrapperChk.checked = true;
+                    if (typeof updateParamWrapperState === 'function') {
+                        updateParamWrapperState(wrapper.id, true);
                     }
                 }
-            });
+            }
 
-            if (foundItems > 0) {
-                noResults.classList.remove('visible');
-            } else {
-                noResults.classList.add('visible');
-                tabLinks.forEach(function (el) {
-                    el.style.display = '';
-                });
+            setTimeout(function () {
+                r.item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                if (currentHighlightTarget) {
+                    currentHighlightTarget.classList.remove('search-target-highlight');
+                }
+
+                r.item.classList.add('search-target-highlight');
+                currentHighlightTarget = r.item;
+            }, 250);
+        }
+
+        document.addEventListener('click', function (e) {
+            if (currentHighlightTarget && !currentHighlightTarget.contains(e.target)) {
+                currentHighlightTarget.classList.remove('search-target-highlight');
+                currentHighlightTarget = null;
+            }
+
+            var searchWrapper = document.querySelector('.tabs-nav .search-wrapper');
+            var resultsBox = document.getElementById('searchResults');
+            if (searchWrapper && !searchWrapper.contains(e.target)) {
+                resultsBox.classList.remove('visible');
+            }
+        });
+
+        function handleSearchKeydown(event) {
+            var resultsBox = document.getElementById('searchResults');
+            var items = resultsBox.querySelectorAll('.result-item');
+
+            if (event.key === 'ArrowDown') {
+                event.preventDefault();
+                if (items.length === 0) return;
+                var active = resultsBox.querySelector('.result-item.active');
+                var idx = active ? Array.prototype.indexOf.call(items, active) : -1;
+                idx = (idx + 1) % items.length;
+                items.forEach(function (it) { it.classList.remove('active'); });
+                items[idx].classList.add('active');
+                items[idx].scrollIntoView({ block: 'nearest' });
+            } else if (event.key === 'ArrowUp') {
+                event.preventDefault();
+                if (items.length === 0) return;
+                var active = resultsBox.querySelector('.result-item.active');
+                var idx = active ? Array.prototype.indexOf.call(items, active) : 0;
+                idx = (idx - 1 + items.length) % items.length;
+                items.forEach(function (it) { it.classList.remove('active'); });
+                items[idx].classList.add('active');
+                items[idx].scrollIntoView({ block: 'nearest' });
+            } else if (event.key === 'Enter') {
+                event.preventDefault();
+                var active = resultsBox.querySelector('.result-item.active');
+                if (active) {
+                    active.click();
+                } else if (items.length > 0) {
+                    items[0].click();
+                }
+            } else if (event.key === 'Escape') {
+                resultsBox.classList.remove('visible');
             }
         }
 
         function clearSearch() {
             document.getElementById('tabSearch').value = '';
             document.getElementById('clearSearch').classList.remove('visible');
-            document.getElementById('noResults').classList.remove('visible');
+            document.getElementById('searchResults').classList.remove('visible');
+            document.getElementById('searchResults').innerHTML = '';
             document.querySelectorAll('.tab-link').forEach(function (el) {
                 el.style.display = '';
                 el.classList.remove('highlight');
             });
-            document.querySelectorAll('.highlight-item').forEach(function (el) {
-                el.classList.remove('highlight-item');
-            });
-            document.getElementById('tabSearch').focus();
+            if (currentHighlightTarget) {
+                currentHighlightTarget.classList.remove('search-target-highlight');
+                currentHighlightTarget = null;
+            }
         }
 
         // ============================================
@@ -2402,18 +2859,18 @@
         function adicionarArmazem() {
             var select = document.getElementById('armazemSelect');
             var valor = select.value;
-            if (valor === "") {alert("Selecione um armazém."); return;}
-            if (armazensLista.indexOf(valor) === -1) {armazensLista.push(valor); atualizarListaArmazens();}
-            else {alert("Armazém já adicionado.");}
+            if (valor === "") { alert("Selecione um armazém."); return; }
+            if (armazensLista.indexOf(valor) === -1) { armazensLista.push(valor); atualizarListaArmazens(); }
+            else { alert("Armazém já adicionado."); }
             select.value = "";
         }
 
-        function removerArmazem(index) {armazensLista.splice(index, 1); atualizarListaArmazens();}
+        function removerArmazem(index) { armazensLista.splice(index, 1); atualizarListaArmazens(); }
 
         function atualizarListaArmazens() {
             var container = document.getElementById('listaArmazens');
             container.innerHTML = '';
-            if (armazensLista.length === 0) {container.innerHTML = '<div style="padding:6px;color:#999;text-align:center;">Nenhum Armazém Adicionado</div>'; return;}
+            if (armazensLista.length === 0) { container.innerHTML = '<div style="padding:6px;color:#999;text-align:center;">Nenhum Armazém Adicionado</div>'; return; }
             for (var i = 0; i < armazensLista.length; i++) {
                 var item = document.createElement('div'); item.className = 'list-item';
                 item.innerHTML = '<span class="list-item-text">' + armazensLista[i] + '</span><button class="btn-remove" onclick="removerArmazem(' + i + ')">X</button>';
@@ -2424,13 +2881,13 @@
         // ============================================
         // AÇÕES DO MODAL PRINCIPAL
         // ============================================
-        function fecharModal() {if (confirm("Cancelar alterações?")) alert("Modal fechado.");}
-        function salvarConfiguracoes() {alert("Configurações salvas com sucesso!");}
+        function fecharModal() { if (confirm("Cancelar alterações?")) alert("Modal fechado."); }
+        function salvarConfiguracoes() { alert("Configurações salvas com sucesso!"); }
 
         // ============================================
         // WRAPPERS DE PARÂMETROS
         // ============================================
-        function toggleParamWrapper(header) {}
+        function toggleParamWrapper(header) { }
 
         function updateParamWrapperState(wrapperId, isChecked) {
             var wrapper = document.getElementById(wrapperId);
@@ -2541,6 +2998,16 @@
         }
 
         // ============================================
+        // FIXAR 1 COLUNA QUANDO HOUVER APENAS 1 ITEM (fallback JS)
+        // ============================================
+        function fixarColunasCardsExpansiveis() {
+            document.querySelectorAll('.param-card-body .checkbox-grid').forEach(function (grid) {
+                var itens = grid.querySelectorAll(':scope > .checkbox-item');
+                grid.classList.toggle('cols-1', itens.length === 1);
+            });
+        }
+
+        // ============================================
         // INICIALIZAÇÃO
         // ============================================
         document.addEventListener('DOMContentLoaded', function () {
@@ -2583,6 +3050,8 @@
                     if (icon) icon.classList.add('open');
                 }
             });
+
+            fixarColunasCardsExpansiveis();
         });
 
         document.addEventListener('keydown', function (e) {
@@ -2590,14 +3059,6 @@
                 e.preventDefault();
                 document.getElementById('tabSearch').focus();
                 document.getElementById('tabSearch').select();
-            }
-            if (e.key === 'Escape') {
-                var header = document.getElementById('pesquisaToggle');
-                if (header && header.getAttribute('aria-expanded') === 'true') {
-                    fecharPesquisaCard();
-                } else {
-                    clearSearch();
-                }
             }
         });
 
